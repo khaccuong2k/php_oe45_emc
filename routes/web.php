@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LocaleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,4 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes();
+
+
+Route::group(['middleware' => 'locale'], function() {
+    Auth::routes();
+    Route::get('change-locale/{locale}', LocaleController::class)->name('locale.change');
+});
