@@ -1,0 +1,17 @@
+{
+  "name": "php_oe45_emc",
+  "description": "",
+  "main": "",
+  "authors": [
+    "khaccuong2k <khac.uong2k@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/khaccuong2k/php_oe45_emc",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

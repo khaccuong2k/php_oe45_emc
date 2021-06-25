@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\ProductController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,34 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+     // Test view 
+Route::get('/admin/dashboard', function () {
+    return view('admin.dashboard.index');
 });
+
+Route::resource('admin/products', ProductController::class);
+
+// Structure test, will delete when done push static page
+/**
+*@extends('admin.layouts.app')
+
+*@section('title')
+
+*@endsection
+
+*@section('css')
+
+*@endsection
+
+*@section('content')
+
+*@endsection
+
+*@section('script')
+
+*@endsection
+
+
+*{{ asset('admin-page/
+*') }}
+*/
