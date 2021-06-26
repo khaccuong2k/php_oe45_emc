@@ -1,6 +1,11 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\RequestController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,35 +19,44 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+/**
+ * Route Get Method
+ * ----------------
+ * route for dashboard
+ */
+Route::get('/admin/dashboard', DashboardController::class);
 
-     // Test view 
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard.index');
-});
+/**
+ * Route Resource
+ * ----------------
+ * route for users
+ */
+Route::resource('admin/users', UserController::class);
 
+/**
+ * Route Resource
+ * ----------------
+ * route for products
+ */
 Route::resource('admin/products', ProductController::class);
 
-// Structure test, will delete when done push static page
 /**
-*@extends('admin.layouts.app')
+ * Route Resource
+ * ----------------
+ * route for orders
+ */
+Route::resource('admin/orders', OrderController::class);
 
-*@section('title')
+/**
+ * Route Resource
+ * ----------------
+ * route for categories
+ */
+Route::resource('admin/categories', CategoryController::class);
 
-*@endsection
-
-*@section('css')
-
-*@endsection
-
-*@section('content')
-
-*@endsection
-
-*@section('script')
-
-*@endsection
-
-
-*{{ asset('admin-page/
-*') }}
-*/
+/**
+ * Route Resource
+ * ----------------
+ * route for requests
+ */
+Route::resource('admin/requests', RequestController::class);
