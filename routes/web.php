@@ -13,9 +13,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-
-
 Route::group(['middleware' => 'locale'], function() {
     Auth::routes();
     Route::get('change-locale/{locale}', LocaleController::class)->name('locale.change');
