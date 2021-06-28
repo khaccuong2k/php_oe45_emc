@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
  * ----------------
  * route for dashboard
  */
-Route::get('/admin/dashboard', DashboardController::class);
+Route::resource('/admin/dashboard', DashboardController::class);
 
 /**
  * Route Resource
