@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('title')
-<title>@lang('lable.title.category.add')</title>
+<title>@lang('lable.title.category.edit')</title>
 @endsection
 
 @section('css')

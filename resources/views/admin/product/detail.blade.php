@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('title')
-<title>Detail Product</title>
+<title>@lang('lable.title.product.detail')</title>
 @endsection
 
 @section('css')

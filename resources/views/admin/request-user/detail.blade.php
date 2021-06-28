@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('title')
-<title>Manage Order Customer</title>
+<title>@lang('lable.title.request.detail')</title>
 @endsection
 
 @section('css')

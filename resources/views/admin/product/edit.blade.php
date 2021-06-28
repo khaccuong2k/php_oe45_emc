@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('title')
-<title>Edit Product</title>
+<title>@lang('lable.title.product.edit')</title>
 @endsection
 
 @section('css')
@@ -27,6 +27,7 @@
 @endsection
 
 @section('content')
+<<<<<<< HEAD
 <!-- horizontal Basic Forms Start -->
 <div class="pd-20 card-box mb-30">
     <div class="clearfix">

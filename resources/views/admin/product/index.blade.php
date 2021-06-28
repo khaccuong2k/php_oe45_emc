@@ -33,6 +33,19 @@
                         </div>
                         <a href="{{ route('products.show', 1) }}" class="btn btn-outline-primary">@lang('lable.title.product.detail')</a>
                     </div>
+                </li>
+            </ul>
+        </div>
+        <div class="blog-pagination mb-30">
+            <div class="btn-toolbar justify-content-center mb-15">
+                <div class="btn-group">
+                    <a href="#" class="btn btn-outline-primary prev"><i class="fa fa-angle-double-left"></i></a>
+                    <a href="#" class="btn btn-outline-primary">1</a>
+                    <a href="#" class="btn btn-outline-primary">2</a>
+                    <span class="btn btn-primary current">3</span>
+                    <a href="#" class="btn btn-outline-primary">4</a>
+                    <a href="#" class="btn btn-outline-primary">5</a>
+                    <a href="#" class="btn btn-outline-primary next"><i class="fa fa-angle-double-right"></i></a>
                 </div>
             </li>
         </ul>
