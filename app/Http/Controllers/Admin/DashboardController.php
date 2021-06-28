@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -14,7 +15,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard.index');
+        $chartProduct = Product::select('sold')->orderBy('sold', 'desc')->get();
+
+        return view('admin.dashboard.index', compact('chartProduct'));
     }
 
     /**
