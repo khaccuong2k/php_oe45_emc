@@ -60,3 +60,4 @@ Route::resource('admin/categories', CategoryController::class);
  * route for requests
  */
 Route::resource('admin/requests', RequestController::class);
+Auth::routes();
