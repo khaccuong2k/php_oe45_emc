@@ -15,34 +15,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-     // Test view 
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard.index');
-});
-
-Route::resource('admin/products', ProductController::class);
-
-// Structure test, will delete when done push static page
-/**
-*@extends('admin.layouts.app')
-
-*@section('title')
-
-*@endsection
-
-*@section('css')
-
-*@endsection
-
-*@section('content')
-
-*@endsection
-
-*@section('script')
-
-*@endsection
-
-
-*{{ asset('admin-page/
-*') }}
-*/
+Auth::routes();
