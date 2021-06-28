@@ -30,7 +30,6 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
-    protected $customerRoleId = 2;
 
     /**
      * Create a new controller instance.
@@ -54,6 +53,9 @@ class RegisterController extends Controller
             'username' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'phone' => ['required', 'numeric'],
+            'fullname' => ['required', 'string'],
+            'address' => ['required', 'string'],
         ]);
     }
 
@@ -72,7 +74,6 @@ class RegisterController extends Controller
             'fullname' => $data['fullname'],
             'address' => $data['address'],
             'phone' => $data['phone'],
-            'role_id' => $this->customerRoleId,
         ]);
     }
 }
