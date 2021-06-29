@@ -7,6 +7,9 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RequestController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Client\HomeController;
+use App\Http\Controllers\Client\ProductController;
+use App\Http\Controllers\LocaleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -60,4 +63,10 @@ Route::resource('admin/categories', CategoryController::class);
  * route for requests
  */
 Route::resource('admin/requests', RequestController::class);
-Auth::routes();
+
+Route::group(['middleware' => 'locale'], function() {
+    Auth::routes();
+    Route::get('change-locale/{locale}', LocaleController::class)->name('locale.change');
+    Route::get('/', [HomeController::class, 'index']);
+    Route::get('/products/{id}', [ProductController::class, 'show'])->name('client.product.show');
+});

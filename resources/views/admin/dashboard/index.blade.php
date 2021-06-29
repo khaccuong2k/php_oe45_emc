@@ -128,7 +128,7 @@
                 <div class="col-lg-8 col-md-6 col-sm-12 mb-30">
                     <div class="card-box pd-30 pt-10 height-100-p">
                         <h2 class="mb-30 h4">World Map</h2>
-                        <div id="browservisit" style="width:100%!important; height:380px"></div>
+                        <div id="browservisit"></div>
                     </div>
                 </div>
             </div>

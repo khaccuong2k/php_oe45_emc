@@ -24,18 +24,18 @@
                     <!-- Nav -->
                     <nav class="navbar navbar-expand header-navbar">
                         <!-- White Logo -->
-                        <a class="d-none d-lg-flex navbar-brand header-navbar-brand" href="../landings/index.html" aria-label="Front">
+                        <a class="d-none d-lg-flex navbar-brand header-navbar-brand" href="{{ url('/') }}" aria-label="Front">
                         <img src="{{ asset('customers/assets/svg/logos/logo-white.svg') }}" alt="Logo">
                         </a>
                         <!-- End White Logo -->
                         <!-- Default Logo -->
-                        <a class="d-flex d-lg-none navbar-brand header-navbar-brand header-navbar-brand-collapsed" href="../landings/index.html" aria-label="Front">
+                        <a class="d-flex d-lg-none navbar-brand header-navbar-brand header-navbar-brand-collapsed" href="{{ url('/') }}" aria-label="Front">
                         <img src="{{ asset('customers/assets/svg/logos/logo.svg') }}" alt="Logo">
                         </a>
                         <!-- End Default Logo -->
                         <!-- Button -->
                         <div class="ml-auto">
-                            <a class="btn btn-sm btn-link text-body" href="../landings/index.html">
+                            <a class="btn btn-sm btn-link text-body" href="{{ url('/') }}">
                             <i class="fas fa-angle-left fa-sm mr-1"></i> @lang('Go to main')
                             </a>
                         </div>
@@ -50,7 +50,7 @@
         <main id="content" role="main">
             <!-- Form -->
             <div class="d-flex align-items-center position-relative vh-lg-100">
-                <div class="col-lg-5 col-xl-4 d-none d-lg-flex align-items-center bg-navy vh-lg-100 px-0" style="background-image: url({{ asset('customers/assets/svg/components/abstract-shapes-20.svg') }});">
+                <div class="col-lg-5 col-xl-4 d-none d-lg-flex align-items-center bg-navy vh-lg-100 px-10" style="background-image: url({{ asset('customers/assets/svg/components/abstract-shapes-20.svg') }});">
                     <div class="w-100 p-5">
                         <!-- SVG Quote -->
                         <figure class="text-center mb-5 mx-auto">
@@ -126,11 +126,14 @@
                         <!-- End Testimonials Carousel Pagination -->
                         <!-- Clients -->
                         <div class="position-absolute right-0 bottom-0 left-0 text-center p-5">
-                            <span class="d-block text-white-70 mb-3">@lang('Front partners')</span>
+                            <span class="d-block text-white-70 mb-3">@lang('message.choose_language')</span>
                             <div class="d-flex justify-content-center">
-                                <img class="max-w-10rem mx-auto" src="{{ asset('customers/assets/svg/clients-logo/slack-white.svg') }}" alt="Image Description">
-                                <img class="max-w-10rem mx-auto" src="{{ asset('customers/assets/svg/clients-logo/google-white.svg') }}" alt="Image Description">
-                                <img class="max-w-10rem mx-auto" src="{{ asset('customers/assets/svg/clients-logo/spotify-white.svg') }}" alt="Image Description">
+                                <a href="{!! route('locale.change', ['vi']) !!}">
+                                    <img class="max-w-10rem mx-auto p-3" src="{{ asset('customers/assets/img/logos/vietnamese.png') }}" alt="Vietnamese">
+                                </a>
+                                <a href="{!! route('locale.change', ['en']) !!}">
+                                    <img class="max-w-10rem mx-auto p-3" src="{{ asset('customers/assets/img/logos/british.png') }}" alt="English">
+                                </a>
                             </div>
                         </div>
                         <!-- End Clients -->
