@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Client\HomeController;
+use App\Http\Controllers\Client\ProductController;
 use App\Http\Controllers\LocaleController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +18,6 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => 'locale'], function() {
     Auth::routes();
     Route::get('change-locale/{locale}', LocaleController::class)->name('locale.change');
+    Route::get('/', [HomeController::class, 'index']);
+    Route::get('/products/{id}', [ProductController::class, 'show'])->name('client.product.show');
 });
