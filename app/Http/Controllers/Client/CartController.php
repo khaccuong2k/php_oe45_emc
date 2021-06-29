@@ -21,8 +21,8 @@ class CartController extends Controller
             $listIdProductsCart = $cartData['item'];
             // Get all product added to cart
             $productsCart = Product::whereIn('id', $listIdProductsCart)->paginate(config('showitem.cart_item'));
-
-            return view('client.carts.cart', compact('productsCart'));
+            
+            return view('client.carts.cart', compact('productsCart', 'brokenProductAndQuantity'));
         }
 
         return view('client.carts.cart');

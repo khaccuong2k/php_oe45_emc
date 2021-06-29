@@ -75,7 +75,13 @@ Route::group(['middleware' => 'locale'], function () {
     Route::get('/categories/{id}', [ClientCategoryController::class, 'show'])->name('client.category.show');
     Route::get('/filter', [ClientAjaxController::class, 'filter'])->name('client.ajax.filter_product');
     Route::get('/add-to-cart', [ClientAjaxController::class, 'addToCart'])->name('client.ajax.addToCart');
+    Route::get('/add-to-cart-multiple', [ClientAjaxController::class, 'addToCartMultiple'])
+    ->name('client.ajax.addMultiple');
     Route::get('/carts', [ClientCartController::class, 'index'])->name('client.cart.index');
+    Route::get('/remove-item-cart', [ClientAjaxController::class, 'removeItemCart'])
+    ->name('client.ajax.remove');
+    Route::get('/minus-quantity-item', [ClientAjaxController::class, 'removeQuantityItem'])
+    ->name('client.ajax.minus_quantity_item');
 });
 
 /**

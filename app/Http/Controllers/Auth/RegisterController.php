@@ -78,6 +78,7 @@ class RegisterController extends Controller
             'fullname' => $data['fullname'],
             'address' => $data['address'],
             'phone' => $data['phone'],
+            'role_id' => config('showitem.role.customer'),
             ]
         );
     }

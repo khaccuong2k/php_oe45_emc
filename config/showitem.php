@@ -6,6 +6,7 @@ return [
     'best_seller' => 3,
     'paginate_category' => 9,
     'count_sub_category' => 0,
+    'one_recently_viewed' => 1,
     'cart_item' => 10,
     'minus_one' => 1,
     'filter_by' => [
@@ -27,5 +28,15 @@ return [
     ],
     'cart' => [
         'zero' => 0,
+    ],
+    'array' => [
+        'one_item' => 1,
+        'first_list_item' => 0,
+    ],
+    'data_type' => [
+        'array' => 'array',
+    ],
+    'role' => [
+        'customer' => 2,
     ],
 ];

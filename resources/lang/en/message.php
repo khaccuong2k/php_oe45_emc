@@ -30,6 +30,7 @@ return [
     'login_welcome_content' => 'Login to manage your account.',
     'dont_have_account' => "Don't have an account?",
     'Forgot_password' => 'Forgot Password?',
+    'forgot_password' => 'Forgot Password?',
     'login' => 'Login',
     'review_one' => 'The template is really nice and offers quite a large set of options. Thank you!',
     'review_two' => "It's beautiful and the coding is done quickly and seamlessly. Keep it up!",
@@ -93,4 +94,8 @@ return [
             'error' => 'Import Product Fail',
         ],
     ],
+    'cart_empty_desc' => 'Before proceed to checkout you must add some products to your shopping cart.',
+    'start_shopping' => 'Start Shopping',
+    'continue_shopping' => 'Continue shopping',
+    'currency' => '$',
 ];
