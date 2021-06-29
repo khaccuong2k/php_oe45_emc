@@ -122,3 +122,25 @@ if (!function_exists('renderAjaxHTML')) {
         echo $response; 
     }
 }
+
+if (!function_exists('handingProductAndQuantity')) {
+    function handingProductAndQuantity(array $cartData): array
+    {
+        $resolvedCart = [];
+        $resolvedCart["cart"] = [];
+        $resolvedCart["item"] = [];
+
+        foreach($cartData as $key => $value)
+        {
+            $singleItem = [
+                'product_id' => $key,
+                'product_quantity' => $value,
+            ];
+            $singleItemId = $key;
+            array_push($resolvedCart["cart"], $singleItem);
+            array_push($resolvedCart["item"], $singleItemId);
+        }
+
+        return $resolvedCart;
+    }
+}

@@ -8,13 +8,7 @@
         <div class="container py-5">
             <div class="row align-items-sm-center">
                 <div class="col-sm-6 mb-3 mb-sm-0">
-                    <h1 class="h4 mb-0 category-title" data-id="{{ $category->id }}">{{ $category->name }} 
-                    @php 
-                        if (isset($filterName)) {
-                            echo trans('message.filter_by')." ".$filterName;
-                        }
-                    @endphp
-                    </h1>
+                    <h1 class="h4 mb-0 category-title" data-id="{{ $category->id }}">{{ $category->name }}</h1>
                 </div>
                 <div class="col-sm-6">
                     <!-- Breadcrumb -->
@@ -159,7 +153,22 @@
                         <!-- Checkboxes -->
                         <div class="form-group d-flex align-items-center justify-content-between font-size-1 text-lh-lg text-body mb-0">
                             <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input filter-stars" id="rating1">
+                                <input type="checkbox" name="filter-star" class="custom-control-input filter-stars" id="rating0">
+                                <label class="custom-control-label" for="rating0">
+                                <span class="d-block text-warning">
+                                <i class="far fa-star text-muted"></i>
+                                <i class="far fa-star text-muted"></i>
+                                <i class="far fa-star text-muted"></i>
+                                <i class="far fa-star text-muted"></i>
+                                <i class="far fa-star text-muted"></i>
+                                </span>
+                                </label>
+                            </div>
+                            <small>3</small>
+                        </div>
+                        <div class="form-group d-flex align-items-center justify-content-between font-size-1 text-lh-lg text-body mb-0">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" name="filter-star" class="custom-control-input filter-stars" id="rating1">
                                 <label class="custom-control-label" for="rating1">
                                 <span class="d-block text-warning">
                                 <i class="fas fa-star"></i>
@@ -174,7 +183,7 @@
                         </div>
                         <div class="form-group d-flex align-items-center justify-content-between font-size-1 text-lh-lg text-body mb-0">
                             <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input filter-stars" id="rating2">
+                                <input type="checkbox" name="filter-star" class="custom-control-input filter-stars" id="rating2">
                                 <label class="custom-control-label" for="rating2">
                                 <span class="d-block text-warning">
                                 <i class="fas fa-star"></i>
@@ -189,7 +198,7 @@
                         </div>
                         <div class="form-group d-flex align-items-center justify-content-between font-size-1 text-lh-lg text-body mb-0">
                             <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input filter-stars" id="rating3">
+                                <input type="checkbox" name="filter-star" class="custom-control-input filter-stars" id="rating3">
                                 <label class="custom-control-label" for="rating3">
                                 <span class="d-block text-warning">
                                 <i class="fas fa-star"></i>
@@ -204,7 +213,7 @@
                         </div>
                         <div class="form-group d-flex align-items-center justify-content-between font-size-1 text-lh-lg text-body mb-0">
                             <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input filter-stars" id="rating4">
+                                <input type="checkbox" name="filter-star" class="custom-control-input filter-stars" id="rating4">
                                 <label class="custom-control-label" for="rating4">
                                 <span class="d-block text-warning">
                                 <i class="fas fa-star"></i>
@@ -219,7 +228,7 @@
                         </div>
                         <div class="form-group d-flex align-items-center justify-content-between font-size-1 text-lh-lg text-body mb-0">
                             <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input filter-stars" id="rating5">
+                                <input type="checkbox" name="filter-star" class="custom-control-input filter-stars" id="rating5">
                                 <label class="custom-control-label" for="rating5">
                                 <span class="d-block text-warning">
                                 <i class="fas fa-star"></i>

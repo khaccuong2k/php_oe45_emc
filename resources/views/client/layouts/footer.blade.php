@@ -154,6 +154,7 @@
 <i class="fas fa-angle-up"></i>
 </a>
 <!-- End Go to Top -->
+<input type="hidden" name="AjaxAddToCart" value="{{ route('client.ajax.addToCart') }}" />
 <!-- JS Global Compulsory -->
 <script src="{{ asset('customers/assets/vendor/jquery/dist/jquery.min.js') }}"></script>
 <script src="{{ asset('customers/assets/vendor/jquery-migrate/dist/jquery-migrate.min.js') }}"></script>
@@ -178,6 +179,7 @@
 <script src="{{ asset('customers/assets/vendor/ion-rangeslider/js/ion.rangeSlider.min.js') }}"></script>
 <!-- Ajax -->
 <script src="{{ asset('customers/assets/js/ajax.filter-products.js') }}"></script>
+<script src="{{ asset('customers/assets/js/ajax.resolve-cart.js') }}"></script>
 <!-- JS Plugins Init. -->
 <script src="{{ asset('customers/assets/js/init-plugin-home.js') }}"></script>
 </body>

@@ -25,7 +25,7 @@
                                 <h1 class="display-4 mb-4">{{ $bestSellerProduct->name }}</h1>
                                 <p>{{ $bestSellerProduct->short_description }}</p>
                             </div>
-                            <a class="btn btn-primary btn-pill transition-3d-hover px-5 mr-2" href="#">{{ $bestSellerProduct->price }} - {{ trans('message.add_to_cart') }}</a>
+                            <a class="btn btn-primary btn-pill transition-3d-hover px-5 mr-2 btn-add-to-cart" data-id="{{ $bestSellerProduct->id }}" href="javascript:">{{ $bestSellerProduct->price }} - {{ trans('message.add_to_cart') }}</a>
                             <a class="btn btn-icon btn-outline-primary rounded-circle" href="#" data-toggle="tooltip" data-placement="top" title="Save for later">
                             <i class="fas fa-heart"></i>
                             </a>
@@ -119,7 +119,7 @@
                                 <span>{!! roundStar($hotTrendProduct->number_of_vote_submissions, $hotTrendProduct->total_vote) !!}</span>
                             </a>
                         </div>
-                        <button type="button" class="btn btn-sm btn-outline-primary btn-pill transition-3d-hover">{{ trans('message.add_to_cart') }}</button>
+                        <button type="button" data-id="{{ $hotTrendProduct->id }}" class="btn btn-sm btn-outline-primary btn-pill transition-3d-hover btn-add-to-cart">{{ trans('message.add_to_cart') }}</button>
                     </div>
                 </div>
                 <!-- End Product -->
@@ -178,7 +178,7 @@
                               <span>{!! roundStar($recentlyViewedProduct->number_of_vote_submissions, $recentlyViewedProduct->total_vote) !!}</span>
                           </a>
                       </div>
-                      <button type="button" class="btn btn-sm btn-outline-primary btn-pill transition-3d-hover">{{ trans('message.add_to_cart') }}</button>
+                      <button type="button" data-id="{{ $recentlyViewedProduct->id }}" class="btn btn-sm btn-outline-primary btn-pill transition-3d-hover btn-add-to-cart">{{ trans('message.add_to_cart') }}</button>
                   </div>
               </div>
               <!-- End Product -->
