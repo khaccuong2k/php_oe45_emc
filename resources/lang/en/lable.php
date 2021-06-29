@@ -58,7 +58,7 @@ return [
             'menu_list_icon' => 'Menu List Icon',
             'reset_settings' => 'Reset Settings',
             'white' => 'White',
-            'dark' => 'Dark', 
+            'dark' => 'Dark',
         ],
         'sidebar' => [
             'list' => 'List',
@@ -96,5 +96,7 @@ return [
     ],
     'product' => [
         'detail' => 'View Detail',
+        'addExcel' => 'Add Data With Excel',
+        'close' => 'Close',
     ],
 ];

@@ -13,14 +13,17 @@ class CreateSuggestsTable extends Migration
      */
     public function up()
     {
-        Schema::create('suggests', function (Blueprint $table) {
-            $table->id();
-            $table->string('content');
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->tinyInteger('status');
-            $table->timestamps();
-        });
+        Schema::create(
+            'suggests',
+            function (Blueprint $table) {
+                $table->id();
+                $table->string('content');
+                $table->unsignedBigInteger('user_id');
+                $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+                $table->tinyInteger('status');
+                $table->timestamps();
+            }
+        );
     }
 
     /**

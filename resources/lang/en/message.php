@@ -83,7 +83,14 @@ return [
     'chat_now' => 'Chat Now',
     'total' => 'Total',
     'cart_empty' => 'Your cart is currently empty',
-    'cart_empty_desc' => 'Before proceed to checkout you must add some products to your shopping cart. You will find a lot of interesting products on our "Shop" page.',
+    'cart_empty_desc' => 'Before proceed to checkout you must add some products to your
+                          shopping cart. You will find a lot of interesting products on our "Shop" page.',
     'start_shopping' => 'Start Shopping',
     'continue_shopping' => 'Continue shopping',
+    'product' => [
+        'import' => [
+            'success' => 'Import Product Success',
+            'error' => 'Import Product Fail',
+        ],
+    ],
 ];

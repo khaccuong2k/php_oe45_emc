@@ -16,7 +16,7 @@ class Tag extends Model
     public function products()
     {
         return $this->hasManyThrough(
-            ProductTag::class, 
+            ProductTag::class,
             Product::class
         );
     }

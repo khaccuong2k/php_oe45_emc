@@ -26,7 +26,7 @@ class EventFactory extends Factory
         $month = rand(1, 12);
         $day = rand(1, 28);
 
-        $date = Carbon::create($year,$month ,$day , 0, 0, 0);
+        $date = Carbon::create($year, $month, $day, 0, 0, 0);
         
         return [
             'start_date' => $date->format('Y-m-d H:i:s'),

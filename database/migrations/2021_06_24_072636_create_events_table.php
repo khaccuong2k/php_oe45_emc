@@ -13,13 +13,16 @@ class CreateEventsTable extends Migration
      */
     public function up()
     {
-        Schema::create('events', function (Blueprint $table) {
-            $table->id();
-            $table->date('start_date');
-            $table->date('end_date');
-            $table->tinyInteger('percent_discount');
-            $table->timestamps();
-        });
+        Schema::create(
+            'events',
+            function (Blueprint $table) {
+                $table->id();
+                $table->date('start_date');
+                $table->date('end_date');
+                $table->tinyInteger('percent_discount');
+                $table->timestamps();
+            }
+        );
     }
 
     /**

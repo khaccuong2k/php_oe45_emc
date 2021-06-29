@@ -26,7 +26,7 @@ class CouponFactory extends Factory
         $month = rand(1, 12);
         $day = rand(1, 28);
 
-        $date = Carbon::create($year,$month ,$day , 0, 0, 0);
+        $date = Carbon::create($year, $month, $day, 0, 0, 0);
         
         return [
             'name' => $this->faker->name(),
