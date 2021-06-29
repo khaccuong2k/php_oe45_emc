@@ -182,6 +182,7 @@
 <script src="{{ asset('customers/assets/js/ajax.resolve-cart.js') }}"></script>
 <script src="{{ asset('customers/assets/js/ajax.resolve-star-vote.js') }}"></script>
 <script src="{{ asset('customers/assets/js/ajax.resolve-reply-comment.js') }}"></script>
+<script src="{{ asset('customers/assets/js/js.resolve-order.js') }}"></script>
 <!-- JS Plugins Init. -->
 <script src="{{ asset('customers/assets/js/init-plugin-home.js') }}"></script>
 <!-- JS Chat -->

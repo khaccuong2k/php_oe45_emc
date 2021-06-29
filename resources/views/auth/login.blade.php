@@ -2,7 +2,30 @@
 @section('title', trans('message.title_login'))
 @section('content')
 <div class="row no-gutters">
+    
     <div class="col-md-8 col-lg-7 col-xl-6 offset-md-2 offset-lg-2 offset-xl-3 space-top-3 space-lg-0">
+        @if(Session::has('success') || Session::has('error')) 
+ 
+            <div class="container position-fixed top-0 right-0 left-0 z-index-4">
+                  <div class="alert bg-white w-lg-80 border shadow-sm mx-auto" role="alert">
+                      <h5 class="text-dark">{{ trans('message.notification') }}</h5>
+                          <p class="small"><span class="font-weight-bold">{{ trans('message.note') }}:</span>
+                              @if(Session::has('success'))
+                                  <span class="text-success text-highlight-success font-weight-bold">{{ trans(Session::get('success')) }}</span>
+                              @endif
+                              @if(Session::has('error'))
+                              <span class="text-danger text-highlight-danger font-weight-bold">{{ trans(Session::get('error')) }}</span>
+                              @endif
+                          </p>
+                      <div class="row align-items-sm-center">
+                          <div class="col-sm-8 mb-3 mb-sm-0"></div>
+                          <div class="col-sm-4 text-sm-right">
+                              <button type="button" class="btn btn-sm btn-primary transition-3d-hover" data-dismiss="alert" aria-label="Close">Got it!</button>
+                          </div>
+                      </div>
+                  </div>
+            </div>
+        @endif
         <!-- Form -->
         <form class="js-validate" method="POST" action="{{ route('login') }}">
             @csrf

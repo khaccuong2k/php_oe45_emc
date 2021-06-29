@@ -146,3 +146,42 @@ if (!function_exists('handingProductAndQuantity')) {
         return $resolvedCart;
     }
 }
+
+if (!function_exists('paymentMethod')) {
+    function paymentMethod($paymentMethodId)
+    {
+        if ($paymentMethodId == 0) {
+            return trans('message.on_delivery');
+        }
+
+        return trans('message.payment_online');
+    }
+}
+
+if (!function_exists('orderStatus')) {
+    function orderStatus($orderStatusId)
+    {
+        switch ($orderStatusId) {
+            case 0:
+                return trans('message.wait_for_confirmation');
+                break;
+            case 1:
+                return trans('message.confirmed');
+                break;
+            case 2:
+                return trans('message.ordered');
+                break;
+            case 3:
+                return trans('message.delivery');
+                break;
+            case 4:
+                return trans('message.delivered');
+                break;
+            case 5:
+                return trans('message.received');
+                break;
+            default:
+                return trans('message.received');
+        }
+    }
+}
