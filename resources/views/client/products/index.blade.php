@@ -1,5 +1,14 @@
-@extends('client.layouts.master') @section('content')
+@extends('client.layouts.master') 
 
+@section('meta-data')
+<meta property="og:url" content="{{ URL::current() }}" />
+<meta property="og:type" content="{{ "website" }}" />
+<meta property="og:title" content="{{$productData->name}}" />
+<meta property="og:description" content="{{$productData->short_description}}" />
+<meta property="og:image" content="{{ asset($productData->thumbnail) }}" />
+@endsection
+
+@section('content')
 <!-- ========== MAIN CONTENT ========== -->
 <main id="content" role="main">
     <!-- Hero Section -->
@@ -196,6 +205,16 @@
     <div class="container space-top-2 space-lg-3">
         <div class="row">
             <div class="col-md-12 mb-5 mb-md-0">
+                <div class="pr-lg-4">
+                    <h4>Share</h4>
+                    <p><div class="fb-share-button"
+                        data-href="{{ URL::current() }}"
+                        data-layout="button_count"
+                        data-size="small"
+                        data-mobile-iframe="true">
+                     <a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ URL::current() }}">Share</a>
+                   </div></p>
+                </div>
                 <div class="pr-lg-4">
                     <h4>Product Description</h4>
                     <p>{{ $productData->content }}</p>

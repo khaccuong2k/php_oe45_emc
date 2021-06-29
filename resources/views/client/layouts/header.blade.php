@@ -7,6 +7,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        @yield('meta-data')
         <!-- Favicon -->
         <link rel="shortcut icon" href="{{ asset('customers/favicon.ico') }}">
         <!-- Font -->
@@ -19,6 +20,29 @@
         <!-- CSS Front Template -->
         <link rel="stylesheet" href="{{ asset('customers/assets/css/theme.css') }}">
         <link rel="stylesheet" href="{{ asset('customers/assets/vendor/select2/dist/css/select2.min.css') }}">
+        <div id="fb-root"></div>
+        <body>
+            <script>
+              window.fbAsyncInit = function () {
+                FB.init({
+                  appId: '416800552839762',
+                  xfbml: true,
+                  version: 'v2.8'
+                });
+              };
+          
+              (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {
+                  return;
+                }
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "//connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+              }(document, 'script', 'facebook-jssdk'));
+            </script>
+        </body>
     </head>
     <body>
         <!-- ========== HEADER ========== -->
@@ -70,7 +94,7 @@
                                         "hideOnScroll": "true"
                                         }'>
                                     <span class="avatar avatar-xs avatar-circle">
-                                    <img class="avatar-img" src="{{ asset('customers/assets/img/100x100/img1.jpg') }}" alt="Image Description">
+                                    <img class="avatar-img" src="{{ asset(Auth::user()->avatar) }}" alt="Image Description">
                                     </span>
                                     </a>
                                     <div id="accountDropdown" class="hs-unfold-content dropdown-menu dropdown-menu-sm-right dropdown-menu-no-border-on-mobile p-0" style="min-width: 245px;">
@@ -79,7 +103,7 @@
                                             <div class="card-header p-4">
                                                 <a class="media align-items-center" href="#">
                                                     <div class="avatar mr-3">
-                                                        <img class="avatar-img" src="{{ asset('customers/assets/img/100x100/img1.jpg') }}" alt="Image Description">
+                                                        <img class="avatar-img" src="{{ asset(Auth::user()->avatar) }}" alt="Image Description">
                                                     </div>
                                                     <div class="media-body">
                                                         <span class="d-block font-weight-bold">{{ Auth::user()->username }} <span class="badge badge-success ml-1">{{ trans('message.pro') }}</span></span>
@@ -96,19 +120,19 @@
                                                 </span>
                                                 {{ trans('message.messages') }}
                                                 </a>
-                                                <a class="dropdown-item d-lg-none" href="#">
+                                                <a class="dropdown-item d-lg-none" href="">
                                                 <span class="dropdown-item-icon">
                                                 <i class="fas fa-tasks"></i>
                                                 </span>
                                                 {{ trans('message.payment_infor') }}
                                                 </a>
-                                                <a class="dropdown-item px-0" href="#">
+                                                <a class="dropdown-item px-0" href="{{ route('client.order.history') }}">
                                                 <span class="dropdown-item-icon">
                                                 <i class="fas fa-database"></i>
                                                 </span>
                                                 {{ trans('message.history') }}
                                                 </a>
-                                                <a class="dropdown-item px-0" href="#">
+                                                <a class="dropdown-item px-0" href="{{ route('client.user.show', Auth::id()) }}">
                                                 <span class="dropdown-item-icon">
                                                 <i class="fas fa-user"></i>
                                                 </span>
