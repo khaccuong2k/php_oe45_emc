@@ -96,5 +96,7 @@ return [
     ],
     'product' => [
         'detail' => 'View Detail',
+        'addExcel' => 'Add Data With Excel',
+        'close' => 'Close',
     ],
 ];

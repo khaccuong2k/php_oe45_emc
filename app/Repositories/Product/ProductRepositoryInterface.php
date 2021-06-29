@@ -46,4 +46,9 @@ interface ProductRepositoryInterface
      * @return mixed
      */
     public function filterProductsFollowCategory($categoryId, $filterBy, $star, $paginateNumber);
+
+    /**
+    * Import Product Data For Table Product From Excel, Csv
+    */
+    public function import($request);
 }

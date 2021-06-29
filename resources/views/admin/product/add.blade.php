@@ -32,6 +32,62 @@
     <div class="clearfix">
         <div class="pull-left">
             <h4 class="text-blue h4">@lang('lable.title.product.add')</h4>
+                <br><br>
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li> @lang( $error ) </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                @if (session()->has('success'))
+                    <div class="alert alert-success">
+                        <ul>
+                            <li> @lang(session()->get('success') ) </li>
+                        </ul>
+                    </div>
+                @endif
+                @if (session()->has('error'))
+                    <div class="alert alert-danger">
+                        <ul>
+                            <li> @lang( session()->get('error') ) </li>
+                        </ul>
+                    </div>
+                @endif
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    @lang('lable.product.addExcel')
+                </button>
+                <br><br>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">@lang('lable.product.addExcel')</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ route('products.import') }}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                <div class="form-group">
+                                  <input type="file"
+                                    class="form-control" name="file" id="" aria-describedby="helpId" placeholder="">
+                                </div>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('lable.product.close')</button>
+                        <button type="submit" class="btn btn-primary">@lang('lable.action_add')</button>
+                        </form>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <form action="" method="post" enctype="multipart/form-data">

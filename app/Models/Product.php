@@ -11,13 +11,14 @@ class Product extends Model
 
     protected $fillable = [
         'name',
+        'thumbnail',
         'content',
         'short_description',
         'quantity',
         'views',
         'price',
         'number_of_vote_submissions',
-        'avg_vote',
+        'total_vote',
         'sold',
         'category_id',
     ];

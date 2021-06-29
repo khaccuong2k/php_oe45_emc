@@ -2,10 +2,11 @@
 
 namespace App\Repositories\Product;
 
+use App\Imports\ProductsImport;
 use App\Models\Product;
-use App\Models\Category;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductRepository extends BaseRepository implements ProductRepositoryInterface
 {
@@ -81,4 +82,18 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         return $products;
     }
 
+    /**
+    * @return \Illuminate\Support\Collection
+    * @return boolean
+    */
+    public function import($request)
+    {
+        $file = $request->file('file');
+        $importFile = Excel::import(new ProductsImport, $file);
+        if ($importFile) {
+            return true;
+        }
+ 
+        return false;
+    }
 }

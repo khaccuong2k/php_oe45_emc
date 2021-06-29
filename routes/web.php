@@ -77,3 +77,10 @@ Route::group(['middleware' => 'locale'], function() {
     Route::get('/add-to-cart', [ClientAjaxController::class, 'addToCart'])->name('client.ajax.addToCart');
     Route::get('/carts', [ClientCartController::class, 'index'])->name('client.cart.index');
 });
+
+/**
+ * Route import data from file excel and csv
+ */
+Route::get('export', [ProductController::class, 'export'])->name('products.export');
+Route::get('importExportView',  [ProductController::class, 'products.importExportView']);
+Route::post('import', [ProductController::class, 'import'])->name('products.import');

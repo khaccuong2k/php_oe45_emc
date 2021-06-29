@@ -1,6 +1,7 @@
 <?php
 
 return [
+<<<<<<< HEAD
     'my_cart' => 'My Cart',
     'add_to_cart' => 'Add To Cart',
     'trending_products' => 'TRENDING PRODUCTS',
@@ -86,4 +87,12 @@ return [
     'cart_empty_desc' => 'Before proceed to checkout you must add some products to your shopping cart. You will find a lot of interesting products on our "Shop" page.',
     'start_shopping' => 'Start Shopping',
     'continue_shopping' => 'Continue shopping',
+=======
+    'product' => [
+        'import' => [
+            'success' => 'Import Product Success',
+            'error' => 'Import Product Fail',
+        ],
+    ]
+>>>>>>> push code task add product from file excel
 ];
