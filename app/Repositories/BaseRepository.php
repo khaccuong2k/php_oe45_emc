@@ -44,9 +44,9 @@ abstract class BaseRepository implements RepositoryInterface
      * @param $id
      * @return mixed
      */
-    public function findOrFail($id)
+    public function find($id)
     {
-        $result = $this->model->findOrFail($id);
+        $result = $this->model->find($id);
 
         return $result;
     }
@@ -69,7 +69,7 @@ abstract class BaseRepository implements RepositoryInterface
      */
     public function update($id, $attributes = [])
     {
-        $result = $this->findOrFail($id);
+        $result = $this->find($id);
         if ($result) {
             $result->update($attributes);
 
@@ -86,8 +86,8 @@ abstract class BaseRepository implements RepositoryInterface
      */
     public function delete($id)
     {
-        $result = $this->findOrFail($id);
-        if ($result) {
+        $result = $this->find($id);
+        if ($result->count() > 0) {
             $result->delete();
 
             return true;

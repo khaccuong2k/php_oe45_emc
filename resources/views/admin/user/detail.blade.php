@@ -4,6 +4,11 @@
 <title>@lang('lable.title.user.detail')</title>
 @endsection
 
+@section('bread-crumb')
+	<li class="breadcrumb-item"><a href="{{ route('users.index')}}">@lang('lable.title.user.index')</a></li>
+	<li class="breadcrumb-item active" aria-current="page">@lang('lable.title.user.detail')</li>
+@endsection
+
 @section('css')
 <!-- Site favicon -->
 <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('admin-page/vendors/images/apple-touch-icon.png') }}">
@@ -45,20 +50,19 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td class="table-plus">Andrea J. Cagle</td>
-                    <td>30</td>
-                    <td>Gemini</td>
-                    <td>1280 Prospect</td>
-                    <td>$162,700</td>
-                </tr>
-                <tr>
-                    <td class="table-plus">Andrea J. Cagle</td>
-                    <td>30</td>
-                    <td>Gemini</td>
-                    <td>1280 Prospect</td>
-                    <td>$162,700</td>
-                </tr>
+                @if (isset($userDetail))
+                    <tr>
+                        <td>{{ $userDetail->username }}</td>
+                        <td>{{ $userDetail->email }}</td>
+                        <td>{{ $userDetail->phone }}</td>
+                        <td>{{ $userDetail->address }}</td>
+                        <td>{{ $userDetail->created_at }}</td>
+                    </tr>
+                @else
+                    <tr>
+                        <td>@lang('lable.no_have_value')</td>
+                    </tr>
+                @endif
             </tbody>
         </table>
     </div>

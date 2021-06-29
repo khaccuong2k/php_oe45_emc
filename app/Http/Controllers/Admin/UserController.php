@@ -3,10 +3,26 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Repositories\User\UserRepository;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    /**
+     * @var $userRepository
+     */
+    protected $userRepository;
+
+    /**
+     * Construct Inject UserRepository
+     * @var UserRepository $userRepository
+     */
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +30,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('admin.user.index');
+        $users = $this->userRepository
+                    ->paginate('id', 'desc', config('app.paginate_number'));
+
+        return view('admin.user.index', compact('users'));
     }
 
     /**
@@ -46,7 +65,12 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        return view('admin.user.detail');
+        $userDetail = $this->userRepository->find($id);
+        if ($userDetail->count() > 0) {
+            return view('admin.user.detail', compact('userDetail'));
+        }
+        
+        return back()->withError('message.user.notFound');
     }
 
     /**
@@ -80,6 +104,11 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $destroyUser = $this->userRepository->delete($id);
+        if ($destroyUser) {
+            return back()->withSuccess('message.user.delete.success');
+        }
+
+        return back()->withError('message.user.delete.error');
     }
 }

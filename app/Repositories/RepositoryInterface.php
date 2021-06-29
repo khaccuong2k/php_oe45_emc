@@ -15,7 +15,7 @@ interface RepositoryInterface
      * @param $id
      * @return mixed
      */
-    public function findOrFail($id);
+    public function find($id);
 
     /**
      * Create

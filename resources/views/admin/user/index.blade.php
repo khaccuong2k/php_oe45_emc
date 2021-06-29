@@ -25,6 +25,7 @@
 <!-- bootstrap-touchspin css -->
 <link rel="stylesheet" type="text/css" href="{{ asset('admin-page/src/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('admin-page/vendors/styles/style.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('admin-page/css/all.css') }}">
 @endsection
 
 @section('content')
@@ -44,30 +45,41 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td class="table-plus">Gloria F. Mead</td>
-                    <td>25</td>
-                    <td>Sagittarius</td>
-                    <td>2829 Trainer Avenue Peoria, IL 61602 </td>
-                    <td>29-03-2018</td>
-                    <td>
-                        <div class="dropdown">
-                            <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                            <i class="dw dw-more"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                <a class="dropdown-item" href="#"><i class="dw dw-eye"></i>
-                                @lang('lable.user.action_view')
-                                </a>
-                                <a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i>
-                                @lang('lable.user.action_delete')
-                                </a>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
+                @forelse ($users as $user)
+					<tr>
+						<td>{{ $user->username}}</td>
+						<td>
+							<img src="{{ $user->avatar}}" alt="" class="image-custom-setwh">
+						</td>
+						<td>{{ $user->phone }}</td>
+						<td>
+							<div class="dropdown">
+								<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+									<i class="dw dw-more"></i>
+								</a>
+								<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+									<a class="dropdown-item" href="{{ route('users.show', $user->id) }}"><i class="dw dw-eye"></i>
+										@lang('lable.action_view')
+									</a>
+									
+									<form class="dropdown-item" action="{{ route('users.destroy', $user->id) }}" method="post">
+										@csrf
+										@method('DELETE')
+										<i class="dw dw-delete-3"></i>
+										<input type="submit" class="btn btn-outline-danger" value="@lang('lable.action_delete')">
+									</form>
+								</div>
+							</div>
+						</td>
+					</tr>
+				@empty
+					<tr>
+						<td class="table-plus">@lang('lable.no_have_value')</td>
+					</tr>
+				@endforelse
             </tbody>
         </table>
+		{{ $users->links() }}
     </div>
 </div>
 <!-- Simple Datatable End -->

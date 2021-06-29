@@ -273,6 +273,12 @@
                                     </ol>
                                 </nav>
                             </div>
+                            <nav aria-label="breadcrumb" role="navigation">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="{{ route('dashboard.index')}}">@lang('lable.app.home')</a></li>
+                                    @yield('bread-crumb')
+                                </ol>
+                            </nav>
                         </div>
                     </div>
                     {{-- yield content off page  --}}
