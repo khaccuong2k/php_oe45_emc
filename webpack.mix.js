@@ -11,7 +11,20 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .postCss('resources/css/app.css', 'public/css', [
-        //
-    ]);
+mix.js([
+    'resources/js/clipboard.min.js',
+    'resources/js/jquery.min.js',], 'public/admin-page/js')
+    .autoload({
+        jquery: ['jquery', 'jQuery', '$', 'window.jQuery'],
+        clipboard: ['clipboard', 'clipboard', 'clipboard.js'],
+    })
+    .js('resources/js/detail-flugin.js', 'public/admin-page/js/detail-flugin')
+    .js('resources/js/edit.js', 'public/admin-page/js/edit')
+    .js('resources/js/setting.js', 'public/admin-page/js/setting')
+    .js('resources/js/moment.js', 'public/admin-page/js/moment')
+    .styles(['resources/css/app.css',
+            'resources/css/media.css',
+            'resources/css/style.css',
+            'resources/css/theme.css',
+        ], 'public/admin-page/css/all.css')
+    .sourceMaps();

@@ -278,5 +278,5 @@
 	<!-- bootstrap-touchspin js -->
 	<script src="{{ asset('admin-page/src/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js') }}"></script>
 	<script src="{{ asset('admin-page/vendors/scripts/advanced-components.js') }}"></script>
-	<script src="{{ asset('admin-page/src/scripts/edit.js') }}"></script>
+	<script src="{{ asset('admin-page/js/edit/edit.js') }}"></script>
 @endsection

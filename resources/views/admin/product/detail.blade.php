@@ -108,5 +108,5 @@
     <script src="{{ asset('admin-page/src/plugins/slick/slick.min.js') }}"></script>
     <!-- bootstrap-touchspin js -->
     <script src="{{ asset('admin-page/src/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js') }}"></script>
-    <script src="{{ asset('admin-page/src/scripts/detail-flugin.js') }}"></script>
+    <script src="{{ asset('admin-page/js/detail-flugin/detail-flugin.js') }}"></script>
 @endsection
