@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use App\Repositories\Category\CategoryRepositoryInterface;
 use App\Repositories\Product\ProductRepositoryInterface;
 use Illuminate\Http\Request;
@@ -103,6 +104,25 @@ class AjaxController extends Controller
         $numberItem = $this->removeDuplicateAndCount($listItem);
         Session::put('cart-item-number', $numberItem);
         echo $numberItem;
+    }
+
+    public function ratingProduct(Request $request)
+    {
+        $productId = $request->productId;
+        $star = $request->star;
+        $product = Product::findOrFail($productId);
+        if ($product) {
+            $totalVote = $product->total_vote + 1;
+            $star += $product->number_of_vote_submissions;
+            $product->update([
+                'total_vote' => $totalVote,
+                'number_of_vote_submissions' => $star,
+            ]);
+
+            $listProductsId = [];
+            array_push($listProductsId, $productId);
+            Session::put('product.rating', $listProductsId);
+        }
     }
 
     public function pushItemToCart(array $array): void

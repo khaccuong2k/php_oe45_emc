@@ -21,7 +21,6 @@ class ProductController extends Controller
         // whenever view single product, it will be add to session
         Session::push('products.recently_viewed', $id);
         $productData = $this->productRepo->findOrFail($id);
-
         return view('client.products.index', compact('productData'));
     }
 }
