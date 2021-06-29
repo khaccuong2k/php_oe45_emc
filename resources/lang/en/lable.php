@@ -35,6 +35,7 @@ return [
     'action_add' => 'Add',
     'action_edit' => 'Edit',
     'action_delete' => 'Delete',
+    'no_have_value' => 'No Have Value',
     'app' => [
         'loading' => 'Loading...',
         'search' => [

@@ -232,6 +232,9 @@ return [
 
     ],
 
-    'paginate_number' => 12
+    /**
+     * Config number paginate get all data
+     */
+    'paginate_number' => 12,
 
 ];
