@@ -172,6 +172,12 @@
 <script src="{{ asset('customers/assets/js/hs.validation.js') }}"></script>
 <script src="{{ asset('customers/assets/js/hs.slick-carousel.js') }}"></script>
 <script src="{{ asset('customers/assets/js/hs.countdown.js') }}"></script>
+<script src="{{ asset('customers/assets/js/hs.select2.js') }}"></script>
+<script src="{{ asset('customers/assets/js/hs.ion-range-slider.js') }}"></script>
+<script src="{{ asset('customers/assets/vendor/select2/dist/js/select2.full.min.js') }}"></script>
+<script src="{{ asset('customers/assets/vendor/ion-rangeslider/js/ion.rangeSlider.min.js') }}"></script>
+<!-- Ajax -->
+<script src="{{ asset('customers/assets/js/ajax.filter-products.js') }}"></script>
 <!-- JS Plugins Init. -->
 <script src="{{ asset('customers/assets/js/init-plugin-home.js') }}"></script>
 </body>

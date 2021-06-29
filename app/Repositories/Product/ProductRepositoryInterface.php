@@ -24,10 +24,26 @@ interface ProductRepositoryInterface
 
     /**
      * Get recently viewed products
-     * @param $column
-     * @param $orderBy
+     * @param $recentlyViewedProductsId
      * @param $takeNum
      * @return mixed
      */
     public function getRecentlyViewedProducts($recentlyViewedProductsId, $takeNum);
+
+    /**
+     * Get products by category id
+     * @param $id
+     * @param $category
+     * @param $paginate
+     * @return mixed
+     */
+    public function getProductsByCategoryId($id, $category, $paginate);
+
+    /**
+     * filter products
+     * @param $filterBy
+     * @param $paginate
+     * @return mixed
+     */
+    public function filterProductsFollowCategory($categoryId, $filterBy, $paginateNumber);
 }

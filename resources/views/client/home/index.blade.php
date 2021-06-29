@@ -80,71 +80,6 @@
             <h2>{{ trans('message.trending_products') }}</h2>
         </div>
         <!-- End Title -->
-        @php
-        // Vì pull này vừa đủ 15 files changed. Nên em sẽ cho cái này vào helper vào pull sau a!
-        function roundStar($sumStar, $sumVote)
-        {
-            if (
-                $sumStar == 0 ||
-                $sumVote == 0 ||
-                $sumStar == 0 && $sumVote == 0
-            ) {
-    
-                return 0;
-            } 
-            $stars = round($sumStar / $sumVote);
-    
-            return $stars;
-        }
-    
-        function resolveStarsVote(int $sumStar, int $sumVote): void
-        {
-            if (
-                $sumStar == 0 ||
-                $sumVote == 0 ||
-                $sumStar == 0 && $sumVote == 0
-                ) {
-                echo '<i class="far fa-star text-muted"></i>
-                <i class="far fa-star text-muted"></i>
-                <i class="far fa-star text-muted"></i>
-                <i class="far fa-star text-muted"></i>
-                <i class="far fa-star text-muted"></i>';
-          } else {
-                $stars = roundStar($sumStar, $sumVote);
-                if ($stars == 1) {
-                    echo '<i class="fas fa-star"></i>
-                    <i class="far fa-star text-muted"></i>
-                    <i class="far fa-star text-muted"></i>
-                    <i class="far fa-star text-muted"></i>
-                    <i class="far fa-star text-muted"></i>';
-                } elseif ($stars == 2) {
-                    echo '<i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="far fa-star text-muted"></i>
-                    <i class="far fa-star text-muted"></i>
-                    <i class="far fa-star text-muted"></i>';
-                } elseif ($stars == 3) {
-                    echo '<i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="far fa-star text-muted"></i>
-                    <i class="far fa-star text-muted"></i>';
-                } elseif ($stars == 4) {
-                    echo '<i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="far fa-star text-muted"></i>';
-                } else {
-                    echo '<i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>';
-                }
-            }
-        }
-        @endphp
         <!-- Products -->
         <div class="row mx-n2 mx-sm-n3 mb-3">
             @foreach($hotTrendProducts as $hotTrendProduct)
@@ -179,9 +114,9 @@
                         <div class="mb-3">
                             <a class="d-inline-flex align-items-center small" href="#">
                                 <div class="text-warning mr-2">
-                                    {{ resolveStarsVote($hotTrendProduct->number_of_vote_submissions, $hotTrendProduct->total_vote) }}
+                                    {!! resolveStarsVote($hotTrendProduct->number_of_vote_submissions, $hotTrendProduct->total_vote) !!}
                                 </div>
-                                <span>{{ roundStar($hotTrendProduct->number_of_vote_submissions, $hotTrendProduct->total_vote) }}</span>
+                                <span>{!! roundStar($hotTrendProduct->number_of_vote_submissions, $hotTrendProduct->total_vote) !!}</span>
                             </a>
                         </div>
                         <button type="button" class="btn btn-sm btn-outline-primary btn-pill transition-3d-hover">{{ trans('message.add_to_cart') }}</button>
@@ -238,9 +173,9 @@
                       <div class="mb-3">
                           <a class="d-inline-flex align-items-center small" href="#">
                               <div class="text-warning mr-2">
-                                  {{ resolveStarsVote($recentlyViewedProduct->number_of_vote_submissions, $recentlyViewedProduct->total_vote) }}
+                                {!! resolveStarsVote($recentlyViewedProduct->number_of_vote_submissions, $recentlyViewedProduct->total_vote) !!}
                               </div>
-                              <span>{{ roundStar($recentlyViewedProduct->number_of_vote_submissions, $recentlyViewedProduct->total_vote) }}</span>
+                              <span>{!! roundStar($recentlyViewedProduct->number_of_vote_submissions, $recentlyViewedProduct->total_vote) !!}</span>
                           </a>
                       </div>
                       <button type="button" class="btn btn-sm btn-outline-primary btn-pill transition-3d-hover">{{ trans('message.add_to_cart') }}</button>

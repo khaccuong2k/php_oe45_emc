@@ -103,7 +103,7 @@ abstract class BaseRepository implements RepositoryInterface
      * @param $paginate
      * @return mixed
      */
-    public function paginate($colum = null, $orderBy = null, $paginate)
+    public function paginate($colum = null, $orderBy = null, $paginate = null)
     {
         if ($colum != null && $orderBy != null) {
             return $this->model->orderBy($colum, $orderBy)->paginate($paginate);

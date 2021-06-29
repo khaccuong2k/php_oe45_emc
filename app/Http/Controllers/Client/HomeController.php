@@ -22,7 +22,7 @@ class HomeController extends Controller
         $hotTrendProducts = $this->productRepo->getHotTrendProducts('views', 'DESC', config('showitem.hot_trend'));
         $bestSellerProducts = $this->productRepo->getBestSellerProducts('sold', 'DESC' , config('showitem.best_seller'));
         $recentlyViewedProductsId = [];
-        $recentlyViewedProductsId = Session::get('products.recently_viewed');
+        array_push($recentlyViewedProductsId, Session::get('products.recently_viewed'));
         $recentlyViewedProducts = $this->productRepo->getRecentlyViewedProducts($recentlyViewedProductsId, config('showitem.recently_viewed'));
         
         return view('client.home.index', compact('hotTrendProducts', 'bestSellerProducts', 'recentlyViewedProducts'));

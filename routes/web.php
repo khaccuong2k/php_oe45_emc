@@ -7,8 +7,10 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RequestController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Client\HomeController;
-use App\Http\Controllers\Client\ProductController;
+use App\Http\Controllers\Client\AjaxController as ClientAjaxController;
+use App\Http\Controllers\Client\CategoryController as ClientCategoryController;
+use App\Http\Controllers\Client\HomeController as ClientHomeController;
+use App\Http\Controllers\Client\ProductController as ClientProductController;
 use App\Http\Controllers\LocaleController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,7 +29,7 @@ use Illuminate\Support\Facades\Route;
  * ----------------
  * route for dashboard
  */
-Route::get('/admin/dashboard', DashboardController::class);
+Route::resource('/admin/dashboard', DashboardController::class);
 
 /**
  * Route Resource
@@ -67,6 +69,8 @@ Route::resource('admin/requests', RequestController::class);
 Route::group(['middleware' => 'locale'], function() {
     Auth::routes();
     Route::get('change-locale/{locale}', LocaleController::class)->name('locale.change');
-    Route::get('/', [HomeController::class, 'index']);
-    Route::get('/products/{id}', [ProductController::class, 'show'])->name('client.product.show');
+    Route::get('/', [ClientHomeController::class, 'index']);
+    Route::get('/products/{id}', [ClientProductController::class, 'show'])->name('client.product.show');
+    Route::get('/categories/{id}', [ClientCategoryController::class, 'show'])->name('client.category.show');
+    Route::get('/filter', [ClientAjaxController::class, 'filter'])->name('client.ajax.filter_product');
 });
