@@ -26,6 +26,17 @@
 	<!-- bootstrap-touchspin css -->
 	<link rel="stylesheet" type="text/css" href="{{ asset('admin-page/src/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('admin-page/vendors/styles/style.css') }}">
+
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-119386393-1');
+	</script>
 @endsection
 
 @section('content')
@@ -274,5 +285,5 @@
 	<!-- bootstrap-touchspin js -->
 	<script src="{{ asset('admin-page/src/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js') }}"></script>
 	<script src="{{ asset('admin-page/vendors/scripts/advanced-components.js') }}"></script>
-	<script src="{{ asset('admin-page/js/edit/edit.js') }}"></script>
+	<script src="{{ asset('admin-page/src/scripts/edit.js') }}"></script>
 @endsection

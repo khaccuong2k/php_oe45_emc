@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- Basic Page Info -->
-    <meta charset="utf-8">
+	<!-- Basic Page Info -->
+	<meta charset="utf-8">
 
     {{-- Section title  --}}
-    @yield('title')
+	@yield('title')
 
     {{-- Section css --}}
-    @yield('css')
+	@yield('css')
+
 </head>
 <body>
-    <div class="pre-loader">
+	<div class="pre-loader">
 		<div class="pre-loader-box">
 			<div class="loader-logo"><img src="{{ asset('admin-page/vendors/images/deskapp-logo.svg') }}" alt=""></div>
 			<div class='loader-progress' id="progress_div">
@@ -22,10 +23,10 @@
 				Loading...
 			</div>
 		</div>
-    </div>
+	</div>
 
-    <div class="header">
-        <div class="header-left">
+	<div class="header">
+		<div class="header-left">
 			<div class="menu-icon dw dw-menu"></div>
 			<div class="search-toggle-icon dw dw-search2" data-toggle="header_search"></div>
 			<div class="header-search">
@@ -64,8 +65,8 @@
 					</div>
 				</form>
 			</div>
-        </div>
-        <div class="header-right">
+		</div>
+		<div class="header-right">
 			<div class="dashboard-setting user-notification">
 				<div class="dropdown">
 					<a class="dropdown-toggle no-arrow" href="javascript:;" data-toggle="right-sidebar">
@@ -145,11 +146,11 @@
 					</div>
 				</div>
 			</div>
-        </div>
-    </div>
+		</div>
+	</div>
 
-    <div class="right-sidebar">
-        <div class="sidebar-title">
+	<div class="right-sidebar">
+		<div class="sidebar-title">
 			<h3 class="weight-600 font-16 text-blue">
 				Layout Settings
 				<span class="btn-block font-weight-400 font-12">User Interface Settings</span>
@@ -157,8 +158,8 @@
 			<div class="close-sidebar" data-toggle="right-sidebar-close">
 				<i class="icon-copy ion-close-round"></i>
 			</div>
-        </div>
-        <div class="right-sidebar-body customscroll">
+		</div>
+		<div class="right-sidebar-body customscroll">
 			<div class="right-sidebar-body-content">
 				<h4 class="weight-600 font-18 pb-10">Header Background</h4>
 				<div class="sidebar-btn-group pb-30 mb-10">
@@ -220,11 +221,11 @@
 					<button class="btn btn-danger" id="reset-settings">Reset Settings</button>
 				</div>
 			</div>
-        </div>
-    </div>
+		</div>
+	</div>
 
-    <div class="left-side-bar">
-        <div class="brand-logo">
+	<div class="left-side-bar">
+		<div class="brand-logo">
 			<a href="index.html">
 				<img src="{{ asset('admin-page/vendors/images/deskapp-logo.svg') }}" alt="" class="dark-logo">
 				<img src="{{ asset('admin-page/vendors/images/deskapp-logo-white.svg') }}" alt="" class="light-logo">
@@ -232,8 +233,8 @@
 			<div class="close-sidebar" data-toggle="left-sidebar-close">
 				<i class="ion-close-round"></i>
 			</div>
-        </div>
-        <div class="menu-block customscroll">
+		</div>
+		<div class="menu-block customscroll">
 			<div class="sidebar-menu">
 				<ul id="accordion-menu">
 					<li>
@@ -293,9 +294,9 @@
 					</li>
 				</ul>
 			</div>
-        </div>
-    </div>
-    <div class="mobile-menu-overlay"></div>
+		</div>
+	</div>
+	<div class="mobile-menu-overlay"></div>
 
     {{-- main-container --}}
     @yield('content')
