@@ -24,6 +24,12 @@
 <!-- bootstrap-touchspin css -->
 <link rel="stylesheet" type="text/css" href="{{ asset('admin-page/src/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('admin-page/vendors/styles/style.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('admin-page/css/all.css') }}">
+@endsection
+
+@section('breadcrumb')
+<li class="breadcrumb-item"><a href="{{ route('categories.index')}}">@lang('lable.title.category.index')</a></li>
+<li class="breadcrumb-item active" aria-current="page">@lang('lable.title.category.edit')</li>
 @endsection
 
 @section('content')
@@ -34,45 +40,35 @@
             <h4 class="text-blue h4">@lang('lable.title.category.edit')</h4>
         </div>
     </div>
-    <form action="" method="post" enctype="multipart/form-data">
+    @include('admin.common.message')
+    <form action="{{ route('categories.update', $category->id)}}" method="post" enctype="multipart/form-data">
         @csrf
+        @method('PUT')
         <div class="form-group">
             <label>@lang('lable.category.name')</label>
-            <input class="form-control" type="text" name="name" value="">
+            <input class="form-control" type="text" name="name" value="{{ $category->name }}">
         </div>
         <div class="form-group">
             <label for="">@lang('lable.category.thumbnail')</label>
             <input type="file" class="form-control-file" name="thumbnail" aria-describedby="fileHelpId">
-            <img src="#" alt="" id="blah">
+            <img src="{{ $category->thumbnail }}" alt="" id="blah" class="image-custom-setwh">
         </div>
         <div class="form-group">
-            <label></label>
-            <textarea class="form-control" name="description"></textarea>
+            <label>@lang('lable.category.description')</label>
+            <textarea class="form-control" name="description">{{ $category->description }}</textarea>
         </div>
         <div class="form-group">
             <label>@lang('lable.category.parent_id')</label>
-            <select class="custom-select2 form-control" multiple="multiple" name="parent_id" style="width: 100%;">
-                <optgroup label="Alaskan/Hawaiian Time Zone">
-                    <option value="AK">Alaska</option>
-                    <option value="HI">Hawaii</option>
-                </optgroup>
-                <optgroup label="Pacific Time Zone">
-                    <option value="CA">California</option>
-                    <option value="NV">Nevada</option>
-                    <option value="OR">Oregon</option>
-                    <option value="WA">Washington</option>
-                </optgroup>
-                <optgroup label="Mountain Time Zone">
-                    <option value="AZ">Arizona</option>
-                    <option value="CO">Colorado</option>
-                    <option value="ID">Idaho</option>
-                    <option value="MT">Montana</option>
-                    <option value="NE">Nebraska</option>
-                    <option value="NM">New Mexico</option>
-                    <option value="ND">North Dakota</option>
-                    <option value="UT">Utah</option>
-                    <option value="WY">Wyoming</option>
-                </optgroup>
+            <select class="custom-select2 form-control w-100" multiple="multiple" name="parent_id">
+                <option value="">This Is Parent Category</option>
+                @foreach ($categories as $subCategory)
+                @if ($subCategory->parent_id === null)
+                <option
+                @if ($category->parent_id === $subCategory->id)selected @endif
+                value="{{ $subCategory->id }}">{{ $subCategory->name }}
+                </option>
+                @endif
+                @endforeach
             </select>
         </div>
         <input type="submit" class="btn btn-primary mt-5" value="@lang('lable.action_edit')">

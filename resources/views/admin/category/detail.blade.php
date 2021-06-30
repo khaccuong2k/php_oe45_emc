@@ -25,6 +25,12 @@
 <!-- bootstrap-touchspin css -->
 <link rel="stylesheet" type="text/css" href="{{ asset('admin-page/src/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('admin-page/vendors/styles/style.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('admin-page/css/all.css') }}">
+@endsection
+
+@section('breadcrumb')
+<li class="breadcrumb-item"><a href="{{ route('categories.index')}}">@lang('lable.title.category.index')</a></li>
+<li class="breadcrumb-item active" aria-current="page">@lang('lable.title.category.detail')</li>
 @endsection
 
 @section('content')
@@ -32,6 +38,7 @@
 <div class="card-box mb-30">
     <div class="pd-20">
         <h4 class="text-blue h4">@lang('lable.category.detail')</h4>
+        @include('admin.common.message')
     </div>
     <div class="pb-20">
         <table class="table table-bordered">
@@ -40,15 +47,35 @@
                     <th scope="col">@lang('lable.category.name')</th>
                     <th scope="col">@lang('lable.category.thumbnail')</th>
                     <th scope="col">@lang('lable.category.description')</th>
-                    <th scope="col">@lang('lable.category.parent_id')</th>
+                    <th scope="col">@lang('lable.action')</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <th scope="row">1</th>
-                    <th scope="row">1</th>
-                    <th scope="row">1</th>
-                    <th scope="row">1</th>
+                    <th scope="row">{{ $category->name }}</th>
+                    <th scope="row"><img src="{{ $category->thumbnail }}" alt="" class="image-custom-setwh"></th>
+                    <th scope="row">{{ $category->description }}</th>
+                    <th scope="row">
+                        <div class="dropdown">
+                            <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" role="button" data-toggle="dropdown">
+                            <i class="dw dw-more"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                <a class="dropdown-item" href="{{ route('categories.listProduct', $category->id) }}"><i class="dw dw-eye"></i>
+                                @lang('lable.action_view')
+                                </a>
+                                <a class="dropdown-item" href="{{ route('categories.edit', $category->id) }}"><i class="dw dw-edit2"></i>
+                                @lang('lable.action_edit')
+                                </a>
+                                <form class="dropdown-item" action="{{ route('categories.destroy', $category->id) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <i class="dw dw-delete-3"></i>
+                                    <input type="submit" class="btn btn-outline-danger" value="@lang('lable.action_delete')">
+                                </form>
+                            </div>
+                        </div>
+                    </th>
                 </tr>
             </tbody>
         </table>

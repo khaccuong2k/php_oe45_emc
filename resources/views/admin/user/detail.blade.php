@@ -4,11 +4,6 @@
 <title>@lang('lable.title.user.detail')</title>
 @endsection
 
-@section('bread-crumb')
-	<li class="breadcrumb-item"><a href="{{ route('users.index')}}">@lang('lable.title.user.index')</a></li>
-	<li class="breadcrumb-item active" aria-current="page">@lang('lable.title.user.detail')</li>
-@endsection
-
 @section('css')
 <!-- Site favicon -->
 <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('admin-page/vendors/images/apple-touch-icon.png') }}">

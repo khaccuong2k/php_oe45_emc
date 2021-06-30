@@ -26,6 +26,11 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('admin-page/vendors/styles/style.css') }}">
 @endsection
 
+@section('breadcrumb')
+<li class="breadcrumb-item"><a href="{{ route('categories.index')}}">@lang('lable.title.category.index')</a></li>
+<li class="breadcrumb-item active" aria-current="page">@lang('lable.title.category.add')</li>
+@endsection
+
 @section('content')
 <!-- horizontal Basic Forms Start -->
 <div class="pd-20 card-box mb-30">
@@ -34,45 +39,31 @@
             <h4 class="text-blue h4">@lang('lable.title.category.add')</h4>
         </div>
     </div>
-    <form action="" method="post" enctype="multipart/form-data">
+    <form action="{{ route('categories.store') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <label>@lang('lable.category.name')</label>
-            <input class="form-control" type="text" name="name" value="">
+            <input class="form-control" type="text" name="name">
         </div>
         <div class="form-group">
             <label for="">@lang('lable.category.thumbnail')</label>
             <input type="file" class="form-control-file" name="thumbnail" aria-describedby="fileHelpId">
-            <img src="#" alt="" id="blah">
+            <img src="#" alt="" id="blah" class="image-custom-setwh">
         </div>
         <div class="form-group">
-            <label></label>
+            <label>@lang('lable.category.description')</label>
             <textarea class="form-control" name="description"></textarea>
         </div>
         <div class="form-group">
             <label>@lang('lable.category.parent_id')</label>
-            <select class="custom-select2 form-control" multiple="multiple" name="parent_id" style="width: 100%;">
-                <optgroup label="Alaskan/Hawaiian Time Zone">
-                    <option value="AK">Alaska</option>
-                    <option value="HI">Hawaii</option>
-                </optgroup>
-                <optgroup label="Pacific Time Zone">
-                    <option value="CA">California</option>
-                    <option value="NV">Nevada</option>
-                    <option value="OR">Oregon</option>
-                    <option value="WA">Washington</option>
-                </optgroup>
-                <optgroup label="Mountain Time Zone">
-                    <option value="AZ">Arizona</option>
-                    <option value="CO">Colorado</option>
-                    <option value="ID">Idaho</option>
-                    <option value="MT">Montana</option>
-                    <option value="NE">Nebraska</option>
-                    <option value="NM">New Mexico</option>
-                    <option value="ND">North Dakota</option>
-                    <option value="UT">Utah</option>
-                    <option value="WY">Wyoming</option>
-                </optgroup>
+            <select class="custom-select2 form-control w-100" multiple="multiple" name="parent_id">
+                @foreach ($categories as $subCategory)
+                @if ($subCategory->parent_id === null)
+                <option value="{{ $subCategory->id }}">{{ $subCategory->name }}</option>
+                @else
+                <option value="0" readonly>@lang('lable.is_parent')</option>
+                @endif
+                @endforeach
             </select>
         </div>
         <input type="submit" class="btn btn-primary mt-5" value="@lang('lable.action_add')">

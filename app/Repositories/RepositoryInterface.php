@@ -22,24 +22,24 @@ interface RepositoryInterface
     /**
      * Create
      *
-     * @param  array $attributes
+     * @param  object $attributes
      * @return mixed
      */
-    public function create($attributes = []);
+    public function create(object $attributes);
 
     /**
      * Update
      *
-     * @param  $id
-     * @param  array $attributes
+     * @param  object $attributes
+     * @param  int    $id
      * @return mixed
      */
-    public function update($id, $attributes = []);
+    public function update(object $attributes, $id);
 
     /**
      * Delete
      *
-     * @param  $id
+     * @param  int   $id
      * @return mixed
      */
     public function delete($id);

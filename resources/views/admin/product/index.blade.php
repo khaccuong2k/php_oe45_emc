@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('title')
-<title>@lang('lable.title.product.index')</title>
+<title>@lang('lable.title.product.index')</title> 
 @endsection
 
 @section('css')
@@ -20,7 +20,16 @@
 @endsection
 
 @section('breadcrumb')
-<li class="breadcrumb-item active" aria-current="page">@lang('lable.title.product.index')</li>
+    @if (isset($breadcrumb) && $breadcrumb)
+        <li class="breadcrumb-item">
+            <a href="{{ route('categories.index') }}">
+                @lang('lable.title.category.index')
+            </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">@lang('lable.category.listProduct')</li>
+    @else
+        <li class="breadcrumb-item active" aria-current="page">@lang('lable.title.product.index')</li>
+    @endif
 @endsection
 
 @section('content')
@@ -50,25 +59,12 @@
             @endforelse
         </ul>
     </div>
-    <div class="blog-pagination mb-30">
-        <div class="btn-toolbar justify-content-center mb-15">
-            <div class="btn-group">
-                <a href="#" class="btn btn-outline-primary prev"><i class="fa fa-angle-double-left"></i></a>
-                <a href="#" class="btn btn-outline-primary">1</a>
-                <a href="#" class="btn btn-outline-primary">2</a>
-                <span class="btn btn-primary current">3</span>
-                <a href="#" class="btn btn-outline-primary">4</a>
-                <a href="#" class="btn btn-outline-primary">5</a>
-                <a href="#" class="btn btn-outline-primary next"><i class="fa fa-angle-double-right"></i></a>
-            </div>
-        </div>
-    </div>
 </div>
 @endsection
 
 @section('script')
 <!-- js -->
-<script src="{{ asset('admin-page/vendors/scripts/core.js') }}"></script>') }}
+<script src="{{ asset('admin-page/vendors/scripts/core.js') }}"></script>
 <script src="{{ asset('admin-page/vendors/scripts/script.min.js') }}"></script>
 <script src="{{ asset('admin-page/vendors/scripts/process.js') }}"></script>
 <script src="{{ asset('admin-page/vendors/scripts/layout-settings.js') }}"></script>

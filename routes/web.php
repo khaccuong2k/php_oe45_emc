@@ -27,47 +27,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-/**
- * Route Get Method
- * ----------------
- * route for dashboard
- */
-Route::resource('/admin/dashboard', DashboardController::class);
-
-/**
- * Route Resource
- * ----------------
- * route for users
- */
-Route::resource('admin/users', UserController::class);
-
-/**
- * Route Resource
- * ----------------
- * route for products
- */
-Route::resource('admin/products', ProductController::class);
-
-/**
- * Route Resource
- * ----------------
- * route for orders
- */
-Route::resource('admin/orders', OrderController::class);
-
-/**
- * Route Resource
- * ----------------
- * route for categories
- */
-Route::resource('admin/categories', CategoryController::class);
-
-/**
- * Route Resource
- * ----------------
- * route for requests
- */
-Route::resource('admin/requests', RequestController::class);
 
 Route::group(['middleware' => 'locale'], function () {
     // Auth::routes();
@@ -98,11 +57,30 @@ Route::group(['middleware' => 'locale'], function () {
     ->name('client.user.change_password');
     Route::get('/order', [ClientCartController::class, 'order'])
     ->name('client.order.history');
-});
 
-/**
- * Route import data from file excel and csv
- */
-Route::get('export', [ProductController::class, 'export'])->name('products.export');
-Route::get('importExportView', [ProductController::class, 'products.importExportView']);
-Route::post('import', [ProductController::class, 'import'])->name('products.import');
+    Route::resource('/admin/dashboard', DashboardController::class);
+
+    Route::resource('admin/users', UserController::class);
+
+    Route::resource('admin/products', ProductController::class);
+
+    Route::resource('admin/orders', OrderController::class);
+
+    Route::resource('admin/categories', CategoryController::class);
+
+    Route::get(
+        'admin/categories/{id}/list-product',
+        [
+        CategoryController::class,
+        'getAllProductByCategoryId'
+        ]
+    )->name(
+        'categories.listProduct'
+    );
+
+    Route::resource('admin/requests', RequestController::class);
+
+    Route::get('export', [ProductController::class, 'export'])->name('products.export');
+    Route::get('importExportView', [ProductController::class, 'products.importExportView']);
+    Route::post('import', [ProductController::class, 'import'])->name('products.import');
+});
