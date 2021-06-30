@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ImportProductRequest;
 use App\Imports\ProductsImport;
+use App\Models\Product;
 use App\Repositories\Product\ProductRepository;
 use Exception;
 use Illuminate\Http\Request;
@@ -33,7 +34,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('admin.product.index');
+        $products = Product::paginate(config('app.paginate_number'));
+        
+        return view('admin.product.index', compact('products'));
     }
 
     /**

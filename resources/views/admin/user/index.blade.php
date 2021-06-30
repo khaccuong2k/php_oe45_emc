@@ -28,6 +28,10 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('admin-page/css/all.css') }}">
 @endsection
 
+@section('bread-crumb')
+	<li class="breadcrumb-item active"><a href="{{ route('users.index')}}">@lang('lable.title.user.index')</a></li>
+@endsection
+
 @section('content')
 <!-- Simple Datatable start -->
 <div class="card-box mb-30">

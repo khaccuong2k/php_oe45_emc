@@ -15,7 +15,7 @@ interface RepositoryInterface
      * @param $id
      * @return mixed
      */
-    public function find($id);
+    public function findOrFail($id);
 
     /**
      * Create
@@ -30,7 +30,7 @@ interface RepositoryInterface
      * @param array $attributes
      * @return mixed
      */
-    public function update($id, $attributes = []);
+    public function update($id, array $attributes);
 
     /**
      * Delete

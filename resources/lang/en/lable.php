@@ -86,6 +86,8 @@ return [
         'description' => 'Description',
         'parent_id' => 'Parent Category',
         'detail' => 'Detail Category',
+        'listProduct' => 'List Product',
+        'sub' => 'Sub Category',
     ],
     'order' => [
         'name' => 'Name Products',

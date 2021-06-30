@@ -27,50 +27,63 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('admin-page/vendors/styles/style.css') }}">
 @endsection
 
+@section('bread-crumb')
+<li class="breadcrumb-item"><a href="{{ route('categories.index')}}">@lang('lable.title.category.index')</a></li>
+<li class="breadcrumb-item active" aria-current="page">@lang('lable.title.category.index')</li>
+@endsection
+
 @section('content')
 <!-- Simple Datatable start -->
 <div class="card-box mb-30">
-    <div class="pd-20">
-        <h4 class="text-blue h4">@lang('lable.category.list')</h4>
-    </div>
-    <div class="pb-20">
-        <table class="data-table table stripe hover nowrap">
-            <thead>
-                <tr>
-                    <th class="table-plus datatable-nosort">@lang('lable.category.name')</th>
-                    <th>@lang('lable.category.thumbnail')</th>
-                    <th class="datatable-nosort">@lang('lable.action')</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="table-plus">Gloria F. Mead</td>
-                    <td>25</td>
-                    <td>
-                        <div class="dropdown">
-                            <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                            <i class="dw dw-more"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                <a class="dropdown-item" href="#"><i class="dw dw-add"></i>
-                                @lang('lable.action_add')
-                                </a>
-                                <a class="dropdown-item" href="#"><i class="dw dw-eye"></i>
-                                @lang('lable.action_view')
-                                </a>
-                                <a class="dropdown-item" href="#"><i class="dw dw-edit2"></i>
-                                @lang('lable.action_edit')
-                                </a>
-                                <a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i>
-                                @lang('lable.action_delete')
-                                </a>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+	<div class="pd-20">
+		<h4 class="text-blue h4">@lang('lable.category.list')</h4>
+	</div>
+	<div class="pb-20">
+		<table class="table">
+			@forelse ($categories as $key => $category)
+			<thead>
+				<tr>
+					<td class="text-center"><h3>{{ $category->name }}</h3></td>
+				</tr>
+			</thead>
+			<tbody>
+			@forelse ($category->subCategories as $subCategories)
+				<tr>
+					<td colspan="4">
+						<table class="table mb-0 table-bordered table-dark">
+						<thead>
+							<tr>
+								<td class="w-25 p-3">@lang('lable.category.sub')</td>
+								<td class="w-50 p-3">{{ $subCategories->name }}</td>
+								<td class="w-25 p-3">
+									<a class="btn btn-outline-info" href="{{ route('categories.show', $subCategories->id) }}">
+										@lang('lable.category.detail')
+									</a>
+								</td>
+							</tr>
+						</thead>
+						</table>
+					</td>
+				</tr>
+			@empty
+			<tr>
+				<td colspan="4">
+					<table class="table mb-0 table-bordered table-dark">
+					<thead>
+						<tr>
+							<td>nonono</td>
+						</tr>
+					</thead>
+					</table>
+				</td>
+			</tr>
+			@endforelse
+			</tbody>
+			@empty
+				nononon
+			@endforelse
+		</table>
+	</div>
 </div>
 <!-- Simple Datatable End -->
 @endsection
