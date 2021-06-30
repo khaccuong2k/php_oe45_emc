@@ -14,8 +14,10 @@
         <link rel="stylesheet" href="{{ asset('customers/assets/vendor/font-awesome/css/all.min.css') }}">
         <link rel="stylesheet" href="{{ asset('customers/assets/vendor/hs-mega-menu/dist/hs-mega-menu.min.css') }}">
         <link rel="stylesheet" href="{{ asset('customers/assets/vendor/fancybox/dist/jquery.fancybox.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('customers/assets/vendor/ion-rangeslider/css/ion.rangeSlider.css') }}">
         <!-- CSS Front Template -->
         <link rel="stylesheet" href="{{ asset('customers/assets/css/theme.css') }}">
+        <link rel="stylesheet" href="{{ asset('customers/assets/vendor/select2/dist/css/select2.min.css') }}">
     </head>
     <body>
         <!-- ========== HEADER ========== -->
@@ -293,4 +295,3 @@
             </div>
         </header>
         <!-- ========== END HEADER ========== -->
-        
