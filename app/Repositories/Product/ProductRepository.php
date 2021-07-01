@@ -5,6 +5,7 @@ namespace App\Repositories\Product;
 use App\Models\Product;
 use App\Models\Category;
 use App\Repositories\BaseRepository;
+use Illuminate\Support\Facades\DB;
 
 class ProductRepository extends BaseRepository implements ProductRepositoryInterface
 {
@@ -41,7 +42,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         }
     }
 
-    public function filterProductsFollowCategory($categoryId, $filterBy, $paginateNumber)
+    public function filterProductsFollowCategory($categoryId, $filterBy, $star, $paginateNumber)
     {
         switch ($filterBy) {
             case config('showitem.filter_by.price_asc'):
@@ -61,6 +62,18 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
                 break;
             case config('showitem.filter_by.newest'):
                 $products = Product::where('category_id', $categoryId)->orderBy('id', 'DESC')->paginate($paginateNumber);
+                break;
+            case config('showitem.filter_by.star'):
+                if ($star == config('showitem.stars.zero')) {
+                    $products = Product::where([ ['category_id', $categoryId], ['products.number_of_vote_submission', 0]])->orderBy('id', 'DESC')->paginate($paginateNumber);
+                } else{
+                    if ($star == config('showitem.stars.five')) {
+                        $lessStar = $star - config('showitem.minus_one');
+                    } else {
+                        $lessStar = $star;
+                    }
+                    $products = Product::where([ ['category_id', $categoryId], [DB::raw('(products.number_of_vote_submissions / products.total_vote)'),'>=', $lessStar],[DB::raw('(products.number_of_vote_submissions / products.total_vote)'),'<=', $star]])->orderBy('id', 'DESC')->paginate($paginateNumber);
+                }
                 break;
             default:
                 abort(404);

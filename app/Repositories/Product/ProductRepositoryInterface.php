@@ -45,5 +45,5 @@ interface ProductRepositoryInterface
      * @param $paginate
      * @return mixed
      */
-    public function filterProductsFollowCategory($categoryId, $filterBy, $paginateNumber);
+    public function filterProductsFollowCategory($categoryId, $filterBy, $star, $paginateNumber);
 }

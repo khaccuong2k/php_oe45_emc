@@ -237,7 +237,16 @@
                                         "maxWidth": "350px"
                                         }
                                         }'>
-                                        <a id="myCoursesMegaMenu" class="hs-mega-menu-invoker nav-link nav-link-toggle" href="javascript:;" aria-haspopup="true" aria-expanded="false">{{ trans('message.my_cart') }}</a>
+                                        <a id="myCoursesMegaMenu" class="hs-mega-menu-invoker nav-link nav-link-toggle" href="javascript:;" aria-haspopup="true" aria-expanded="false">
+                                            {{ trans('message.my_cart') }}
+                                            <span id="cart-number-item">
+                                                @if (Session::has('cart-item-number'))
+                                                    {{ Session::get('cart-item-number') }}
+                                                @else
+                                                    {{ config('showitem.cart.zero') }}                                                
+                                                @endif
+                                            </span>
+                                        </a> 
                                         <!-- My Courses - Submenu -->
                                         <div class="hs-mega-menu dropdown-menu" aria-labelledby="myCoursesMegaMenu">
                                             <div class="card">

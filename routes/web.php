@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\RequestController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Client\AjaxController as ClientAjaxController;
+use App\Http\Controllers\Client\CartController as ClientCartController;
 use App\Http\Controllers\Client\CategoryController as ClientCategoryController;
 use App\Http\Controllers\Client\HomeController as ClientHomeController;
 use App\Http\Controllers\Client\ProductController as ClientProductController;
@@ -73,4 +74,6 @@ Route::group(['middleware' => 'locale'], function() {
     Route::get('/products/{id}', [ClientProductController::class, 'show'])->name('client.product.show');
     Route::get('/categories/{id}', [ClientCategoryController::class, 'show'])->name('client.category.show');
     Route::get('/filter', [ClientAjaxController::class, 'filter'])->name('client.ajax.filter_product');
+    Route::get('/add-to-cart', [ClientAjaxController::class, 'addToCart'])->name('client.ajax.addToCart');
+    Route::get('/carts', [ClientCartController::class, 'index'])->name('client.cart.index');
 });

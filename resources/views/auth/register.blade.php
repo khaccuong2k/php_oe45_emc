@@ -99,7 +99,7 @@
                 <label class="custom-control-label" for="termsCheckboxExample1">
                 <small>
                 {{ trans('message.i_agree') }}
-                <a class="link-underline" href="#">{{ trans('massage.terms_conditions') }}</a>
+                <a class="link-underline" href="#">{{ trans('message.terms_conditions') }}</a>
                 </small>
                 </label>
             </div>
