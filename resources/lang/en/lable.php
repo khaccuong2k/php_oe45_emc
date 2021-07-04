@@ -32,11 +32,24 @@ return [
     ],
     'action' => 'Action',
     'action_view' => 'Detail',
-    'action_add' => 'Add',
+    'action_add' => 'Add :name',
+    'action_add_image' => 'Add :name',
     'action_edit' => 'Edit',
     'action_delete' => 'Delete',
     'no_have_value' => 'No Have Value',
     'is_parent' => 'This is parent category',
+    'name' => 'Name',
+    'content' => 'Content',
+    'shot_description' => 'Shot Description',
+    'price' => 'Price',
+    'quantity' => 'Quantity',
+    'parent_id' => 'Category Parent',
+    'image' => 'Image',
+    'addExcel' => 'Add Data With Excel',
+    'close' => 'Close',
+    'views' => 'Views',
+    'solds' => 'Solds',
+    'votes' => 'Votes',
     'app' => [
         'loading' => 'Loading...',
         'search' => [
@@ -100,7 +113,5 @@ return [
     ],
     'product' => [
         'detail' => 'View Detail',
-        'addExcel' => 'Add Data With Excel',
-        'close' => 'Close',
     ],
 ];

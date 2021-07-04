@@ -69,23 +69,23 @@ abstract class BaseRepository implements RepositoryInterface
      * @param  object $attributes
      * @return mixed
      */
-    public function create($attributes)
+    public function create(object $request)
     {
-        return $this->model->create($attributes);
+        return $this->model->create($request);
     }
 
     /**
      * Update
      *
+     * @param  $id
      * @param  object $attributes
-     * @param  int    $id
      * @return bool|mixed
      */
-    public function update($attributes, $id)
+    public function update(object $request, $id)
     {
         $find = $this->findOrFail($id);
         if ($find) {
-            $find->update($attributes);
+            $find->update($request);
 
             return true;
         }

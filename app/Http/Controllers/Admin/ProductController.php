@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ImportProductRequest;
-use App\Models\Category;
+use App\Repositories\Category\CategoryRepository;
 use App\Repositories\Product\ProductRepository;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -17,11 +18,23 @@ class ProductController extends Controller
     protected $productRepository;
 
     /**
-     * @var ProductRepository $productRepository
+     *
+     * @var $categoryRepository
      */
-    public function __construct(ProductRepository $productRepository)
-    {
+    protected $categoryRepository;
+
+    /**
+     *
+     * @var ProductRepository  $productRepository
+     * @var CategoryRepository $categoryRepository
+     */
+    public function __construct(
+        ProductRepository $productRepository,
+        CategoryRepository $categoryRepository
+    ) {
         $this->productRepository = $productRepository;
+
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
@@ -31,8 +44,18 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = $this->productRepository->paginate('id', 'desc', config('app.paginate_number'));
-
+        try {
+            $products = $this->productRepository->paginate(
+                'id',
+                'desc',
+                (config('app.paginate_number'))
+            );
+        } catch (QueryException $exception) {
+            return back()->withError(
+                'message.select_data.fail'
+            );
+        }
+        
         return view('admin.product.index', compact('products'));
     }
 
@@ -43,7 +66,16 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.product.add');
+        try {
+            // Get all category with relationship subcategory
+            $categories = $this->categoryRepository->all();
+        } catch (QueryException $exception) {
+            return back()->withError(
+                'message.select_data.fail'
+            );
+        }
+
+        return view('admin.product.add', compact('categories'));
     }
 
     /**
@@ -54,7 +86,12 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $store = $this->productRepository->transaction($request, 'create', $id = null);
+        if ($store) {
+            return redirect()->route('products.index');
+        }
+
+        return back()->withError('message.store.error');
     }
 
     /**
@@ -65,7 +102,19 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        return view('admin.product.detail');
+        $detailProduct = $this->productRepository->getAllCategoryByProductId($id);
+        if ($detailProduct) {
+            return view(
+                'admin.product.detail',
+                compact(
+                    'detailProduct'
+                )
+            );
+        }
+
+        return back()->withError(
+            'message.notFound'
+        );
     }
 
     /**
@@ -76,7 +125,35 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.product.edit');
+        try {
+            // Get all category with relationship subcategory
+            $categories = $this->categoryRepository->all();
+
+            // Get all category of this product and detail product
+            $detailProduct = $this->productRepository->getAllCategoryByProductId($id);
+        } catch (QueryException $exception) {
+            return back()->withError(
+                'message.notFound'
+            );
+        }
+
+        if ($categories && $detailProduct) {
+            // List id parent category of this product
+            $listIdCategoryOfThisProduct = [];
+            foreach ($detailProduct->categories as $category) {
+                $listIdCategoryOfThisProduct[] = $category->id;
+            }
+
+            return view('admin.product.edit', compact(
+                'categories',
+                'detailProduct',
+                'listIdCategoryOfThisProduct',
+            ));
+        }
+        
+        return back()->withError(
+            'message.notFound'
+        );
     }
 
     /**
@@ -88,7 +165,12 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $update = $this->productRepository->transaction($request, 'update', $id);
+        if ($update) {
+            return redirect()->route('products.show', $id);
+        }
+
+        return back()->withError('message.update.error');
     }
 
     /**
@@ -99,7 +181,12 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $destroy = $this->productRepository->transaction(null, 'delete', $id);
+        if ($destroy) {
+            return redirect()->route('products.index');
+        }
+
+        return back()->withError('message.destroy.error');
     }
 
     /**

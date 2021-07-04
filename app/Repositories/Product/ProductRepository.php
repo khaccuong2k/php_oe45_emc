@@ -5,6 +5,7 @@ namespace App\Repositories\Product;
 use App\Imports\ProductsImport;
 use App\Models\Product;
 use App\Repositories\BaseRepository;
+use Exception;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -149,5 +150,68 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         }
  
         return false;
+    }
+
+    public function getAllCategoryByProductId(int $id)
+    {
+        $find = $this->findOrFail($id);
+        if ($find) {
+            $categoryByProductId = $this->model::with('categories')->findOrFail($id);
+
+            return $categoryByProductId;
+        }
+        
+        return false;
+    }
+
+    public function transaction($request, $typeAction, $id = null)
+    {
+        DB::beginTransaction();
+        try {
+            if ($typeAction === 'delete') {
+                $this->findOrFail($id)->categories()->detach();
+                $action = $this->$typeAction($id);
+                DB::commit();
+
+                return true;
+            }
+            $action = $this->$typeAction($this->dataRequest($request), $id);
+
+            ($id === null)
+                ? $action->categories()->sync($request->parent_id)
+                : $this->findOrFail($id)->categories()->sync($request->parent_id);
+            DB::commit();
+            $this->handleUploadImage($request);
+
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            
+            return false;
+        }
+    }
+
+    public function dataRequest($request)
+    {
+        if ($request !== null) {
+            // Array image request
+            $listImageRequest = [];
+            foreach ($request->thumbnail as $thumbnail) {
+                // Add name of file to array image request
+                $listImageRequest[] = $thumbnail->getClientOriginalName();
+            }
+            // Change type array of $listImageRequest to string
+            $imageToUpload = implode(',', $listImageRequest);
+            return [
+                'name' => $request->name,
+                'thumbnail' => $imageToUpload,
+                'content' => $request->content,
+                'quantity' => $request->quantity,
+                'price' => $request->price,
+                'short_description' => $request->short_description,
+            ];
+        }
+
+        return null;
     }
 }
