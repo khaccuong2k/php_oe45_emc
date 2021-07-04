@@ -49,6 +49,16 @@ return [
     'views' => 'Views',
     'solds' => 'Solds',
     'votes' => 'Votes',
+    'order_confirmation' => 'Order Confirmation',
+    'delivery' => 'Delivery',
+    'ordered' => 'Ordered',
+    'payment_online' => 'Payment Online',
+    'payment_on_delivery' => 'Payment on delivery',
+    'go_to_order' => 'Go To Order',
+    'go_to_delivery' => 'Go To Delivery',
+    'ordered' => 'Ordered',
+    'name_atr' => 'Name :name',
+    'detail' => 'Detail :name',
     'app' => [
         'loading' => 'Loading...',
         'search' => [

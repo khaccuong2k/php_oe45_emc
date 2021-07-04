@@ -17,8 +17,8 @@ class CreateOrdersTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->tinyInteger('type_payment');
-            $table->tinyInteger('status');
+            $table->tinyInteger('type_payment')->default(0);
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
     }

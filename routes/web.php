@@ -54,6 +54,16 @@ Route::resource('admin/products', ProductController::class);
 Route::resource('admin/orders', OrderController::class);
 
 /**
+ * Route get
+ * ----------------
+ * route for change status of order
+ */
+Route::get(
+    'admin/orders/change-status/{id}',
+    [OrderController::class, 'changeStatus']
+    )->name('orders.change-status');
+
+/**
  * Route Resource
  * ----------------
  * route for categories

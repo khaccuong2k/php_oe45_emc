@@ -27,27 +27,36 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('admin-page/vendors/styles/style.css') }}">
 @endsection
 
+@section('bread-crumb')
+<li class="breadcrumb-item"><a href="{{ route('orders.index') }}">@lang('lable.title.order.index')</a></li>
+<li class="breadcrumb-item active">@lang('lable.title.order.detail')</li>
+@endsection
+
 @section('content')
 <!-- multiple select row Datatable start -->
 <div class="card-box mb-30">
     <div class="pd-20">
-        <h4 class="text-blue h4">@lang('lable.order.detail')</h4>
+        <h4 class="text-blue h4">@lang('lable.title.order.detail')</h4>
     </div>
     <div class="pb-20">
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th scope="col">@lang('lable.order.name')</th>
-                    <th scope="col">@lang('lable.order.thumbnail')</th>
-                    <th scope="col">@lang('lable.order.qty')</th>
+                    <th scope="col">@lang('lable.name_atr', ['name' => 'Product'])</th>
+                    <th scope="col">@lang('lable.quantity')</th>
                 </tr>
             </thead>
             <tbody>
+                @forelse ($detailOrder->orderDetail as $orderDetail)
                 <tr>
-                    <th scope="row">1</th>
-                    <th scope="row">1</th>
-                    <th scope="row">1</th>
+                    <th scope="row">{{ $orderDetail->product->name }}</th>
+                    <th scope="row">{{ $orderDetail->quantity }}</th>
                 </tr>
+                @empty
+                <tr>
+                    <th scope="row" colspan="2" class="text-center">@lang('lable.no_have_value')</th>
+                </tr>
+                @endforelse
             </tbody>
         </table>
     </div>

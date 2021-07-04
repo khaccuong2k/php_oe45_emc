@@ -101,7 +101,7 @@ abstract class BaseRepository implements RepositoryInterface
     {
         if ($request !== null) {
             $image = $request->file('thumbnail');
-            if (count($image) > 1) {
+            if (is_array($image)) {
                 foreach ($image as $key => $img)
                 {
                     $image[$key]->move(public_path('admin-page/files/images'), time().$image[$key]->getClientOriginalName());

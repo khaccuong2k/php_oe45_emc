@@ -3,10 +3,28 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Models\OrderDetail;
+use App\Repositories\Order\OrderRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
+    /**
+    * 
+    * @var $orderRepository
+    */
+    protected $orderRepository;
+
+    /**
+     * @var OrderRepository $orderRepository
+     */
+    public function __construct(OrderRepository $orderRepository)
+    {
+        $this->orderRepository = $orderRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +32,11 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return view('admin.order.index');
+        $orders = $this->orderRepository->all();
+
+        return view('admin.order.index', compact(
+            'orders',
+        ));
     }
 
     /**
@@ -46,7 +68,9 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $detailOrder = $this->orderRepository->findOrFail($id);
+
+        return view('admin.order.detail', compact('detailOrder'));
     }
 
     /**
@@ -81,5 +105,15 @@ class OrderController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function changeStatus($id)
+    {
+        $changeStatus = $this->orderRepository->changeStatus($id);
+        if ($changeStatus) {
+            return true;
+        }
+
+        return back()->withError('message.change_status.fail');
     }
 }

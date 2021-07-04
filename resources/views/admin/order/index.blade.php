@@ -27,43 +27,161 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('admin-page/vendors/styles/style.css') }}">
 @endsection
 
+@section('bread-crumb')
+<li class="breadcrumb-item active">@lang('lable.title.order.index')</li>
+@endsection
+
 @section('content')
-<!-- multiple select row Datatable start -->
-<div class="card-box mb-30">
-    <div class="pd-20">
-        <h4 class="text-blue h4">@lang('lable.title.order.index')</h4>
-    </div>
-    <div class="pb-20">
-        <table class="data-table table hover multiple-select-row nowrap">
-            <thead>
-                <tr>
-                    <th class="table-plus datatable-nosort">@lang('lable.order.user_order')</th>
-                    <th>@lang('lable.order.type_payment')</th>
-                    <th>@lang('lable.order.status')</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="table-plus">Gloria F. Mead</td>
-                    <td>Sagittarius</td>
-                    <td>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <select class="form-control" data-style="btn-outline-danger">
-                                    <option data-subtext="French's">Mustard</option>
-                                    <option data-subtext="Heinz">Ketchup</option>
-                                    <option data-subtext="Sweet">Relish</option>
-                                    <option data-subtext="Miracle Whip">Mayonnaise</option>
-                                </select>
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 mb-30">
+        <div class="pd-20 card-box">
+            <h5 class="h4 text-blue mb-20">@lang('lable.title.order.index')</h5>
+            <div class="tab">
+                <ul class="nav nav-tabs customtab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#home2" role="tab" aria-selected="true">@lang('lable.order_confirmation')</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#profile2" role="tab" aria-selected="false">@lang('lable.delivery')</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#contact2" role="tab" aria-selected="false">@lang('lable.ordered')</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="home2" role="tabpanel">
+                        <!-- multiple select row Datatable start -->
+                        <div class="card-box mb-30">
+                            <div class="pb-20">
+                                <table class="table hover nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>@lang('lable.order.user_order')</th>
+                                            <th>@lang('lable.order.type_payment')</th>
+                                            <th>@lang('lable.detail', ['name' => 'Order'])</th>
+                                            <th>@lang('lable.action')</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse ($orders as $key => $order)
+                                            @if ($order->status === 0)
+                                            <tr>
+                                                <td class="table-plus">{{ $order->user->fullname }}</td>
+                                                <td>
+                                                    @if ($order->type_payment === 1) @lang('lable.payment_on_delivery')
+                                                    @else @lang('lable.payment_online')
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <a href="{{ route('orders.show', $order->id) }}" class="btn btn-outline-info">
+                                                        @lang('lable.detail', ['name' => 'Order'])
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a href="{{ route('orders.change-status', $order->id)}}" class="btn btn-outline-primary">
+                                                        @lang('lable.go_to_order')
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            @endif
+                                        @empty
+                                        <tr>
+                                            <td class="table-plus text-center" colspan="2">
+                                                @lang('lable.no_have_value')
+                                            </td>
+                                        </tr>
+                                        @endforelse
+                                        
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                        <!-- multiple select row Datatable End -->
+                    </div>
+                    <div class="tab-pane fade" id="profile2" role="tabpanel">
+                        <!-- multiple select row Datatable start -->
+                        <div class="card-box mb-30">
+                            <div class="pb-20">
+                                <table class="table hover nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>@lang('lable.order.user_order')</th>
+                                            <th>@lang('lable.detail', ['name' => 'Order'])</th>
+                                            <th>@lang('lable.action')</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse ($orders as $order)
+                                            @if ($order->status === 1)
+                                            <tr>
+                                                <td class="table-plus">{{ $order->user->fullname }}</td>
+                                                <td>
+                                                    <a href="{{ route('orders.show', $order->id) }}" class="btn btn-outline-info">
+                                                        @lang('lable.detail', ['name' => 'Order'])
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a href="{{ route('orders.change-status', $order->id)}}" class="btn btn-outline-primary">
+                                                        @lang('lable.go_to_delivery')
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            @endif
+                                        @empty
+                                        <tr>
+                                            <td class="table-plus text-align" colspan="2">
+                                                @lang('lable.no_have_value')
+                                            </td>
+                                        </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- multiple select row Datatable End -->
+                    </div>
+                    <div class="tab-pane fade" id="contact2" role="tabpanel">
+                        <!-- multiple select row Datatable start -->
+                        <div class="card-box mb-30">
+                            <div class="pb-20">
+                                <table class="table hover nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>@lang('lable.order.user_order')</th>
+                                            <th>@lang('lable.detail', ['name' => 'Order'])</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse ($orders as $order)
+                                            @if ($order->status === 2)
+                                                <tr>
+                                                    <td class="table-plus">{{ $order->user->fullname }}</td>
+                                                    <td>
+                                                        <a href="{{ route('orders.show', $order->id) }}" class="btn btn-outline-info">
+                                                            @lang('lable.detail', ['name' => 'Order'])
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                        @empty
+                                        <tr>
+                                            <td class="table-plus text-align" colspan="2">
+                                                @lang('lable.no_have_value')
+                                            </td>
+                                        </tr>
+                                        @endforelse
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- multiple select row Datatable End -->
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-<!-- multiple select row Datatable End -->
 @endsection
 
 @section('script')
@@ -72,20 +190,6 @@
 <script src="{{ asset('admin-page/vendors/scripts/script.min.js') }}"></script>
 <script src="{{ asset('admin-page/vendors/scripts/process.js') }}"></script>
 <script src="{{ asset('admin-page/vendors/scripts/layout-settings.js') }}"></script>
-<script src="{{ asset('admin-page/src/plugins/datatables/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('admin-page/src/plugins/datatables/js/dataTables.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('admin-page/src/plugins/datatables/js/dataTables.responsive.min.js') }}"></script>
-<script src="{{ asset('admin-page/src/plugins/datatables/js/responsive.bootstrap4.min.js') }}"></script>
-<!-- buttons for Export datatable -->
-<script src="{{ asset('admin-page/src/plugins/datatables/js/dataTables.buttons.min.js') }}"></script>
-<script src="{{ asset('admin-page/src/plugins/datatables/js/buttons.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('admin-page/src/plugins/datatables/js/buttons.print.min.js') }}"></script>
-<script src="{{ asset('admin-page/src/plugins/datatables/js/buttons.html5.min.js') }}"></script>
-<script src="{{ asset('admin-page/src/plugins/datatables/js/buttons.flash.min.js') }}"></script>
-<script src="{{ asset('admin-page/src/plugins/datatables/js/pdfmake.min.js') }}"></script>
-<script src="{{ asset('admin-page/src/plugins/datatables/js/vfs_fonts.js') }}"></script>
-<!-- Datatable Setting js -->
-<script src="{{ asset('admin-page/vendors/scripts/datatable-setting.js') }}"></script></body>
 <!-- switchery js -->
 <script src="{{ asset('admin-page/src/plugins/switchery/switchery.min.js') }}"></script>
 <!-- bootstrap-tagsinput js -->
