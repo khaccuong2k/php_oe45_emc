@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ImportProductRequest;
 use App\Imports\ProductsImport;
 use App\Models\Product;
+use App\Repositories\Category\CategoryRepository;
 use App\Repositories\Product\ProductRepository;
 use Exception;
 use Illuminate\Http\Request;
@@ -20,11 +21,23 @@ class ProductController extends Controller
     protected $productRepository;
 
     /**
-     * @var ProductRepository $productRepository
+     * 
+     * @var $categoryRepository
      */
-    public function __construct(ProductRepository $productRepository)
-    {
+    protected $categoryRepository;
+
+    /**
+     * 
+     * @var ProductRepository  $productRepository
+     * @var CategoryRepository $categoryRepository
+     */
+    public function __construct(
+        ProductRepository $productRepository,
+        CategoryRepository $categoryRepository
+    ) {
         $this->productRepository = $productRepository;
+
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
@@ -34,7 +47,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate(config('app.paginate_number'));
+        $products = $this->productRepository->paginate(
+            'id',
+            'desc',
+            (config('app.paginate_number'))
+        );
         
         return view('admin.product.index', compact('products'));
     }
@@ -46,7 +63,10 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.product.add');
+        // Get all category with relationship subcategory
+        $categories = $this->categoryRepository->all();
+
+        return view('admin.product.add', compact('categories'));
     }
 
     /**
@@ -57,7 +77,12 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $store = $this->productRepository->transaction($request, $id = null, 'create');
+        if ($store) {
+            return redirect()->route('products.index');
+        }
+
+        return back()->withError('message.store.error');
     }
 
     /**
@@ -68,7 +93,10 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        return view('admin.product.detail');
+        // Get all category of this product and detail product
+        $detailProduct = $this->productRepository->getAllCategoryByProductId($id);
+        
+        return view('admin.product.detail', compact('detailProduct'));
     }
 
     /**
@@ -79,7 +107,24 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.product.edit');
+        // Get all category with relationship subcategory
+        $categories = $this->categoryRepository->all();
+
+        // Get all category of this product and detail product
+        $detailProduct = $this->productRepository->getAllCategoryByProductId($id);
+
+        // List id parent category of this product
+        $listIdCategoryOfThisProduct = [];
+        foreach ($detailProduct->categories as $category)
+        {
+            $listIdCategoryOfThisProduct[] = $category->id;
+        }
+
+        return view('admin.product.edit', compact(
+            'categories',
+            'detailProduct',
+            'listIdCategoryOfThisProduct',
+        ));
     }
 
     /**
@@ -91,7 +136,12 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $update = $this->productRepository->transaction($request, $id, 'update');
+        if ($update) {
+            return redirect()->route('products.show', $id);
+        }
+
+        return back()->withError('message.update.error');
     }
 
     /**
@@ -102,7 +152,12 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $destroy = $this->productRepository->transaction(null, $id, 'delete');
+        if ($destroy) {
+            return redirect()->route('products.index');
+        }
+
+        return back()->withError('message.destroy.error');
     }
 
     /**

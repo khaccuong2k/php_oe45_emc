@@ -16,6 +16,7 @@ abstract class BaseRepository implements RepositoryInterface
 
     /**
      * Get model
+     * 
      * @return mixed
      */
     abstract public function getModel();
@@ -30,20 +31,11 @@ abstract class BaseRepository implements RepositoryInterface
         );
     }
 
-    /**
-     * Get all
-     * @return mixed
-     */
     public function all()
     {
         return $this->model->all();
     }
 
-    /**
-     * Get by id
-     * @param $id
-     * @return mixed
-     */
     public function findOrFail($id)
     {
         $result = $this->model->findOrFail($id);
@@ -54,27 +46,16 @@ abstract class BaseRepository implements RepositoryInterface
         return false;
     }
 
-    /**
-     * Create
-     * @param array $attributes
-     * @return mixed
-     */
-    public function create($attributes = [])
+    public function create($request)
     {
-        return $this->model->create($attributes);
+        return $this->model->create($request);
     }
 
-    /**
-     * Update
-     * @param $id
-     * @param array $attributes
-     * @return bool|mixed
-     */
-    public function update($id, array $attributes)
+    public function update($request, $id)
     {
         $find = $this->findOrFail($id);
         if ($find) {
-            $find->update($attributes);
+            $find->update($request);
 
             return true;
         }
@@ -82,11 +63,6 @@ abstract class BaseRepository implements RepositoryInterface
         return false;
     }
 
-    /**
-     * Delete
-     * @param $id
-     * @return bool|mixed
-     */
     public function delete($id)
     {
         $find = $this->findOrFail($id);
@@ -101,9 +77,10 @@ abstract class BaseRepository implements RepositoryInterface
 
     /**
      * Order by and paginate
+     * 
      * @param null $colum
      * @param null $orderBy
-     * @param $paginate
+     * @param null $paginate
      * @return mixed
      */
     public function paginate($colum = null, $orderBy = null, $paginate = null)
@@ -118,5 +95,26 @@ abstract class BaseRepository implements RepositoryInterface
     public function orderBy($colum, $orderBy)
     {
         return $this->model->orderBy($colum, $orderBy)->get();
+    }
+
+    public function handleUploadImage(object $request = null)
+    {
+        if ($request !== null) {
+            $image = $request->file('thumbnail');
+            if (count($image) > 1) {
+                foreach ($image as $key => $img)
+                {
+                    $image[$key]->move(public_path('admin-page/files/images'), time().$image[$key]->getClientOriginalName());
+                }
+    
+                return true;
+            }
+    
+            $image[0]->move(public_path('admin-page/files/images'), time().$image[0]->getClientOriginalName());
+    
+            return true;
+        }
+
+        return true;
     }
 }

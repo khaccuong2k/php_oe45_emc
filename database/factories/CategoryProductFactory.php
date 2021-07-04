@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Category;
-use App\Models\Model;
+use App\Models\CategoryProduct;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -14,7 +14,7 @@ class CategoryProductFactory extends Factory
      *
      * @var string
      */
-    protected $model = Model::class;
+    protected $model = CategoryProduct::class;
 
     /**
      * Define the model's default state.

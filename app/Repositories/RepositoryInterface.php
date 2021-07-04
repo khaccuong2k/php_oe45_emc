@@ -6,36 +6,48 @@ interface RepositoryInterface
 {
     /**
      * Get all
+     * 
      * @return mixed
      */
     public function all();
 
     /**
      * Get one
-     * @param $id
+     * 
+     * @param int $id
      * @return mixed
      */
-    public function findOrFail($id);
+    public function findOrFail(int $id);
 
     /**
      * Create
-     * @param array $attributes
+     * 
+     * @param object $attributes
      * @return mixed
      */
-    public function create($attributes = []);
+    public function create(object $request);
 
     /**
      * Update
-     * @param $id
-     * @param array $attributes
+     * 
+     * @param        $id
+     * @param object $attributes
      * @return mixed
      */
-    public function update($id, array $attributes);
+    public function update(object $request, $id);
 
     /**
      * Delete
-     * @param $id
+     * 
+     * @param int    $id
      * @return mixed
      */
-    public function delete($id);
+    public function delete(int $id);
+
+    /**
+     * Handle update images to public
+     * 
+     * @var object $request
+     */
+    public function handleUploadImage(object $request);
 }

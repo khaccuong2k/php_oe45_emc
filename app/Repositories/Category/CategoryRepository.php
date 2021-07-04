@@ -20,9 +20,6 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
         return $parentCategory;
     }
 
-    /**
-     * Get all product by category_id
-     */
     public function getAllProductByCategoryId(int $id)
     {
         $listProduct = $this->model::with('products')->where('id', $id)->first();
@@ -33,10 +30,6 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
         return false;
     }
 
-    /**
-     * Get add category and category parent by category_id
-     * 
-     */
     public function getAllCategoryIsParent()
     {
         $parentCategory = $this->model::where('parent_id', null)->get();
@@ -44,45 +37,31 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
         return $parentCategory;
     }
 
-    /**
-     * Edit category
-     * 
-     * @var int $id
-     * @var array $attributes
-     * @return bool|mixed
-     */
-    public function createCategory($attributes)
+    public function create($request)
     {
-        $this->handleUploadImage($attributes);
+        $this->handleUploadImage($request);
         
         $this->model->create([
-                        'name' => $attributes->name,
-                        'thumbnail' => $attributes->thumbnail->getClientOriginalName(),
-                        'description' => $attributes->description,
-                        'parent_id' => $attributes->parent_id
+                        'name' => $request->name,
+                        'thumbnail' => $request->thumbnail->getClientOriginalName(),
+                        'description' => $request->description,
+                        'parent_id' => $request->parent_id
                         ]);
 
         return true;
     }
 
-    /**
-     * Edit category
-     * 
-     * @var int $id
-     * @var array $attributes
-     * @return bool|mixed
-     */
-    public function updateCategory($id, $attributes)
+    public function update($id, $request)
     {
         $find = $this->model::findOrFail($id);
         if ($find) {
-            $this->handleUploadImage($attributes);
+            $this->handleUploadImage($request);
             
             $find->update([
-                            'name' => $attributes->name,
-                            'thumbnail' => $attributes->thumbnail->getClientOriginalName(),
-                            'description' => $attributes->description,
-                            'parent_id' => $attributes->parent_id
+                            'name' => $request->name,
+                            'thumbnail' => $request->thumbnail->getClientOriginalName(),
+                            'description' => $request->description,
+                            'parent_id' => $request->parent_id
                           ]);
 
             return true;
@@ -91,12 +70,7 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
         return false;
     }
 
-    /**
-     * Delete category
-     * 
-     * @var int $id
-     */
-    public function deleteCategory($id)
+    public function delete($id)
     {
         $find = $this->findOrFail($id);
         if ($find) {
@@ -110,17 +84,5 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
         }
 
         return false;
-    }
-
-    /**
-     * Handle update images to public
-     * 
-     * @var object $request
-     */
-    public function handleUploadImage(object $request)
-    {
-        $image = $request->file('thumbnail');
-        
-        $image->move(public_path('admin-page/files/images'), time().$image->getClientOriginalName());
     }
 }

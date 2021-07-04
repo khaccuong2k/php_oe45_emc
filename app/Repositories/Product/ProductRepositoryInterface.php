@@ -48,7 +48,37 @@ interface ProductRepositoryInterface
     public function filterProductsFollowCategory($categoryId, $filterBy, $star, $paginateNumber);
 
     /**
-    * Import Product Data For Table Product From Excel, Csv
-    */
-    public function import($request);
+     * Import Product Data For Table Product From Excel, Csv
+     * 
+     * @var object $request
+     * @return boolean
+     */
+    public function import(object $request);
+
+    /**
+     * Get all category by product_id
+     * 
+     * @var int $id
+     * @return Collection
+     */
+    public function getAllCategoryByProductId(int $id);
+
+    /**
+     * Transaction implement change data product table
+     * 
+     * @var object $request
+     * @var int    $id
+     * @var string $typeAction
+     * @return boolean
+     */
+    public function transaction($request, $id = null, $typeAction);
+
+    /**
+     * Return array request for change data product table
+     * 
+     * @var object $request
+     * @var string $typeAction
+     * @return array
+     */
+    public function dataRequest($request);
 }

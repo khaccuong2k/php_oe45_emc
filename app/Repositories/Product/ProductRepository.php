@@ -5,6 +5,7 @@ namespace App\Repositories\Product;
 use App\Imports\ProductsImport;
 use App\Models\Product;
 use App\Repositories\BaseRepository;
+use Exception;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -81,12 +82,8 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         }
         return $products;
     }
-
-    /**
-    * @return \Illuminate\Support\Collection
-    * @return boolean
-    */
-    public function import($request)
+    
+    public function import(object $request)
     {
         $file = $request->file('file');
         $importFile = Excel::import(new ProductsImport, $file);
@@ -95,5 +92,73 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         }
  
         return false;
+    }
+
+    public function getAllCategoryByProductId(int $id)
+    {
+        $find = $this->findOrFail($id);
+        if ($find) {
+            $categoryByProductId = $this->model::with('categories')->findOrFail($id);
+
+            return $categoryByProductId;
+        }
+        
+        return false;
+    }
+
+    public function transaction($request, $id = null, $typeAction)
+    {
+        DB::beginTransaction();
+        try {
+            if ($typeAction === 'delete') {
+                $this->findOrFail($id)->categories()->detach();
+                $action = $this->$typeAction($id);
+                DB::commit();
+
+                return true;
+            }
+            $action = $this->$typeAction($this->dataRequest($request), $id);
+
+            ($id === null)
+                ? $action->categories()->sync($request->parent_id)
+                : $this->findOrFail($id)->categories()->sync($request->parent_id);
+            DB::commit();
+            $this->handleUploadImage($request);
+
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public function dataRequest($request)
+    {
+        if ($request !== null) {
+            // Array image request
+            $listImageRequest = [];
+            foreach ($request->thumbnail as $thumbnail)
+            {
+                // Add name of file to array image request
+                $listImageRequest[] = $thumbnail->getClientOriginalName();
+            }
+            // Change type array of $listImageRequest to string
+            $imageToUpload = implode(',', $listImageRequest);
+            return [
+                'name' => $request->name,
+                'thumbnail' => $imageToUpload,
+                'content' => $request->content,
+                'quantity' => $request->quantity,
+                'views' => 1,
+                'price' => $request->price,
+                'number_of_vote_submissions' => 1,
+                'total_vote' => 1,
+                'sold' => 1,
+                'short_description' => $request->short_description,
+            ];
+        }
+
+        return null;
     }
 }

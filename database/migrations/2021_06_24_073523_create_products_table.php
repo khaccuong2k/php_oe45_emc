@@ -20,11 +20,11 @@ class CreateProductsTable extends Migration
             $table->text('content');
             $table->string('short_description');
             $table->integer('quantity');
-            $table->integer('views');
+            $table->integer('views')->nullable()->default(0);
             $table->float('price');
-            $table->float('number_of_vote_submissions');
-            $table->integer('total_vote');
-            $table->integer('sold');
+            $table->float('number_of_vote_submissions')->nullable()->default(0);
+            $table->integer('total_vote')->nullable()->default(0);
+            $table->integer('sold')->nullable()->default(0);
             $table->timestamps();
         });
 

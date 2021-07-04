@@ -57,7 +57,7 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        $category = $this->categoryRepository->createCategory($request);
+        $category = $this->categoryRepository->create($request);
         if ($category) {
             return redirect()->route('categories.index');
         }
@@ -108,7 +108,7 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, $id)
     {
-        $update = $this->categoryRepository->updateCategory($id, $request);
+        $update = $this->categoryRepository->update($id, $request);
         if ($update) {
             return redirect()->route('categories.show', $id);
         }
@@ -124,7 +124,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $delete = $this->categoryRepository->deleteCategory($id);
+        $delete = $this->categoryRepository->delete($id);
         if ($delete) {
             return redirect()->route('categories.index')->withSuccess('message.category.delete.success');
         }

@@ -235,6 +235,6 @@ return [
     /**
      * Config number paginate get all data
      */
-    'paginate_number' => 10,
+    'paginate_number' => 12,
 
 ];
