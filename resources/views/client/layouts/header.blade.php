@@ -28,7 +28,7 @@
                     <nav class="js-mega-menu navbar navbar-expand-lg">
                         <div class="navbar-nav-wrap">
                             <!-- Logo -->
-                            <a class="navbar-brand navbar-nav-wrap-brand" href="index.html" aria-label="Front">
+                            <a class="navbar-brand navbar-nav-wrap-brand" href="{{ url('/') }}" aria-label="Front">
                             <img src="{{ asset('customers/assets/svg/logos/logo.svg') }}" alt="Logo">
                             </a>
                             <!-- End Logo -->
@@ -56,6 +56,7 @@
                                     </div>
                                 </div>
                                 <!-- End Search Classic -->
+                                @if (Auth::check())
                                 <!-- Account -->
                                 <div class="hs-unfold">
                                     <a class="js-hs-unfold-invoker rounded-circle" href="javascript:;"
@@ -80,8 +81,8 @@
                                                         <img class="avatar-img" src="{{ asset('customers/assets/img/100x100/img1.jpg') }}" alt="Image Description">
                                                     </div>
                                                     <div class="media-body">
-                                                        <span class="d-block font-weight-bold">test_user <span class="badge badge-success ml-1">{{ trans('message.pro') }}</span></span>
-                                                        <span class="d-block small text-muted">test_user_email@gmail.com</span>
+                                                        <span class="d-block font-weight-bold">{{ Auth::user()->username }} <span class="badge badge-success ml-1">{{ trans('message.pro') }}</span></span>
+                                                        <span class="d-block small text-muted">{{ Auth::user()->email }}</span>
                                                     </div>
                                                 </a>
                                             </div>
@@ -125,18 +126,23 @@
                                                 </span>
                                                 {{ trans('message.help') }}
                                                 </a>
-                                                <a class="dropdown-item px-0" href="#">
+                                                <a class="dropdown-item px-0" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
                                                 <span class="dropdown-item-icon">
                                                 <i class="fas fa-power-off"></i>
                                                 </span>
                                                 {{ trans('message.logout') }}
                                                 </a>
+                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                    @csrf
+                                                </form>
                                             </div>
                                             <!-- End Body -->
                                         </div>
                                     </div>
                                 </div>
                                 <!-- End Account -->
+                                @endif
                             </div>
                             <!-- End Secondary Content -->
                             <!-- Responsive Toggle Button -->
@@ -237,8 +243,8 @@
                                         "maxWidth": "350px"
                                         }
                                         }'>
-                                        <a id="myCoursesMegaMenu" class="hs-mega-menu-invoker nav-link nav-link-toggle" href="javascript:;" aria-haspopup="true" aria-expanded="false">
-                                            {{ trans('message.my_cart') }}
+                                        <a id="myCoursesMegaMenu" class="hs-mega-menu-invoker nav-link nav-link-toggle" href="{{ url('carts') }}" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-shopping-cart"></i>
                                             <span id="cart-number-item">
                                                 @if (Session::has('cart-item-number'))
                                                     {{ Session::get('cart-item-number') }}

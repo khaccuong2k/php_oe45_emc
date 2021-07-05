@@ -3,7 +3,7 @@
 @section('content')
 <!-- ========== MAIN CONTENT ========== -->
 <main id="content" role="main">
-    @if (Session::has('cart-item-number'))
+    @if (Session::has('cart-item-number') && isset($productsCart))
     <!-- Cart Section -->
     <div class="container space-1 space-md-2">
         <div class="row">
@@ -17,15 +17,15 @@
                 <form>
                     @foreach($productsCart as $product)
                     <!-- Product Content -->
-                    <div class="border-bottom pb-5 mb-5">
+                    <div class="border-bottom pb-5 mb-5 single-cart item-{{ $product->id }}">
                         <div class="media">
                             <div class="max-w-15rem w-100 mr-3">
                                 <img class="img-fluid" src="{{ asset($product->thumbnail) }}" alt="{{ $product->name }}">
                             </div>
-                            <div class="media-body">
+                            <div class="media-body info-item">
                                 <div class="row">
                                     <div class="col-md-7 mb-3 mb-md-0">
-                                        <a class="h5 d-block" href="#">{{ $product->name }}</a>
+                                        <a class="h5 d-block" href="{{ route('client.product.show', $product->id) }}">{{ $product->name }}</a>
                                         <div class="d-block d-md-none">
                                             <span class="h5 d-block mb-1">{{ $product->price }}</span>
                                         </div>
@@ -37,30 +37,34 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="row">
-                                            <div class="col-auto">
-                                                <select class="custom-select custom-select-sm w-auto mb-3">
-                                                    <option value="quantity1">1</option>
-                                                    <option value="quantity2">2</option>
-                                                    <option value="quantity3">3</option>
-                                                    <option value="quantity4">4</option>
-                                                    <option value="quantity5">5</option>
-                                                    <option value="quantity6">6</option>
-                                                    <option value="quantity7">7</option>
-                                                    <option value="quantity8">8</option>
-                                                    <option value="quantity9">9</option>
-                                                    <option value="quantity10">10</option>
-                                                </select>
+                                            <!-- Quantity -->
+                                            <div class="border rounded py-2 px-3 mb-3">
+                                                <div class="row align-items-center">
+                                                <div class="col-7 item-quantity">
+                                                    <input class="js-result form-control h-auto border-0 rounded p-0 quantity-value" name="itemQuantity" type="text" 
+                                                    value="@foreach($brokenProductAndQuantity as $id => $quantity)@if($product->id == $id){{ $quantity }}@endif @endforeach">
+                                                </div>
+                                                <div class="col-5 text-right inde">
+                                                    <a class="btn btn-xs btn-icon btn-outline-secondary rounded-circle cart-minus" data-id="{{ $product->id }}" href="javascript:;">
+                                                    <i class="fas fa-minus"></i>
+                                                    </a>
+                                                    <a class="btn btn-xs btn-icon btn-outline-secondary rounded-circle cart-plus" data-id="{{ $product->id }}" href="javascript:;">
+                                                    <i class="fas fa-plus"></i>
+                                                    </a>
+                                                </div>
+                                                </div>
                                             </div>
+                                            <!-- End Quantity -->
                                             <div class="col-auto">
-                                                <a class="d-block text-body font-size-1 mb-1" href="javascript:;">
+                                                <a class="d-block text-body font-size-1 mb-1 remove-item-cart" data-id="item-{{ $product->id }}" href="javascript:;">
                                                 <i class="far fa-trash-alt text-hover-primary mr-1"></i>
                                                 <span class="font-size-1 text-hover-primary">{{ trans('message.remove') }}</span>
                                                 </a>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-4 col-md-2 d-none d-md-inline-block text-right">
-                                        <span class="h5 d-block mb-1">{{ $product->price }}</span>
+                                    <div class="col-4 col-md-2 d-none d-md-inline-block text-right price">
+                                        <span class="h5 d-block mb-1 item-price">{{ $product->price }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -148,7 +152,7 @@
                                         aria-expanded="false"
                                         aria-controls="shopCartOne">
                                     {{ trans('message.promo_code') }}
-                                    <i class="far fa-question-circle text-body ml-1" data-container="body" data-toggle="popover" data-placement="top" data-trigger="hover" title="Promo code" data-content="Valid on full priced items only. Some products maybe excluded."></i>
+                                    <i class="far fa-question-circle text-body ml-1" data-container="body" data-toggle="popover" data-placement="top" data-trigger="hover" title="{{ trans('message.promo_code') }}" data-content="{{ trans('message.valid_coupon') }}"></i>
                                     </a>
                                 </h3>
                             </div>
@@ -181,6 +185,8 @@
             </div>
         </div>
     </div>
+    <input type="hidden" name="AjaxRemoveItem" value="{{ route('client.ajax.remove') }}" />
+    <input type="hidden" name="AjaxMinusQuantityItem" value="{{ route('client.ajax.minus_quantity_item') }}" />
     @else
     @include('client.carts.emptyCart')                                               
     @endif

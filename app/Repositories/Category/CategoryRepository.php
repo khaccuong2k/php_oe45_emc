@@ -9,6 +9,7 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
 {
     public function getModel()
     {
+        
         return Category::class;
     }
 }

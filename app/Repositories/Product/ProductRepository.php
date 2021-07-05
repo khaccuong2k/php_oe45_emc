@@ -27,7 +27,12 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
 
     public function getRecentlyViewedProducts($recentlyViewedProductsId, $takeNum)
     {
-        return $this->model->whereIn('id', $recentlyViewedProductsId)->take($takeNum)->get();
+        $getDataType = gettype($recentlyViewedProductsId);
+        if ($getDataType === config('showitem.data_type.array')) {
+            return $this->model->whereIn('id', $recentlyViewedProductsId)->take($takeNum)->get();
+        } else {
+            return $this->model->where('id', $recentlyViewedProductsId)->take($takeNum)->get();
+        }
     }
 
     public function getProductsByCategoryId($id, $category, $paginate)
