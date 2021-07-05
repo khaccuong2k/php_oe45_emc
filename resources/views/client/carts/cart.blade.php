@@ -1,4 +1,5 @@
 @extends('client.layouts.master')
+
 @section('content')
 <!-- ========== MAIN CONTENT ========== -->
 <main id="content" role="main">

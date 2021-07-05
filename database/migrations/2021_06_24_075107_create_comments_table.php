@@ -13,17 +13,20 @@ class CreateCommentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('comments', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->unsignedBigInteger('product_id');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->unsignedBigInteger('comment_parent_id')->nullable()->default(1);
-            $table->foreign('comment_parent_id')->references('id')->on('comments')->onDelete('cascade');
-            $table->string('content');
-            $table->timestamps();
-        });
+        Schema::create(
+            'comments',
+            function (Blueprint $table) {
+                $table->id();
+                $table->unsignedBigInteger('user_id');
+                $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+                $table->unsignedBigInteger('product_id');
+                $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+                $table->unsignedBigInteger('comment_parent_id')->nullable()->default(1);
+                $table->foreign('comment_parent_id')->references('id')->on('comments')->onDelete('cascade');
+                $table->string('content');
+                $table->timestamps();
+            }
+        );
     }
 
     /**

@@ -16,8 +16,8 @@ class Locale
      * @return mixed
      */
     public function handle(Request $request, Closure $next)
-    { 
-        // Get locale data on session and set to app's locale default 
+    {
+        // Get locale data on session and set to app's locale default
         $locale = Session::get('default_locale', config('app.locale'));
     
         // Change app's locale default

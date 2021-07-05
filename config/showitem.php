@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 return [
     'hot_trend' => 8,

@@ -73,14 +73,14 @@
 @endsection
 
 @section('script')
-    <!-- js -->
-    <script src="{{ asset('admin-page/vendors/scripts/core.js') }}"></script>
-    <script src="{{ asset('admin-page/vendors/scripts/script.min.js') }}"></script>
-    <script src="{{ asset('admin-page/vendors/scripts/process.js') }}"></script>
-    <script src="{{ asset('admin-page/vendors/scripts/layout-settings.js') }}"></script>
-    <!-- Slick Slider js -->
-    <script src="{{ asset('admin-page/src/plugins/slick/slick.min.js') }}"></script>
-    <!-- bootstrap-touchspin js -->
-    <script src="{{ asset('admin-page/src/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js') }}"></script>
-    <script src="{{ asset('admin-page/js/detail-flugin/detail-flugin.js') }}"></script>
+<!-- js -->
+<script src="{{ asset('admin-page/vendors/scripts/core.js') }}"></script>
+<script src="{{ asset('admin-page/vendors/scripts/script.min.js') }}"></script>
+<script src="{{ asset('admin-page/vendors/scripts/process.js') }}"></script>
+<script src="{{ asset('admin-page/vendors/scripts/layout-settings.js') }}"></script>
+<!-- Slick Slider js -->
+<script src="{{ asset('admin-page/src/plugins/slick/slick.min.js') }}"></script>
+<!-- bootstrap-touchspin js -->
+<script src="{{ asset('admin-page/src/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js') }}"></script>
+<script src="{{ asset('admin-page/js/detail-flugin/detail-flugin.js') }}"></script>
 @endsection

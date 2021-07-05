@@ -19,22 +19,35 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('admin-page/vendors/styles/style.css') }}">
 @endsection
 
+@section('breadcrumb')
+<li class="breadcrumb-item active" aria-current="page">@lang('lable.title.product.index')</li>
+@endsection
+
 @section('content')
 <div class="product-wrap">
     <div class="product-list">
         <ul class="row">
-            <li class="col-lg-2 col-md-6 col-sm-12">
-                <div class="product-box">
-                    <div class="producct-img"><img src="{{ asset('admin-page/vendors/images/product-img4.jpg') }}" alt=""></div>
-                    <div class="product-caption">
-                        <h6><a href="#">Apple Watch Series 3</a></h6>
-                        <div class="price">
-                            <ins>$380</ins>
+            @forelse ($products as $product)
+                <li class="col-lg-2 col-md-6 col-sm-12">
+                    <div class="product-box">
+                        <div class="producct-img"><img src="{{ $product->thumbnail }}" alt=""></div>
+                        <div class="product-caption">
+                            <div class="price">
+                                <h6><a href="#">{{ $product->name }}</a></h6>
+                            </div>
+                            <a href="{{ route('products.show', $product->id) }}" class="btn btn-outline-info">@lang('lable.product.detail')</a>
                         </div>
-                        <a href="{{ route('products.show', 1) }}" class="btn btn-outline-primary">@lang('lable.title.product.detail')</a>
                     </div>
-                </div>
-            </li>
+                </li>
+            @empty
+                <li class="col-lg-2 col-md-6 col-sm-12">
+                    <div class="product-box">
+                        <div class="product-caption">
+                            <h6>@lang('lable.no_have_value')</h6>
+                        </div>
+                    </div>
+                </li>
+            @endforelse
         </ul>
     </div>
     <div class="blog-pagination mb-30">

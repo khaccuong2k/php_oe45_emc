@@ -3,9 +3,9 @@
     <head>
         <!-- Basic Page Info -->
         <meta charset="utf-8">
-        {{-- Section title  --}}
+        <!-- Section title  -->
         @yield('title')
-        {{-- Section css --}}
+        <!-- Section css -->
         @yield('css')
     </head>
     <body>
@@ -257,7 +257,7 @@
             </div>
         </div>
         <div class="mobile-menu-overlay"></div>
-        {{-- main-container --}}
+        <!-- main-container -->
         <div class="main-container">
             <div class="pd-ltr-20 xs-pd-20-10">
                 <div class="min-height-200px">
@@ -268,16 +268,16 @@
                                 </div>
                                 <nav aria-label="breadcrumb" role="navigation">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="index.html">@lang('lable.app.home')</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">This will change on future</li>
+                                        <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">@lang('lable.app.home')</a></li>
+                                        @yield('breadcrumb')
                                     </ol>
                                 </nav>
                             </div>
                         </div>
                     </div>
-                    {{-- yield content off page  --}}
+                    <!-- yield content off page  -->
                     @yield('content')
-                    {{-- end yield content off page  --}}
+                    <!-- end yield content off page  -->
                 </div>
                 <div class="footer-wrap pd-20 mb-20 card-box">
                     DeskApp - Bootstrap 4 Admin Template By <a href="https://github.com/dropways" target="_blank">Ankit Hingarajiya</a>

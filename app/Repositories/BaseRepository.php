@@ -16,6 +16,7 @@ abstract class BaseRepository implements RepositoryInterface
 
     /**
      * Get model
+     *
      * @return mixed
      */
     abstract public function getModel();
@@ -32,6 +33,7 @@ abstract class BaseRepository implements RepositoryInterface
 
     /**
      * Get all
+     *
      * @return mixed
      */
     public function all()
@@ -41,7 +43,8 @@ abstract class BaseRepository implements RepositoryInterface
 
     /**
      * Get by id
-     * @param $id
+     *
+     * @param  $id
      * @return mixed
      */
     public function findOrFail($id)
@@ -53,7 +56,8 @@ abstract class BaseRepository implements RepositoryInterface
 
     /**
      * Create
-     * @param array $attributes
+     *
+     * @param  array $attributes
      * @return mixed
      */
     public function create($attributes = [])
@@ -63,8 +67,9 @@ abstract class BaseRepository implements RepositoryInterface
 
     /**
      * Update
-     * @param $id
-     * @param array $attributes
+     *
+     * @param  $id
+     * @param  array $attributes
      * @return bool|mixed
      */
     public function update($id, $attributes = [])
@@ -81,7 +86,8 @@ abstract class BaseRepository implements RepositoryInterface
 
     /**
      * Delete
-     * @param $id
+     *
+     * @param  $id
      * @return bool|mixed
      */
     public function delete($id)
@@ -98,9 +104,10 @@ abstract class BaseRepository implements RepositoryInterface
 
     /**
      * Order by and paginate
-     * @param null $colum
-     * @param null $orderBy
-     * @param $paginate
+     *
+     * @param  null $colum
+     * @param  null $orderBy
+     * @param  $paginate
      * @return mixed
      */
     public function paginate($colum = null, $orderBy = null, $paginate = null)

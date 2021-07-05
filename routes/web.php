@@ -67,8 +67,8 @@ Route::resource('admin/categories', CategoryController::class);
  */
 Route::resource('admin/requests', RequestController::class);
 
-Route::group(['middleware' => 'locale'], function() {
-    Auth::routes();
+Route::group(['middleware' => 'locale'], function () {
+    // Auth::routes();
     Route::get('change-locale/{locale}', LocaleController::class)->name('locale.change');
     Route::get('/', [ClientHomeController::class, 'index']);
     Route::get('/products/{id}', [ClientProductController::class, 'show'])->name('client.product.show');
@@ -77,3 +77,10 @@ Route::group(['middleware' => 'locale'], function() {
     Route::get('/add-to-cart', [ClientAjaxController::class, 'addToCart'])->name('client.ajax.addToCart');
     Route::get('/carts', [ClientCartController::class, 'index'])->name('client.cart.index');
 });
+
+/**
+ * Route import data from file excel and csv
+ */
+Route::get('export', [ProductController::class, 'export'])->name('products.export');
+Route::get('importExportView', [ProductController::class, 'products.importExportView']);
+Route::post('import', [ProductController::class, 'import'])->name('products.import');

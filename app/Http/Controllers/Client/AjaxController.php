@@ -14,8 +14,10 @@ class AjaxController extends Controller
     protected $categoryRepo;
     protected $productRepo;
 
-    public function __construct(CategoryRepositoryInterface $categoryRepo, ProductRepositoryInterface $productRepo)
-    {
+    public function __construct(
+        CategoryRepositoryInterface $categoryRepo,
+        ProductRepositoryInterface $productRepo
+    ) {
         $this->categoryRepo = $categoryRepo;
         $this->productRepo = $productRepo;
     }
@@ -36,12 +38,17 @@ class AjaxController extends Controller
             $filterName == config('showitem.filter_by.newest') ||
             $filterName == config('showitem.filter_by.star')
         ) {
-            $products = $this->productRepo->filterProductsFollowCategory($categoryId, $filterName, $stars, $paginateNumber);
+            $products = $this->productRepo->filterProductsFollowCategory(
+                $categoryId,
+                $filterName,
+                $stars,
+                $paginateNumber
+            );
             $addToCart = trans('message.add_to_cart');
             $newArrival = trans('message.new_arrival');
             renderAjaxHTML($response, $productsCategory, $products, $newArrival, $addToCart);
         }
-          echo $response;
+        echo $response;
     }
 
     public function addToCart(Request $request)
