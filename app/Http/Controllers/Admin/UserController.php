@@ -3,10 +3,28 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Repositories\User\UserRepository;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    /**
+     * @var $userRepository
+     */
+    protected $userRepository;
+
+    /**
+     * Construct Inject UserRepository
+     * @var UserRepository $userRepository
+     */
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +32,20 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('admin.user.index');
+        try {
+            $users = $this->userRepository->paginate(
+                'id',
+                'desc',
+                config('app.paginate_number')
+            );
+        } catch (QueryException $exception) {
+            return back()->withError('message.select_data.fail');
+        }
+        
+        return view(
+            'admin.user.index',
+            compact('users')
+        );
     }
 
     /**
@@ -46,7 +77,17 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        return view('admin.user.detail');
+        $userDetail = $this->userRepository->findOrFail($id);
+        if ($userDetail) {
+            return view(
+                'admin.user.detail',
+                compact(
+                    'userDetail'
+                )
+            );
+        }
+
+        return back()->withError('message.notFound');
     }
 
     /**
@@ -80,6 +121,14 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $destroyUser = $this->userRepository->delete($id);
+        } catch (QueryException $exception) {
+            return back()->withError('message.delete.fail');
+        }
+
+        return back()->withSuccess(
+            'message.delete.success'
+        );
     }
 }

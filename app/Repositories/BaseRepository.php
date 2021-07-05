@@ -2,6 +2,9 @@
 
 namespace App\Repositories;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Log;
+
 abstract class BaseRepository implements RepositoryInterface
 {
     protected $model;
@@ -49,9 +52,15 @@ abstract class BaseRepository implements RepositoryInterface
      */
     public function findOrFail($id)
     {
-        $result = $this->model->findOrFail($id);
+        try {
+            $find = $this->model->findOrFail($id);
+        } catch (ModelNotFoundException $exception) {
+            Log::debug("Id not found");
 
-        return $result;
+            return false;
+        }
+
+        return $find;
     }
 
     /**
@@ -74,9 +83,9 @@ abstract class BaseRepository implements RepositoryInterface
      */
     public function update($id, $attributes = [])
     {
-        $result = $this->findOrFail($id);
-        if ($result) {
-            $result->update($attributes);
+        $find = $this->findOrFail($id);
+        if ($find) {
+            $find->update($attributes);
 
             return true;
         }
@@ -92,9 +101,9 @@ abstract class BaseRepository implements RepositoryInterface
      */
     public function delete($id)
     {
-        $result = $this->findOrFail($id);
-        if ($result) {
-            $result->delete();
+        $find = $this->findOrFail($id);
+        if ($find) {
+            $find->delete();
 
             return true;
         }

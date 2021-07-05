@@ -124,5 +124,11 @@ return [
     'privacy' => 'Privacy',
     'logout' => 'Logout',
     'pro' => 'Premium',
-    'customer' => 'Customer'
+    'customer' => 'Customer',
+    'user' => [
+        'delete' => [
+            'success' => 'Delete Success',
+            'error' => 'Delete Error',
+        ],
+    ],
 ];
