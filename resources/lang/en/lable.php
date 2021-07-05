@@ -19,9 +19,9 @@ return [
             'edit' => 'Edit Product',
             'detail' => 'Detail Product',
         ],
-        'request' => [
-            'index' => 'Manage Requests',
-            'detail' => 'Detail Request',
+        'suggest' => [
+            'index' => 'Manage Suggests',
+            'detail' => 'Detail Suggests',
         ],
         'category' => [
             'index' => 'Manage Categories',
@@ -59,6 +59,8 @@ return [
     'ordered' => 'Ordered',
     'name_atr' => 'Name :name',
     'detail' => 'Detail :name',
+    'user_request' => 'Customer :name',
+    'confirm_and_send_mail' => 'Confirm Suggest And Send Mail',
     'app' => [
         'loading' => 'Loading...',
         'search' => [

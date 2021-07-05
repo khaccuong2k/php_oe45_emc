@@ -243,10 +243,10 @@
 					</li>
 					<li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-right-arrow1"></span><span class="mtext">@lang('lable.title.request.index')</span>
+							<span class="micon dw dw-right-arrow1"></span><span class="mtext">@lang('lable.title.suggest.index')</span>
 						</a>
 						<ul class="submenu">
-							<li><a href="{{ route('requests.index') }}">@lang('lable.app.sidebar.list')</a></li>
+							<li><a href="{{ route('suggests.index') }}">@lang('lable.app.sidebar.list')</a></li>
 						</ul>
 					</li>
 					<li class="dropdown">

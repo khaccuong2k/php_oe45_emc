@@ -4,7 +4,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\RequestController;
+use App\Http\Controllers\Admin\SuggestController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Client\AjaxController as ClientAjaxController;
@@ -81,9 +81,19 @@ Route::get('admin/categories/{id}/list-product',
 /**
  * Route Resource
  * ----------------
- * route for requests
+ * route for suggests
  */
-Route::resource('admin/requests', RequestController::class);
+Route::resource('admin/suggests', SuggestController::class);
+
+/**
+ * Route get
+ * ----------------
+ * route for change status of order
+ */
+Route::get(
+    'admin/suggests/change-status/{id}',
+    [SuggestController::class, 'changeStatus']
+    )->name('suggests.change-status');
 
 Route::group(['middleware' => 'locale'], function() {
     // Auth::routes();

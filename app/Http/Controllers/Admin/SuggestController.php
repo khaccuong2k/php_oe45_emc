@@ -3,10 +3,26 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\Suggest\SuggestRepository;
 use Illuminate\Http\Request;
 
-class RequestController extends Controller
+class SuggestController extends Controller
 {
+    /**
+     * 
+     * @var $suggestRepository
+     */
+    protected $suggestRepository;
+
+    /**
+     * 
+     * @var SuggestRepository  $suggestRepository
+     */
+    public function __construct(SuggestRepository $suggestRepository)
+    {
+        $this->suggestRepository = $suggestRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +30,12 @@ class RequestController extends Controller
      */
     public function index()
     {
-        //
+        $suggests = $this->suggestRepository->all();
+
+        return view(
+            'admin.suggest.index',
+            compact('suggests')
+        );
     }
 
     /**
@@ -46,7 +67,9 @@ class RequestController extends Controller
      */
     public function show($id)
     {
-        //
+        $detailSuggest = $this->suggestRepository->findOrFail($id);
+
+        return view('admin.suggest.detail', compact('detailSuggest'));
     }
 
     /**
@@ -81,5 +104,15 @@ class RequestController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function changeStatus($id)
+    {
+        $changeStatus = $this->suggestRepository->changeStatus($id);
+        if ($changeStatus) {
+            return back()->withSuccess('message.change_status.success');
+        }
+
+        return back()->withError('message.change_status.fail');
     }
 }
