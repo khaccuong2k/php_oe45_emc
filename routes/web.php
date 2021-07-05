@@ -12,6 +12,7 @@ use App\Http\Controllers\Client\CartController as ClientCartController;
 use App\Http\Controllers\Client\CategoryController as ClientCategoryController;
 use App\Http\Controllers\Client\HomeController as ClientHomeController;
 use App\Http\Controllers\Client\ProductController as ClientProductController;
+use App\Http\Controllers\Client\CommentController as ClientCommentController;
 use App\Http\Controllers\LocaleController;
 use Illuminate\Support\Facades\Route;
 

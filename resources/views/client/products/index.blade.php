@@ -66,13 +66,13 @@
                     <div class="text-warning mr-2">
                         {!! resolveStarsVote($productData->number_of_vote_submissions, $productData->total_vote) !!}
                     </div>
-                    <a class="link-underline" href="#reviewSection">Read all 287 reviews</a>
+                    <a class="link-underline" href="#reviewSection">{{ trans('message.read_all_review') }}</a>
                 </div>
                 <!-- End Rating -->
 
                 <!-- Title -->
                 <div class="mb-5">
-                    <h1 class="h2">{{ $productData->name }}</h1>
+                    <h1 class="h2 info-product" data-id="{{ $productData->id }}">{{ $productData->name }}</h1>
                     <p>{{ $productData->short_description }}</p>
                 </div>
                 <!-- End Title -->
@@ -116,7 +116,7 @@
                                                 <img class="img-fluid" src="{{ asset('customers/assets/svg/icons/icon-65.svg') }}" alt="SVG" />
                                             </span>
                                             <span class="media-body">
-                                                <span class="d-block font-size-1 font-weight-bold">Free shipping</span>
+                                                <span class="d-block font-size-1 font-weight-bold">{{ trans('message.free_shipping') }}</span>
                                             </span>
                                         </span>
                                     </span>
@@ -131,7 +131,7 @@
                         </div>
                         <div id="shopCardOne" class="collapse" aria-labelledby="shopCardHeadingOne" data-parent="#shopCartAccordion">
                             <div class="card-body">
-                                <p class="small mb-0">We offer free shipping anywhere in the U.S. A skilled delivery team will bring the boxes into your office.</p>
+                                <p class="small mb-0">{{ trans('message.free_shipping_desc') }}</p>
                             </div>
                         </div>
                     </div>
@@ -148,7 +148,7 @@
                                                 <img class="img-fluid" src="{{ asset('customers/assets/svg/icons/icon-64.svg') }}" alt="SVG" />
                                             </span>
                                             <span class="media-body">
-                                                <span class="d-block font-size-1 font-weight-bold">30 Days return</span>
+                                                <span class="d-block font-size-1 font-weight-bold">{{ trans('message.30_return') }}</span>
                                             </span>
                                         </span>
                                     </span>
@@ -163,7 +163,7 @@
                         </div>
                         <div id="shopCardTwo" class="collapse" aria-labelledby="shopCardHeadingTwo" data-parent="#shopCartAccordion">
                             <div class="card-body">
-                                <p class="small mb-0">If you're not satisfied, return it for a full refund. We'll take care of disassembly and return shipping.</p>
+                                <p class="small mb-0">{{ trans('message.30_return_desc') }}</p>
                             </div>
                         </div>
                     </div>
@@ -181,8 +181,8 @@
                         <img class="img-fluid" src="{{ asset('customers/assets/svg/icons/icon-4.svg') }}" alt="SVG" />
                     </span>
                     <div class="media-body text-body small">
-                        <span class="font-weight-bold mr-1">Need Help?</span>
-                        <a class="link-underline" href="#">Chat now</a>
+                        <span class="font-weight-bold mr-1">{{ trans('message.need_help') }}</span>
+                        <a class="link-underline" href="#">{{ trans('message.chat_now') }}</a>
                     </div>
                 </div>
                 <!-- End Help Link -->
@@ -200,6 +200,29 @@
                     <h4>Product Description</h4>
                     <p>{{ $productData->content }}</p>
                 </div>
+                <div class="pr-lg-4">
+                  <h4>Rating Product</h4>
+                  <div id="your-rate">
+                      @if(Session::get('product.rating'))
+                          <div class="text-warning mr-2" id="product-rating">
+                            @foreach(Session::get('product.rating') as $ratingProduct)
+                                @if($ratingProduct == $productData->id)
+                                    {!! resolveStarsVote($productData->number_of_vote_submissions, $productData->total_vote) !!} 
+                                    ({{ $productData->total_vote }} {{ trans('message.rating') }})
+                                @endif
+                            @endforeach
+                          </div>
+                      @else
+                          <div class="text-warning mr-2 unrating" id="product-rating">
+                              <i class="far fa-star text-muted" id="one-star" data-star="1"></i>
+                              <i class="far fa-star text-muted" id="two-star" data-star="2"></i>
+                              <i class="far fa-star text-muted" id="three-star" data-star="3"></i>
+                              <i class="far fa-star text-muted" id="four-star" data-star="4"></i>
+                              <i class="far fa-star text-muted" id="five-star" data-star="5"></i>
+                          </div>
+                      @endif
+                  </div>
+              </div>
             </div>
         </div>
     </div>
@@ -209,7 +232,7 @@
     <div class="container space-2 space-lg-3">
         <!-- Title -->
         <div class="w-md-80 w-lg-40 text-center mx-md-auto mb-5 mb-md-9">
-            <h2>Just for you</h2>
+            <h2>{{ trans('message.related_product') }}</h2>
         </div>
         <!-- End Title -->
 
@@ -435,59 +458,97 @@
                     <!-- Overall Rating Stats -->
                     <div class="card bg-primary text-white p-4 mb-3">
                         <div class="d-flex justify-content-center align-items-center">
-                            <span class="display-4">4.7</span>
+                            <span class="display-4">{{ roundStar($productData->number_of_vote_submissions, $productData->total_vote) }}</span>
                             <div class="ml-3">
                                 <div class="small">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="far fa-star"></i>
+                                    {!! resolveStarsVote($productData->number_of_vote_submissions, $productData->total_vote) !!}
                                 </div>
-                                <span><span class="font-weight-bold">287</span> reviews</span>
+                                <span><span class="font-weight-bold">{{ $productData->total_vote }}</span> {{ trans('message.reviews') }}</span>
                             </div>
                         </div>
                     </div>
                     <!-- End Overall Rating Stats -->
                 </div>
-
-                <span class="d-block display-4 text-dark">77%</span>
-                <p class="small">of customers recommend this product</p>
             </div>
 
             <div class="col-lg-8">
-                <div class="pl-lg-4">
-                    <!-- Title -->
-                    <div class="border-bottom pb-4 mb-4">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h4 class="text-body mb-0">Reviewer</h4>
-                        </div>
-                    </div>
-                    <!-- End Title -->
-
-                    <!-- Review -->
-                    <div class="border-bottom pb-4 mb-4">
-                        <!-- Review Rating -->
-                        <div class="d-flex justify-content-between align-items-center text-body font-size-1 mb-3">
-                            <h5 class="text-uppercase">Hailey</h5>
-                            <span>April 3, 2019</span>
-                        </div>
-                        <!-- End Review Rating -->
-                        <p>I bought this hat for my boyfriend, but then i found out he cheated on me so I kept it and I love it!! I wear it all the time and there is no problem with the fit even though its a “mens” hat.</p>
-                        <!-- End Helpful -->
-                    </div>
-                    <!-- End Review -->
-
-                    <div class="d-sm-flex justify-content-sm-end">
-                        <button type="button" class="btn btn-primary btn-pill w-100 w-sm-auto transition-3d-hover px-5 mb-2">Write a Review</button>
-                    </div>
+              <div class="pt-2 mb-11">
+                <div class="mb-4">
+                  <h3>{{ count($productData->comments) }} Comments</h3>
                 </div>
+                @if(count($productData->comments) > 0)
+                <ul class="list-unstyled">
+                  <!-- Comment -->
+                  @foreach($productData->comments as $comments)
+                  @if($comments->comment_parent_id === NULL)
+                  <li class="mb-5">
+                    <div class="media align-items-center mb-2">
+                      <div class="avatar avatar-circle mr-3">
+                        <img class="avatar-img" src="{{ asset('customers/assets/img/100x100/img3.jpg') }}" alt="Image Description">
+                      </div>
+                      <div class="media-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <span class="h5 mb-0">{{ $comments->user->fullname }}</span>
+                          <small class="text-muted">{{ $comments->create_at }}</small>
+                        </div>
+                      </div>
+                    </div>
+                    <p>{{ $comments->content }}</p>
+      
+                    <a class="font-weight-bold replyBtn" href="javascript:;" data-id="{{ $comments->id }}" data-user="{{ $comments->user->fullname }}">{{ trans('message.reply') }}</a>
+                    @if(count($comments->reply) > 0)
+                    <ul class="list-unstyled mt-5">
+                    @foreach($comments->reply as $replies)
+                        @if($comments->id === $replies->comment_parent_id)
+                        @include('client.comments.reply', ['replies' => $replies])
+                        @endif
+                    @endforeach
+                    </ul>
+                    @endif
+                  </li>
+                  @endif
+                  @endforeach
+                  <!-- End Comment -->
+                </ul>
+                @else
+                <p>{{ trans('message.no_comment') }}</p>
+                @endif
+              </div>
+
+              @if(Auth::check())
+              <div class="mb-5">
+                <h3>{{ trans('message.post_review') }}</h3>
+              </div>
+      
+              <!-- Form -->
+              <form class="js-validate" action={{ route('client.comment.post', $productData->id) }} method="POST">
+                @csrf
+                <div class="form-row">
+                  <div class="col-12 mb-sm-3">
+                    <div class="js-form-message form-group">
+                      <a class="font-weight-bold backComment" href="javascript:;">{{ trans('message.back_comment') }}</a>
+                      <label class="input-label title-comment" data-mess="{{ trans('message.reply_to') }}">{{ trans('message.comment') }}</label>
+                      <input type="hidden" name="comment_parent_id" value="" />
+                      <textarea class="form-control" rows="3" placeholder="{{ trans('message.comment') }}" name="content" required></textarea>
+                    </div>
+                  </div>
+                </div>
+      
+                <div class="d-flex justify-content-center">
+                  <button type="submit" class="btn btn-primary btn-wide transition-3d-hover">{{ trans('message.submit') }}</button>
+                </div>
+              </form>
+              <!-- End Form -->
+              @endif
+            </div>
+          </div>
             </div>
         </div>
     </div>
     <!-- End Review Section -->
 </main>
 <input type="hidden" name="AjaxAddToCartMultiple" value="{{ route('client.ajax.addMultiple') }}" />
+<input type="hidden" name="AjaxRating" value="{{ route('client.ajax.rating') }}" />
 <!-- ========== END MAIN CONTENT ========== -->
 
 @endsection
