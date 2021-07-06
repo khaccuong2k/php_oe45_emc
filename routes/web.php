@@ -67,6 +67,16 @@ Route::group(['middleware' => 'locale'], function () {
 
     Route::resource('admin/orders', OrderController::class);
 
+    Route::get(
+        '/admin/orders/change-status-order/{id}',
+        [
+            OrderController::class,
+            'changeStatus'
+        ]
+    )->name(
+        'orders.change-status'
+    );
+
     Route::resource('admin/categories', CategoryController::class);
 
     Route::get(

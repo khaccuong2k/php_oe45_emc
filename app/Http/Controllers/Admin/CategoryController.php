@@ -39,10 +39,7 @@ class CategoryController extends Controller
             return back()->withError('message.select_data.fail');
         }
         
-        return view(
-            'admin.category.index',
-            compact('categories')
-        );
+        return view('admin.category.index', compact('categories'));
     }
 
     /**
@@ -58,12 +55,7 @@ class CategoryController extends Controller
             return back()->withError('message.select_data.fail');
         }
         
-        return view(
-            'admin.category.add',
-            compact(
-                'categories'
-            )
-        );
+        return view('admin.category.add', compact('categories'));
     }
 
     /**
@@ -77,20 +69,14 @@ class CategoryController extends Controller
         try {
             $category = $this->categoryRepository->create($request);
         } catch (QueryException $exception) {
-            return back()->withError(
-                'message.store.fail'
-            );
+            return back()->withError('message.store.fail');
         }
 
         if ($category) {
-            return redirect()->route(
-                'categories.index'
-            );
+            return redirect()->route('categories.index')->withSuccess('message.add.success');
         }
         
-        return back()->withError(
-            'message.store.fail'
-        );
+        return back()->withError('message.store.fail');
     }
 
     /**
@@ -103,17 +89,10 @@ class CategoryController extends Controller
     {
         $category = $this->categoryRepository->findOrFail($id);
         if ($category) {
-            return view(
-                'admin.category.detail',
-                compact(
-                    'category'
-                )
-            );
+            return view('admin.category.detail', compact('category'));
         }
 
-        return back()->withError(
-            'message.notFound'
-        );
+        return back()->withError('message.notFound');
     }
 
     /**
@@ -129,18 +108,10 @@ class CategoryController extends Controller
 
             $category = $this->categoryRepository->findOrFail($id);
         } catch (QueryException $exception) {
-            return back()->withError(
-                'message.notFound'
-            );
+            return back()->withError('message.notFound');
         }
 
-        return view(
-            'admin.category.edit',
-            compact(
-                'category',
-                'categories'
-            )
-        );
+        return view('admin.category.edit', compact('category', 'categories'));
     }
 
     /**
@@ -155,21 +126,14 @@ class CategoryController extends Controller
         try {
             $update = $this->categoryRepository->update($request, $id);
         } catch (QueryException $exception) {
-            return back()->withError(
-                'message.update.fail'
-            );
+            return back()->withError('message.update.fail');
         }
 
         if ($update) {
-            return redirect()->route(
-                'categories.show',
-                $id
-            );
+            return redirect()->route('categories.show', $id);
         }
 
-        return back()->withError(
-            'message.update.fail'
-        );
+        return back()->withError('message.update.fail');
     }
 
     /**
@@ -183,22 +147,14 @@ class CategoryController extends Controller
         try {
             $delete = $this->categoryRepository->delete($id);
         } catch (QueryException $exception) {
-            return back()->withError(
-                'message.delete.fail'
-            );
+            return back()->withError('message.delete.fail');
         }
 
         if ($delete) {
-            return redirect()->route(
-                'categories.index'
-            )->withSuccess(
-                'message.delete.success'
-            );
+            return redirect()->route('categories.index')->withSuccess('message.delete.success');
         }
         
-        return back()->withError(
-            'message.delete.fail'
-        );
+        return back()->withError('message.delete.fail');
     }
 
     /**
@@ -209,26 +165,16 @@ class CategoryController extends Controller
         try {
             $listProduct = $this->categoryRepository->getAllProductByCategoryId($id);
         } catch (QueryException $exception) {
-            return back()->withError(
-                'message.notFound'
-            );
+            return back()->withError('message.notFound');
         }
 
         if ($listProduct) {
             $products = $listProduct->products;
             $breadcrumb = true;
     
-            return view(
-                'admin.product.index',
-                compact(
-                    'products',
-                    'breadcrumb'
-                )
-            );
+            return view('admin.product.index', compact('products', 'breadcrumb'));
         }
         
-        return back()->withError(
-            'message.notFound'
-        );
+        return back()->withError('message.notFound');
     }
 }

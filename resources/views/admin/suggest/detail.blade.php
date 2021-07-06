@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('title')
-<title>@lang('lable.title.detail')</title>
+<title>@lang('lable.title.order.detail')</title>
 @endsection
 
 @section('css')
@@ -24,13 +24,7 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('admin-page/src/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css') }}">
 <!-- bootstrap-touchspin css -->
 <link rel="stylesheet" type="text/css" href="{{ asset('admin-page/src/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('admin-page/src/plugins/sweetalert2/sweetalert2.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('admin-page/vendors/styles/style.css') }}">
-@endsection
-
-@section('breadcrumb')
-<li class="breadcrumb-item"><a href="{{ route('orders.index') }}">@lang('lable.title.index')</a></li>
-<li class="breadcrumb-item active">@lang('lable.title.detail')</li>
 @endsection
 
 @section('content')
@@ -38,36 +32,22 @@
 <div class="card-box mb-30">
     <div class="pd-20">
         <h4 class="text-blue h4">@lang('lable.order.detail')</h4>
-        @if ($detailOrder->status === config('app.status_confirm'))
-        <a href="{{ route('orders.change-status', $detailOrder->id)}}" data-id="{{ $detailOrder->id }}" class="btn btn-outline-primary change-status">
-            @lang('lable.go_to_order')
-        </a>
-        @endif
-        @if ($detailOrder->status === config('app.status_delivery'))
-        <a href="{{ route('orders.change-status', $detailOrder->id)}}" data-id="{{ $detailOrder->id }}" class="btn btn-outline-primary change-status">
-            @lang('lable.go_to_delivery')
-        </a>
-        @endif
     </div>
     <div class="pb-20">
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th scope="col">@lang('lable.name_atr', ['name' => 'Product'])</th>
-                    <th scope="col">@lang('lable.quantity')</th>
+                    <th scope="col">@lang('lable.order.name')</th>
+                    <th scope="col">@lang('lable.order.thumbnail')</th>
+                    <th scope="col">@lang('lable.order.qty')</th>
                 </tr>
             </thead>
             <tbody>
-                @forelse ($detailOrder->orderDetail as $orderDetail)
                 <tr>
-                    <th scope="row">{{ $orderDetail->product->name }}</th>
-                    <th scope="row">{{ $orderDetail->quantity }}</th>
+                    <th scope="row">1</th>
+                    <th scope="row">1</th>
+                    <th scope="row">1</th>
                 </tr>
-                @empty
-                <tr>
-                    <th scope="row" colspan="2" class="text-center">@lang('lable.no_have_value')</th>
-                </tr>
-                @endforelse
             </tbody>
         </table>
     </div>
@@ -81,8 +61,4 @@
 <script src="{{ asset('admin-page/vendors/scripts/script.min.js') }}"></script>
 <script src="{{ asset('admin-page/vendors/scripts/process.js') }}"></script>
 <script src="{{ asset('admin-page/vendors/scripts/layout-settings.js') }}"></script>
-<!-- add sweet alert js & css in footer -->
-<script src="{{ asset('admin-page/src/plugins/sweetalert2/sweetalert2.all.js') }}"></script>
-<script src="{{ asset('admin-page/src/plugins/sweetalert2/sweet-alert.init.js') }}"></script>
-<script src="{{ asset('admin-page/src/scripts/ajax-order.js') }}"></script>
 @endsection

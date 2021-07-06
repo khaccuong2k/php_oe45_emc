@@ -51,9 +51,7 @@ class ProductController extends Controller
                 (config('app.paginate_number'))
             );
         } catch (QueryException $exception) {
-            return back()->withError(
-                'message.select_data.fail'
-            );
+            return back()->withError('message.select_data.fail');
         }
         
         return view('admin.product.index', compact('products'));
@@ -70,9 +68,7 @@ class ProductController extends Controller
             // Get all category with relationship subcategory
             $categories = $this->categoryRepository->all();
         } catch (QueryException $exception) {
-            return back()->withError(
-                'message.select_data.fail'
-            );
+            return back()->withError('message.select_data.fail');
         }
 
         return view('admin.product.add', compact('categories'));
@@ -104,17 +100,10 @@ class ProductController extends Controller
     {
         $detailProduct = $this->productRepository->getAllCategoryByProductId($id);
         if ($detailProduct) {
-            return view(
-                'admin.product.detail',
-                compact(
-                    'detailProduct'
-                )
-            );
+            return view('admin.product.detail', compact('detailProduct'));
         }
 
-        return back()->withError(
-            'message.notFound'
-        );
+        return back()->withError('message.notFound');
     }
 
     /**
@@ -132,9 +121,7 @@ class ProductController extends Controller
             // Get all category of this product and detail product
             $detailProduct = $this->productRepository->getAllCategoryByProductId($id);
         } catch (QueryException $exception) {
-            return back()->withError(
-                'message.notFound'
-            );
+            return back()->withError('message.notFound');
         }
 
         if ($categories && $detailProduct) {
@@ -151,9 +138,7 @@ class ProductController extends Controller
             ));
         }
         
-        return back()->withError(
-            'message.notFound'
-        );
+        return back()->withError('message.notFound');
     }
 
     /**

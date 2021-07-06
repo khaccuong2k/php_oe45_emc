@@ -66,7 +66,7 @@
                 @endforeach
             </select>
         </div>
-        <input type="submit" class="btn btn-primary mt-5" value="@lang('lable.action_add')">
+        <input type="submit" class="btn btn-primary mt-5" value="@lang('lable.action_add', ['name' => 'Category'])">
     </form>
 </div>
 <!-- horizontal Basic Forms End -->

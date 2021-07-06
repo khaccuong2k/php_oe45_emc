@@ -175,6 +175,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        RealRashid\SweetAlert\SweetAlertServiceProvider::class,
 
     ],
 
@@ -229,6 +230,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
 
     ],
 
@@ -236,5 +238,20 @@ return [
      * Config number paginate get all data
      */
     'paginate_number' => 12,
+
+    /**
+     * Status of order
+     * 0 is confirm order
+     * 1 is delivery
+     * 2 is done order
+     */
+    'status_confirm' => 0,
+    'status_delivery' => 1,
+    'status_done' => 2,
+
+    /**
+     * Type payment
+     */
+    'payment_on_delivery' => 1,
 
 ];
