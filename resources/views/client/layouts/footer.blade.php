@@ -184,5 +184,7 @@
 <script src="{{ asset('customers/assets/js/ajax.resolve-reply-comment.js') }}"></script>
 <!-- JS Plugins Init. -->
 <script src="{{ asset('customers/assets/js/init-plugin-home.js') }}"></script>
+<!-- JS Chat -->
+<script lang="javascript">var __vnp = {code : 7501,key:'', secret : '21ad6cd5fa14cc6e2306dc2579c34aee'};(function() {var ga = document.createElement('script');ga.type = 'text/javascript';ga.async=true; ga.defer=true;ga.src = '//core.vchat.vn/code/tracking.js';var s = document.getElementsByTagName('script');s[0].parentNode.insertBefore(ga, s[0]);})();</script>
 </body>
 </html>
