@@ -22,8 +22,6 @@ class ProductFactory extends Factory
      */
     public function definition()
     {
-        $listCategoryId = Category::pluck('id');
-
         return [
             'name' => $this->faker->name(),
             'thumbnail' => $this->faker->imageUrl(640, 480),
@@ -35,7 +33,6 @@ class ProductFactory extends Factory
             'number_of_vote_submissions' => $this->faker->numberBetween(1, 30),
             'total_vote' => $this->faker->numberBetween(1, 50),
             'sold' => $this->faker->numberBetween(1, 20),
-            'category_id' => $this->faker->randomElement($listCategoryId),
         ];
     }
 }

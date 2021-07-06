@@ -36,6 +36,7 @@ return [
     'action_edit' => 'Edit',
     'action_delete' => 'Delete',
     'no_have_value' => 'No Have Value',
+    'is_parent' => 'This is parent category',
     'app' => [
         'loading' => 'Loading...',
         'search' => [
@@ -86,6 +87,8 @@ return [
         'description' => 'Description',
         'parent_id' => 'Parent Category',
         'detail' => 'Detail Category',
+        'listProduct' => 'List Product',
+        'sub' => 'Sub Category',
     ],
     'order' => [
         'name' => 'Name Products',

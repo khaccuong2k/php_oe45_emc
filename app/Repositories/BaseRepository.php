@@ -47,7 +47,7 @@ abstract class BaseRepository implements RepositoryInterface
     /**
      * Get by id
      *
-     * @param  $id
+     * @param  int   $id
      * @return mixed
      */
     public function findOrFail($id)
@@ -66,10 +66,10 @@ abstract class BaseRepository implements RepositoryInterface
     /**
      * Create
      *
-     * @param  array $attributes
+     * @param  object $attributes
      * @return mixed
      */
-    public function create($attributes = [])
+    public function create($attributes)
     {
         return $this->model->create($attributes);
     }
@@ -77,11 +77,11 @@ abstract class BaseRepository implements RepositoryInterface
     /**
      * Update
      *
-     * @param  $id
-     * @param  array $attributes
+     * @param  object $attributes
+     * @param  int    $id
      * @return bool|mixed
      */
-    public function update($id, $attributes = [])
+    public function update($attributes, $id)
     {
         $find = $this->findOrFail($id);
         if ($find) {
@@ -96,7 +96,7 @@ abstract class BaseRepository implements RepositoryInterface
     /**
      * Delete
      *
-     * @param  $id
+     * @param  int $id
      * @return bool|mixed
      */
     public function delete($id)
@@ -116,7 +116,7 @@ abstract class BaseRepository implements RepositoryInterface
      *
      * @param  null $colum
      * @param  null $orderBy
-     * @param  $paginate
+     * @param  null $paginate
      * @return mixed
      */
     public function paginate($colum = null, $orderBy = null, $paginate = null)
@@ -131,5 +131,35 @@ abstract class BaseRepository implements RepositoryInterface
     public function orderBy($colum, $orderBy)
     {
         return $this->model->orderBy($colum, $orderBy)->get();
+    }
+
+    /**
+     * Handle update images to public
+     *
+     * @var object $request
+     */
+    public function handleUploadImage(object $request = null)
+    {
+        if ($request !== null) {
+            $image = $request->file('thumbnail');
+            if (is_array($image)) {
+                foreach ($image as $key => $img) {
+                    $image[$key]->move(
+                        public_path('admin-page/files/images'),
+                        $image[$key]->getClientOriginalName()
+                    );
+                }
+
+                return true;
+            }
+            $image->move(
+                public_path('admin-page/files/images'),
+                $image->getClientOriginalName()
+            );
+
+            return true;
+        }
+
+        return true;
     }
 }

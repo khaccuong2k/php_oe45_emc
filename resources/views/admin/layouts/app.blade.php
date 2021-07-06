@@ -268,7 +268,11 @@
                                 </div>
                                 <nav aria-label="breadcrumb" role="navigation">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">@lang('lable.app.home')</a></li>
+                                        <li class="breadcrumb-item">
+                                            <a href="{{ route('dashboard.index') }}">
+                                                @lang('lable.app.home')
+                                            </a>
+                                        </li>
                                         @yield('breadcrumb')
                                     </ol>
                                 </nav>
@@ -288,3 +292,4 @@
         @yield('script')
     </body>
 </html>
+    
