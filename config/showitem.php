@@ -39,4 +39,10 @@ return [
     'role' => [
         'customer' => 2,
     ],
+    'status_order' => [
+        'pending' => 1,
+    ],
+    'type_payment' => [
+        'on_delivery' => 1,
+    ],
 ];

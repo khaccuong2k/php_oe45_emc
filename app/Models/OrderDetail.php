@@ -18,11 +18,11 @@ class OrderDetail extends Model
 
     public function products()
     {
-        return $this->hasMany(Product::class);
+        return $this->hasMany(Product::class, 'id', 'product_id');
     }
 
-    public function orders()
+    public function order()
     {
-        return $this->belongsToMany(Order::class);
+        return $this->belongsTo(Order::class);
     }
 }

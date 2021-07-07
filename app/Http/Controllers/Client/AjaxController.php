@@ -94,6 +94,7 @@ class AjaxController extends Controller
         $numberItem = $this->removeDuplicateAndCount($listItemsId);
         Session::put('cart-item-number', $numberItem);
         echo Session::get('cart-item-number');
+        echo Session::get('cart-item-number');
     }
 
     public function addToCartMultiple(Request $request)

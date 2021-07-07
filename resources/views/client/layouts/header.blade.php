@@ -255,7 +255,6 @@
                                         <div id="pagesSubMenu" class="hs-sub-menu dropdown-menu" aria-labelledby="pagesMegaMenu" style="min-width: 230px;">
                                             <a class="dropdown-item" href="courses-listing.html">{{ trans('message.term') }}</a>
                                             <a class="dropdown-item" href="course-description.html">{{ trans('message.privacy') }}</a>
-                                            <a class="dropdown-item" href="author.html">{{ trans('message.someelse') }}</a>
                                         </div>
                                         <!-- End Pages - Submenu -->
                                     </li>
@@ -280,47 +279,6 @@
                                         </a> 
                                         <!-- My Courses - Submenu -->
                                         <div class="hs-mega-menu dropdown-menu" aria-labelledby="myCoursesMegaMenu">
-                                            <div class="card">
-                                                <div class="card-header py-3">
-                                                    <span class="text-dark font-weight-bold">{{ trans('message.cart')}}</span>
-                                                </div>
-                                                <div class="card-body">
-                                                    <!-- Course -->
-                                                    <a class="media" href="#">
-                                                        <div class="mt-1 mr-3">
-                                                            <div class="avatar">
-                                                                <img class="avatar-img rounded-sm" src="{{ asset('customers/assets/svg/components/graphics-8.svg') }}" alt="Image Description">
-                                                            </div>
-                                                        </div>
-                                                        <div class="media-body">
-                                                            <div class="mb-2">
-                                                                <span class="d-block text-dark text-hover-primary font-size-1 font-weight-bold mb-1">{{ trans('message.demo_1')}}</span>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                    <!-- End Course -->
-                                                    <!-- Course -->
-                                                    <a class="media mt-5" href="#">
-                                                        <div class="mt-1 mr-3">
-                                                            <div class="avatar">
-                                                                <img class="avatar-img rounded-sm" src="{{ asset('customers/assets/svg/components/graphics-7.svg') }}" alt="Image Description">
-                                                            </div>
-                                                        </div>
-                                                        <div class="media-body">
-                                                            <div class="mb-2">
-                                                                <span class="d-block text-dark text-hover-primary font-size-1 font-weight-bold mb-1">{{ trans('message.demo_2') }}</span>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                    <!-- End Course -->
-                                                </div>
-                                                <div class="card-footer text-center py-3">
-                                                    <a class="font-size-1" href="#">
-                                                    {{ trans('message.see_all') }}
-                                                    <i class="fa fa-angle-right ml-1"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
                                         </div>
                                         <!-- End My Courses - Submenu -->
                                     </li>

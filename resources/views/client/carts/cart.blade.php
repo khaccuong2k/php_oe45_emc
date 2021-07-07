@@ -93,7 +93,7 @@
                             <div class="media align-items-center mb-3">
                                 <span class="d-block font-size-1 mr-3">{{ trans('message.item_subtotal') }}</span>
                                 <div class="media-body text-right">
-                                    <span class="text-dark font-weight-bold">$73.98</span>
+                                    <span class="text-dark font-weight-bold space-price"></span>
                                 </div>
                             </div>
                             <div class="media align-items-center mb-3">
@@ -125,12 +125,12 @@
                         <div class="media align-items-center mb-3">
                             <span class="d-block font-size-1 mr-3">{{ trans('message.total') }}</span>
                             <div class="media-body text-right">
-                                <span class="text-dark font-weight-bold">$73.98</span>
+                                <span class="text-dark font-weight-bold total-price"></span>
                             </div>
                         </div>
                         <div class="row mx-1">
                             <div class="col px-1 my-1">
-                                <a class="btn btn-primary btn-block btn-pill transition-3d-hover btn-sm" href="checkout.html">{{ trans('message.checkout') }}</a>
+                                <a class="btn btn-primary btn-block btn-pill transition-3d-hover btn-sm" href="{{ route('client.order.show') }}">{{ trans('message.checkout') }}</a>
                             </div>
                             <div class="col px-1 my-1">
                                 <button type="submit" class="btn btn-soft-warning btn-block btn-pill transition-3d-hover">
