@@ -27,6 +27,7 @@
 @endsection
 
 @section('breadcrumb')
+<li class="breadcrumb-item"><a href="{{ route('products.index') }}">@lang('lable.title.product.index')</a></li>
 <li class="breadcrumb-item active" aria-current="page">@lang('lable.title.product.add')</li>
 @endsection
 
@@ -37,19 +38,10 @@
         <div class="pull-left">
             <h4 class="text-blue h4">@lang('lable.title.product.add')</h4>
                 <br><br>
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li> @lang( $error ) </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
                 @include('admin.common.message')
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                    @lang('lable.product.addExcel')
+                    @lang('lable.addExcel')
                 </button>
                 <br><br>
                 <!-- Modal -->
@@ -57,7 +49,7 @@
                     <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">@lang('lable.product.addExcel')</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">@lang('lable.addExcel')</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -71,7 +63,7 @@
                                 </div>
                         </div>
                         <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('lable.product.close')</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('lable.close')</button>
                         <button type="submit" class="btn btn-primary">@lang('lable.action_add')</button>
                         </form>
                         </div>
@@ -81,66 +73,55 @@
             </div>
         </div>
     </div>
-    <form action="" method="post" enctype="multipart/form-data">
+    <form action="{{ route('products.store') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
-            <label>Text</label>
+            <label>@lang('lable.name')</label>
             <input class="form-control" type="text" name="name" value="">
         </div>
         <div class="form-group">
-            <label for="">Thumbnail</label>
-            <input type="file" class="form-control-file" name="thumbnail" id="thumbnail" placeholder="" aria-describedby="fileHelpId">
-            <img src="#" alt="" id="blah">
-        </div>
-        <div class="form-group">
-            <label>Textarea</label>
+            <label>@lang('lable.content')</label>
             <textarea class="form-control" name="content"></textarea>
         </div>
-        <div class="form-group">
-            <label>Number</label>
-            <input class="form-control" name="price" value="" type="number">
+        <textarea class="textarea_editor form-control border-radius-0" name="short_description"></textarea>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label>@lang('lable.price')</label>
+                <input class="form-control" name="price" type="number">
+            </div>
+            <div class="form-group col-md-6">
+                <label>@lang('lable.quantity')</label>
+                <input class="form-control" name="quantity" type="number">
+            </div>
         </div>
         <div class="form-group">
-            <label>Number</label>
-            <input class="form-control" name="quantity" value="" type="number">
-        </div>
-        <div class="form-group">
-            <label>Multiple Select</label>
+            <label>@lang('lable.parent_id')</label>
             <select class="custom-select2 form-control" name="parent_id[]" multiple="multiple" style="width: 100%;">
-                <optgroup label="Alaskan/Hawaiian Time Zone">
-                    <option value="AK">Alaska</option>
-                    <option value="HI">Hawaii</option>
-                </optgroup>
-                <optgroup label="Pacific Time Zone">
-                    <option value="CA">California</option>
-                    <option value="NV">Nevada</option>
-                    <option value="OR">Oregon</option>
-                    <option value="WA">Washington</option>
-                </optgroup>
-                <optgroup label="Mountain Time Zone">
-                    <option value="AZ">Arizona</option>
-                    <option value="CO">Colorado</option>
-                    <option value="ID">Idaho</option>
-                    <option value="MT">Montana</option>
-                    <option value="NE">Nebraska</option>
-                    <option value="NM">New Mexico</option>
-                    <option value="ND">North Dakota</option>
-                    <option value="UT">Utah</option>
-                    <option value="WY">Wyoming</option>
-                </optgroup>
+                @forelse ($categories as $category)
+                    <optgroup label="{{ $category->name }}">
+                        @forelse ($category->subCategories as $subCategories)
+                            <option value="{{ $subCategories->id }}">{{ $subCategories->name }}
+                            </option>
+                        @empty
+                            <option disabled value="">@lang('lable.no_have_value')</option>
+                        @endforelse
+                    </optgroup>
+                @empty
+                    <option disabled value="">@lang('lable.no_have_value')</option>
+                @endforelse
             </select>
         </div>
-        <textarea class="textarea_editor form-control border-radius-0" name="short_description" placeholder="Enter text ..."></textarea>
         <div class="mt-3" >
-            <label>Image</label>
+            <label>@lang('lable.image')</label>
             <br>
-            <input type="file" name="image[]" id="imgInp">
-            <button class="btn btn-outline-success btn-sm" type="button"></i>Add</button>
+            <input type="file" name="thumbnail[]" id="imgInp">
+            <button class="btn btn-outline-success btn-sm" type="button"></i>@lang('lable.action_add_image', ['name' => 'More Image'])</button>
         </div>
         <div class="will-add d-none">
         </div>
-        <input type="submit" class="btn btn-primary mt-5" value="Edit">
+        <input type="submit" class="btn btn-primary mt-5" value="@lang('lable.action_add', ['name' => 'Product'])">
     </form>
+    <br><br>
 </div>
 <!-- horizontal Basic Forms End -->
 @endsection

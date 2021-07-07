@@ -20,7 +20,6 @@ class Product extends Model
         'number_of_vote_submissions',
         'total_vote',
         'sold',
-        'category_id',
     ];
 
     public function comments()
@@ -30,7 +29,12 @@ class Product extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(
+            Category::class,
+            'category_product',
+            'product_id',
+            'category_id'
+        )->withTimestamps();
     }
 
     public function tags()

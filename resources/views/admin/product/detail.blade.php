@@ -23,6 +23,11 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('admin-page/vendors/styles/style.css') }}">
 @endsection
 
+@section('bread-crumb')
+<li class="breadcrumb-item"><a href="{{ route('products.index') }}">@lang('lable.title.product.index')</a></li>
+<li class="breadcrumb-item active" aria-current="page">@lang('lable.title.product.detail')</li>
+@endsection
+
 @section('content')
 <div class="product-wrap">
     <div class="product-detail-wrap mb-30">
@@ -59,11 +64,41 @@
             </div>
             <div class="col-lg-6 col-md-12 col-sm-12">
                 <div class="product-detail-desc pd-20 card-box height-100-p">
-                    <h4 class="mb-20 pt-20">Gufram Bounce Black</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    <div class="price">
-                        <del>$55.5</del><ins>$49.5</ins>
+                    @include('admin.common.message')
+                    <h4 class="mb-20 pt-20">@lang('lable.name') : {{ $detailProduct->name }}</h4>
+                    <p>@lang('lable.content') : {!! $detailProduct->content !!}</p>
+                    <p>@lang('lable.shot_description') : {!! $detailProduct->short_description !!}</p>
+                    <p>
+                        @lang('lable.views') : {{ $detailProduct->views }}
+                        <i class="icon-copy fa fa-eye" aria-hidden="true"></i>
+                    </p>
+                    <p>
+                        @lang('lable.solds') : {{ $detailProduct->sold }}
+                        <i class="icon-copy fa fa-send" aria-hidden="true"></i>
+                    </p>
+                    <p>
+                        @lang('lable.votes') : {{ $detailProduct->number_of_vote_submissions/$detailProduct->total_vote }}
+                        <i class="icon-copy fa fa-star" aria-hidden="true"></i>
+                    </p>
+                    <p>
+                        @lang('lable.price') : <ins>{{ number_format($detailProduct->price)}}</ins>
+                        <i class="icon-copy fa fa-money" aria-hidden="true"></i>
+                    </p>
+                    <div class="form-group">
+                        <label>@lang('lable.parent_id')</label>
+                        <select class="custom-select2 form-control w-100" multiple="multiple" name="parent_id" disabled>
+                            @foreach ($detailProduct->categories as $subCategory)
+                                <option selected value="{{ $subCategory->id }}">{{ $subCategory->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="row d-flex flex-row-reverse">
+                        <form action="{{ route('products.destroy', $detailProduct->id) }}" method="post" class="col-3">
+                            @csrf
+                            @method('DELETE')
+                            <input type="submit" value="@lang('lable.action_delete')" class="btn btn-outline-danger">
+                        </form>
+                        <a href="{{ route('products.edit', $detailProduct->id) }}" class="btn btn-outline-primary">@lang('lable.action_edit')</a>
                     </div>
                 </div>
             </div>
@@ -82,5 +117,5 @@
 <script src="{{ asset('admin-page/src/plugins/slick/slick.min.js') }}"></script>
 <!-- bootstrap-touchspin js -->
 <script src="{{ asset('admin-page/src/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js') }}"></script>
-<script src="{{ asset('admin-page/js/detail-flugin/detail-flugin.js') }}"></script>
+<script src="{{ asset('admin-page/src/scripts/detail-flugin.js') }}"></script>
 @endsection

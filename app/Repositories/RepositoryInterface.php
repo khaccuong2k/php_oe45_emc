@@ -14,10 +14,10 @@ interface RepositoryInterface
     /**
      * Get one
      *
-     * @param  $id
+     * @param int $id
      * @return mixed
      */
-    public function findOrFail($id);
+    public function findOrFail(int $id);
 
     /**
      * Create
@@ -42,5 +42,12 @@ interface RepositoryInterface
      * @param  int   $id
      * @return mixed
      */
-    public function delete($id);
+    public function delete(int $id);
+
+    /**
+     * Handle update images to public
+     *
+     * @var object $request
+     */
+    public function handleUploadImage(object $request);
 }
