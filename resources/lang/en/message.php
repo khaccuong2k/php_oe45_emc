@@ -158,4 +158,10 @@ return [
     'received' => 'Received',
     'on_delivery' => 'On Delivery',
     'payment_online' => 'Payment Online',
+    'change' => 'Change Status',
+    'success' => ':name Success',
+    'change_status' => [
+        'success' => 'Change Status Success',
+        'fail' => 'Change Status Fail',
+    ],
 ];

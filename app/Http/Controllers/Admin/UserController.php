@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use App\Repositories\User\UserRepository;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
@@ -42,10 +40,7 @@ class UserController extends Controller
             return back()->withError('message.select_data.fail');
         }
         
-        return view(
-            'admin.user.index',
-            compact('users')
-        );
+        return view('admin.user.index', compact('users'));
     }
 
     /**
@@ -79,12 +74,7 @@ class UserController extends Controller
     {
         $userDetail = $this->userRepository->findOrFail($id);
         if ($userDetail) {
-            return view(
-                'admin.user.detail',
-                compact(
-                    'userDetail'
-                )
-            );
+            return view('admin.user.detail', compact('userDetail'));
         }
 
         return back()->withError('message.notFound');
@@ -127,8 +117,6 @@ class UserController extends Controller
             return back()->withError('message.delete.fail');
         }
 
-        return back()->withSuccess(
-            'message.delete.success'
-        );
+        return back()->withSuccess('message.delete.success');
     }
 }
