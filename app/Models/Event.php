@@ -10,8 +10,8 @@ class Event extends Model
     use HasFactory;
 
     protected $fillable = [
-        'start_day',
-        'end_day',
-        'percent_discoun',
+        'start_date',
+        'end_date',
+        'percent_discount',
     ];
 }

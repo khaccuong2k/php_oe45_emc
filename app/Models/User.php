@@ -25,7 +25,6 @@ class User extends Authenticatable
         'address',
         'phone',
         'role_id',
-        'avatar',
     ];
 
     /**
@@ -64,9 +63,11 @@ class User extends Authenticatable
 
     public function coupons()
     {
-        return $this->hasManyThrough(
-            CouponDetail::class,
-            Coupon::class
+        return $this->belongsToMany(
+            Coupon::class,
+            'coupon_detail',
+            'user_id',
+            'coupon_id'
         );
     }
 
