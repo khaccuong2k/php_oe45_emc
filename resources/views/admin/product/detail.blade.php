@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('title')
-<title>Detail Product</title>
+<title>@lang('lable.title.detail', ['name' => 'Product'])</title>
 @endsection
 
 @section('css')
@@ -23,9 +23,9 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('admin-page/vendors/styles/style.css') }}">
 @endsection
 
-@section('bread-crumb')
-<li class="breadcrumb-item"><a href="{{ route('products.index') }}">@lang('lable.title.product.index')</a></li>
-<li class="breadcrumb-item active" aria-current="page">@lang('lable.title.product.detail')</li>
+@section('breadcrumb')
+<li class="breadcrumb-item"><a href="{{ route('products.index') }}">@lang('lable.title.manage', ['name' => 'Products'])</a></li>
+<li class="breadcrumb-item active" aria-current="page">@lang('lable.title.detail', ['name' => 'Product'])</li>
 @endsection
 
 @section('content')
@@ -86,7 +86,7 @@
                     </p>
                     <div class="form-group">
                         <label>@lang('lable.parent_id')</label>
-                        <select class="custom-select2 form-control w-100" multiple="multiple" name="parent_id" disabled>
+                        <select class="custom-select2 form-control w-75" multiple="multiple" name="parent_id" disabled>
                             @foreach ($detailProduct->categories as $subCategory)
                                 <option selected value="{{ $subCategory->id }}">{{ $subCategory->name }}</option>
                             @endforeach
@@ -98,7 +98,7 @@
                             @method('DELETE')
                             <input type="submit" value="@lang('lable.action_delete')" class="btn btn-outline-danger">
                         </form>
-                        <a href="{{ route('products.edit', $detailProduct->id) }}" class="btn btn-outline-primary">@lang('lable.action_edit')</a>
+                        <a href="{{ route('products.edit', $detailProduct->id) }}" class="btn btn-outline-primary">@lang('lable.action_edit_attr')</a>
                     </div>
                 </div>
             </div>

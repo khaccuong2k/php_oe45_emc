@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('title')
-<title>@lang('lable.title.category.detail')</title>
+<title>@lang('lable.title.detail', ['name' => 'Category'])</title>
 @endsection
 
 @section('css')
@@ -29,24 +29,24 @@
 @endsection
 
 @section('breadcrumb')
-<li class="breadcrumb-item"><a href="{{ route('categories.index')}}">@lang('lable.title.category.index')</a></li>
-<li class="breadcrumb-item active" aria-current="page">@lang('lable.title.category.detail')</li>
+<li class="breadcrumb-item"><a href="{{ route('categories.index')}}">@lang('lable.title.manage', ['name' => 'Categories'])</a></li>
+<li class="breadcrumb-item active" aria-current="page">@lang('lable.title.detail', ['name' => 'Category'])</li>
 @endsection
 
 @section('content')
 <!-- multiple select row Datatable start -->
 <div class="card-box mb-30">
     <div class="pd-20">
-        <h4 class="text-blue h4">@lang('lable.category.detail')</h4>
+        <h4 class="text-blue h4">@lang('lable.title.detail', ['name' => 'Category'])</h4>
         @include('admin.common.message')
     </div>
     <div class="pb-20">
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th scope="col">@lang('lable.category.name')</th>
-                    <th scope="col">@lang('lable.category.thumbnail')</th>
-                    <th scope="col">@lang('lable.category.description')</th>
+                    <th scope="col">@lang('lable.name')</th>
+                    <th scope="col">@lang('lable.thumbnail')</th>
+                    <th scope="col">@lang('lable.description')</th>
                     <th scope="col">@lang('lable.action')</th>
                 </tr>
             </thead>
@@ -65,7 +65,7 @@
                                 @lang('lable.action_view')
                                 </a>
                                 <a class="dropdown-item" href="{{ route('categories.edit', $category->id) }}"><i class="dw dw-edit2"></i>
-                                @lang('lable.action_edit')
+                                @lang('lable.action_edit_attr')
                                 </a>
                                 <form class="dropdown-item" action="{{ route('categories.destroy', $category->id) }}" method="post">
                                     @csrf

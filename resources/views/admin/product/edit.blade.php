@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('title')
-<title>Edit Product</title>
+<title>@lang('lable.title.edit', ['name' => 'Product'])</title>
 @endsection
 
 @section('css')
@@ -26,9 +26,9 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('admin-page/vendors/styles/style.css') }}">
 @endsection
 
-@section('bread-crumb')
-<li class="breadcrumb-item"><a href="{{ route('products.index') }}">@lang('lable.title.product.index')</a></li>
-<li class="breadcrumb-item active" aria-current="page">@lang('lable.title.product.edit')</li>
+@section('breadcrumb')
+<li class="breadcrumb-item"><a href="{{ route('products.index') }}">@lang('lable.title.manage', ['name' => 'Products'])</a></li>
+<li class="breadcrumb-item active" aria-current="page">@lang('lable.title.edit', ['name' => 'Product'])</li>
 @endsection
 
 @section('content')
@@ -36,17 +36,8 @@
 <div class="pd-20 card-box mb-30">
     <div class="clearfix">
         <div class="pull-left">
-            <h4 class="text-blue h4">@lang('lable.title.product.add')</h4>
+            <h4 class="text-blue h4">@lang('lable.title.add', ['name' => 'Product'])</h4>
                 <br><br>
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li> @lang( $error ) </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
                 @include('admin.common.message')
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">

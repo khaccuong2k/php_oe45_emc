@@ -190,12 +190,12 @@
                     <ul id="accordion-menu">
                         <li>
                             <a href="/" class="dropdown-toggle no-arrow">
-                            <span class="micon dw dw-house-1"></span><span class="mtext">@lang('lable.title.dashboard.index')</span>
+                            <span class="micon dw dw-house-1"></span><span class="mtext">@lang('lable.title.manage', ['name' => 'Dashboard'])</span>
                             </a>
                         </li>
                         <li class="dropdown">
                             <a href="javascript:;" class="dropdown-toggle">
-                            <span class="micon dw dw-list3"></span><span class="mtext">@lang('lable.title.category.index')</span>
+                            <span class="micon dw dw-list3"></span><span class="mtext">@lang('lable.title.manage', ['name' => 'Categories'])</span>
                             </a>
                             <ul class="submenu">
                                 <li><a href="{{ route('categories.index') }}">@lang('lable.app.sidebar.list')</a></li>
@@ -204,7 +204,7 @@
                         </li>
                         <li class="dropdown">
                             <a href="javascript:;" class="dropdown-toggle">
-                            <span class="micon dw dw-library"></span><span class="mtext">@lang('lable.title.product.index')</span>
+                            <span class="micon dw dw-library"></span><span class="mtext">@lang('lable.title.manage', ['name' => 'Products'])</span>
                             </a>
                             <ul class="submenu">
                                 <li><a href="{{ route('products.index') }}">@lang('lable.app.sidebar.list')</a></li>
@@ -213,7 +213,7 @@
                         </li>
                         <li class="dropdown">
                             <a href="javascript:;" class="dropdown-toggle">
-                            <span class="micon dw dw-copy"></span><span class="mtext">@lang('lable.title.order.index')</span>
+                            <span class="micon dw dw-copy"></span><span class="mtext">@lang('lable.title.manage', ['name' => 'Orders'])</span>
                             </a>
                             <ul class="submenu">
                                 <li><a href="{{ route('orders.index') }}">@lang('lable.app.sidebar.list')</a></li>
@@ -221,15 +221,15 @@
                         </li>
                         <li class="dropdown">
                             <a href="javascript:;" class="dropdown-toggle">
-                            <span class="micon dw dw-right-arrow1"></span><span class="mtext">@lang('lable.title.request.index')</span>
+                            <span class="micon dw dw-right-arrow1"></span><span class="mtext">@lang('lable.title.manage', ['name' => 'Suggests'])</span>
                             </a>
                             <ul class="submenu">
-                                <li><a href="{{ route('requests.index') }}">@lang('lable.app.sidebar.list')</a></li>
+                                <li><a href="{{ route('suggests.index') }}">@lang('lable.app.sidebar.list')</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
                             <a href="javascript:;" class="dropdown-toggle">
-                            <span class="micon dw dw-invoice"></span><span class="mtext">@lang('lable.title.user.index')</span>
+                            <span class="micon dw dw-invoice"></span><span class="mtext">@lang('lable.title.manage', ['name' => 'Customers'])</span>
                             </a>
                             <ul class="submenu">
                                 <li><a href="{{ route('users.index') }}">@lang('lable.app.sidebar.list')</a></li>

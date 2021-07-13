@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('title')
-<title>@lang('lable.title.index')</title>
+<title>@lang('lable.title.manage', ['name' => 'Orders'])</title>
 @endsection
 
 @section('css')
@@ -29,14 +29,14 @@
 @endsection
 
 @section('breadcrumb')
-<li class="breadcrumb-item active">@lang('lable.title.index')</li>
+<li class="breadcrumb-item active">@lang('lable.title.manage', ['name' => 'Orders'])</li>
 @endsection
 
 @section('content')
 <div class="row clearfix">
     <div class="col-lg-12 col-md-12 col-sm-12 mb-30">
         <div class="pd-20 card-box">
-            <h5 class="h4 text-blue mb-20">@lang('lable.title.index')</h5>
+            <h5 class="h4 text-blue mb-20">@lang('lable.title.manage', ['name' => 'Orders'])</h5>
             <div class="tab">
                 <ul class="nav nav-tabs customtab" role="tablist">
                     <li class="nav-item">
@@ -57,8 +57,8 @@
                                 <table class="table hover nowrap">
                                     <thead>
                                         <tr>
-                                            <th>@lang('lable.order.user_order')</th>
-                                            <th>@lang('lable.order.type_payment')</th>
+                                            <th>@lang('lable.user_order')</th>
+                                            <th>@lang('lable.type_payment')</th>
                                             <th>@lang('lable.detail', ['name' => 'Order'])</th>
                                             <th>@lang('lable.action')</th>
                                         </tr>
@@ -107,7 +107,7 @@
                                 <table class="table hover nowrap">
                                     <thead>
                                         <tr>
-                                            <th>@lang('lable.order.user_order')</th>
+                                            <th>@lang('lable.user_order')</th>
                                             <th>@lang('lable.detail', ['name' => 'Order'])</th>
                                             <th>@lang('lable.action')</th>
                                         </tr>
@@ -148,7 +148,7 @@
                                 <table class="table hover nowrap">
                                     <thead>
                                         <tr>
-                                            <th>@lang('lable.order.user_order')</th>
+                                            <th>@lang('lable.user_order')</th>
                                             <th>@lang('lable.detail', ['name' => 'Order'])</th>
                                         </tr>
                                     </thead>

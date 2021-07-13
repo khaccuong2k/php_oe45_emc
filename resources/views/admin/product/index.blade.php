@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('title')
-<title>@lang('lable.title.product.index')</title> 
+<title>@lang('lable.title.manage', ['name' => 'Products'])</title> 
 @endsection
 
 @section('css')
@@ -28,7 +28,7 @@
         </li>
         <li class="breadcrumb-item active" aria-current="page">@lang('lable.category.listProduct')</li>
     @else
-        <li class="breadcrumb-item active" aria-current="page">@lang('lable.title.product.index')</li>
+        <li class="breadcrumb-item active" aria-current="page">@lang('lable.title.manage', ['name' => 'Products'])</li>
     @endif
 @endsection
 
@@ -44,7 +44,7 @@
                             <div class="price">
                                 <h6><a href="#">{{ $product->name }}</a></h6>
                             </div>
-                            <a href="{{ route('products.show', $product->id) }}" class="btn btn-outline-info">@lang('lable.product.detail')</a>
+                            <a href="{{ route('products.show', $product->id) }}" class="btn btn-outline-info">@lang('lable.detail', ['name' => 'Product'])</a>
                         </div>
                     </div>
                 </li>
