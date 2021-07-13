@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('title')
-<title>@lang('lable.title.suggest.index')</title>
+<title>@lang('lable.title.manage', ['name' => 'Suggests'])</title>
 @endsection
 
 @section('css')
@@ -24,18 +24,20 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('admin-page/src/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css') }}">
 <!-- bootstrap-touchspin css -->
 <link rel="stylesheet" type="text/css" href="{{ asset('admin-page/src/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('admin-page/src/plugins/sweetalert2/sweetalert2.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('admin-page/vendors/styles/style.css') }}">
+@include('sweetalert::alert')
 @endsection
 
 @section('bread-crumb')
-<li class="breadcrumb-item active">@lang('lable.title.suggest.index')</li>
+<li class="breadcrumb-item active">@lang('lable.title.manage', ['name' => 'Suggests'])</li>
 @endsection
 
 @section('content')
 <div class="row clearfix">
     <div class="col-lg-12 col-md-12 col-sm-12 mb-30">
         <div class="pd-20 card-box">
-            <h5 class="h4 text-blue mb-20">@lang('lable.title.suggest.index')</h5>
+            <h5 class="h4 text-blue mb-20">@lang('lable.title.manage', ['name' => 'Suggests'])</h5>
             @include('admin.common.message')
             <div class="tab">
                 <ul class="nav nav-tabs customtab" role="tablist">
@@ -61,7 +63,7 @@
                                     </thead>
                                     <tbody>
                                         @forelse ($suggests as $suggest)
-                                            @if ($suggest->status === 1)
+                                            @if ($suggest->status === 0)
                                             <tr>
                                                 <td class="table-plus">{{ $suggest->user->fullname }}</td>
                                                 <td>
@@ -102,7 +104,7 @@
                                     </thead>
                                     <tbody>
                                         @forelse ($suggests as $suggest)
-                                            @if ($suggest->status === 2)
+                                            @if ($suggest->status === 1)
                                                 <tr>
                                                     <td class="table-plus">{{ $suggest->user->fullname }}</td>
                                                     <td>
@@ -146,4 +148,7 @@
 <!-- bootstrap-touchspin js -->
 <script src="{{ asset('admin-page/src/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js') }}"></script>
 <script src="{{ asset('admin-page/vendors/scripts/advanced-components.js') }}"></script>
+<!-- add sweet alert js & css in footer -->
+<script src="{{ asset('admin-page/src/plugins/sweetalert2/sweetalert2.all.js') }}"></script>
+<script src="{{ asset('admin-page/src/plugins/sweetalert2/sweet-alert.init.js') }}"></script>
 @endsection

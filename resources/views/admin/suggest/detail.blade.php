@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('title')
-<title>@lang('lable.title.order.detail')</title>
+<title>@lang('lable.title.detail', ['name' => 'Suggests'])</title>
 @endsection
 
 @section('css')
@@ -27,27 +27,36 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('admin-page/vendors/styles/style.css') }}">
 @endsection
 
+@section('breadcrumb')
+<li class="breadcrumb-item"><a href="{{ route('suggests.index') }}">@lang('lable.title.manage', ['name' => 'Suggest'])</a></li>
+<li class="breadcrumb-item active" aria-current="page">@lang('lable.title.detail', ['name' => 'Suggest'])</li>
+@endsection
+
 @section('content')
 <!-- multiple select row Datatable start -->
 <div class="card-box mb-30">
     <div class="pd-20">
-        <h4 class="text-blue h4">@lang('lable.order.detail')</h4>
+        <h4 class="text-blue h4">@lang('lable.detail', ['name' => 'Suggest'])</h4>
     </div>
     <div class="pb-20">
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th scope="col">@lang('lable.order.name')</th>
-                    <th scope="col">@lang('lable.order.thumbnail')</th>
-                    <th scope="col">@lang('lable.order.qty')</th>
+                    <th scope="col">@lang('lable.content')</th>
+                    <th scope="col">@lang('lable.action')</th>
                 </tr>
             </thead>
             <tbody>
+                @if (isset($detailSuggest))
                 <tr>
-                    <th scope="row">1</th>
-                    <th scope="row">1</th>
-                    <th scope="row">1</th>
+                    <th scope="row">{{ $detailSuggest->content }}</th>
+                    <th scope="row">{{ $detailSuggest->content }}</th>
                 </tr>
+                @else
+                <tr>
+                    <th scope="row" colspan="2" class="text-center">@lang('lable.no_have_value')</th>
+                </tr>
+                @endif
             </tbody>
         </table>
     </div>

@@ -4,7 +4,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\RequestController;
+use App\Http\Controllers\Admin\SuggestController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Client\AjaxController as ClientAjaxController;
@@ -67,29 +67,18 @@ Route::group(['middleware' => 'locale'], function () {
 
     Route::resource('admin/orders', OrderController::class);
 
-    Route::get(
-        '/admin/orders/change-status-order/{id}',
-        [
-            OrderController::class,
-            'changeStatus'
-        ]
-    )->name(
-        'orders.change-status'
-    );
+    Route::get('/admin/orders/change-status-order/{id}', [OrderController::class, 'changeStatus'])
+    ->name('orders.change-status');
 
     Route::resource('admin/categories', CategoryController::class);
 
-    Route::get(
-        'admin/categories/{id}/list-product',
-        [
-        CategoryController::class,
-        'getAllProductByCategoryId'
-        ]
-    )->name(
-        'categories.listProduct'
-    );
+    Route::get('admin/categories/{id}/list-product', [CategoryController::class, 'getAllProductByCategoryId'])
+    ->name('categories.listProduct');
 
-    Route::resource('admin/requests', RequestController::class);
+    Route::resource('admin/suggests', SuggestController::class);
+
+    Route::get('/admin/suggests/change-status-suggest/{id}', [SuggestController::class, 'changeStatus'])
+    ->name('suggests.change-status');
 
     Route::get('export', [ProductController::class, 'export'])->name('products.export');
     Route::get('importExportView', [ProductController::class, 'products.importExportView']);

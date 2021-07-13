@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('title')
-<title>@lang('lable.title.user.index')</title>
+<title>@lang('lable.title.manage', ['name' => 'Users'])</title>
 @endsection
 
 @section('css')
@@ -29,23 +29,23 @@
 @endsection
 
 @section('breadcrumb')
-<li class="breadcrumb-item active">@lang('lable.title.user.index')</li>
+<li class="breadcrumb-item active">@lang('lable.title.manage', ['name' => 'Users'])</li>
 @endsection
 
 @section('content')
 <!-- Simple Datatable start -->
 <div class="card-box mb-30">
     <div class="pd-20">
-        <h4 class="text-blue h4">@lang('lable.user.list')</h4>
+        <h4 class="text-blue h4">@lang('lable.list', ['name' => 'User'])</h4>
 		@include('admin.common.message')
     </div>
     <div class="pb-20">
         <table class="data-table table stripe hover nowrap">
             <thead>
                 <tr>
-                    <th class="table-plus datatable-nosort">@lang('lable.user.name')</th>
-                    <th>@lang('lable.user.avatar')</th>
-                    <th>@lang('lable.user.total_bought')</th>
+                    <th class="table-plus datatable-nosort">@lang('lable.name')</th>
+                    <th>@lang('lable.avatar')</th>
+                    <th>@lang('lable.total_bought')</th>
                     <th class="datatable-nosort">@lang('lable.action')</th>
                 </tr>
             </thead>
