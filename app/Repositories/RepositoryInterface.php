@@ -22,19 +22,19 @@ interface RepositoryInterface
     /**
      * Create
      *
-     * @param  object $attributes
+     * @param  array $attributes
      * @return mixed
      */
-    public function create(object $attributes);
+    public function create(array $attributes);
 
     /**
      * Update
      *
-     * @param  object $attributes
+     * @param  array $attributes
      * @param  int    $id
      * @return mixed
      */
-    public function update(object $attributes, $id);
+    public function update($id, array $attributes);
 
     /**
      * Delete
@@ -47,7 +47,7 @@ interface RepositoryInterface
     /**
      * Handle update images to public
      *
-     * @var object $request
+     * @var array $request
      */
-    public function handleUploadImage(object $request);
+    public function handleUploadImage(array $request);
 }

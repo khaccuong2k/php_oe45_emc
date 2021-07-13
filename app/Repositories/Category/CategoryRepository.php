@@ -33,11 +33,7 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
 
     public function getAllProductByCategoryId(int $id)
     {
-        $listProduct = $this->model::with('products')
-        ->where(
-            'id',
-            $id
-        )->first();
+        $listProduct = $this->model::with('products')->where('id', $id)->first();
         
         if (($listProduct->products->count()) > 0) {
             return $listProduct;
@@ -60,7 +56,7 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
         return false;
     }
 
-    public function update($request, $id)
+    public function update($id, $request)
     {
         $find = $this->model::findOrFail($id);
         if ($find) {

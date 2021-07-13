@@ -71,19 +71,18 @@ interface ProductRepositoryInterface
     /**
      * Transaction implement change data product table
      *
-     * @var object $request
-     * @var string $typeAction
      * @var int    $id
+     * @var array $request
+     * @var string $typeAction
      * @return boolean
      */
-    public function transaction($request, $typeAction, $id = null);
+    public function transaction(int $id = null, array $request = null, string $typeAction = null);
 
     /**
      * Return array request for change data product table
      *
-     * @var object $request
-     * @var string $typeAction
+     * @var array $request
      * @return array
      */
-    public function dataRequest($request);
+    public function dataRequest(array $request);
 }

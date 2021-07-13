@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Order\OrderRepository;
+use App\Repositories\Order\OrderRepositoryInterface;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
 
 class OrderController extends Controller
 {
@@ -20,7 +19,7 @@ class OrderController extends Controller
      *
      * @var OrderRepository $orderRepository
      */
-    public function __construct(OrderRepository $orderRepository)
+    public function __construct(OrderRepositoryInterface $orderRepository)
     {
         $this->orderRepository = $orderRepository;
     }
@@ -128,8 +127,8 @@ class OrderController extends Controller
         } catch (QueryException $exception) {
             return response()->json(
                 [
-                    'success' => false,
-                    'message' => trans('message.change_status.fail'),
+                'success' => false,
+                'message' => trans('message.change_status.fail'),
                 ]
             );
         }
@@ -137,16 +136,16 @@ class OrderController extends Controller
         if ($changeStatus) {
             return response()->json(
                 [
-                    'success' => true,
-                    'message' => trans('lable.order_confirmation'),
+                'success' => true,
+                'message' => trans('lable.order_confirmation'),
                 ]
             );
         }
         
         return response()->json(
             [
-                'success' => false,
-                'message' => trans('message.change_status.fail'),
+            'success' => false,
+            'message' => trans('message.change_status.fail'),
             ]
         );
     }

@@ -33,6 +33,9 @@ class Comment extends Model
 
     public function reply()
     {
-        return $this->hasMany(Comment::class, 'comment_parent_id');
+        return $this->hasMany(
+            Comment::class,
+            'comment_parent_id'
+        );
     }
 }
