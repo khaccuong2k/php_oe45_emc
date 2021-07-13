@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('title')
-<title>@lang('lable.title.category.index')</title>
+<title>@lang('lable.title.manage', ['name' => 'Categories'])</title>
 @endsection
 
 @section('css')
@@ -28,15 +28,14 @@
 @endsection
 
 @section('breadcrumb')
-<li class="breadcrumb-item"><a href="{{ route('categories.index')}}">@lang('lable.title.category.index')</a></li>
-<li class="breadcrumb-item active" aria-current="page">@lang('lable.title.category.index')</li>
+<li class="breadcrumb-item active" aria-current="page">@lang('lable.title.manage', ['name' => 'Categories'])</li>
 @endsection
 
 @section('content')
 <!-- Simple Datatable start -->
 <div class="card-box mb-30">
     <div class="pd-20">
-        <h4 class="text-blue h4">@lang('lable.category.list')</h4>
+        <h4 class="text-blue h4">@lang('lable.list', ['name' => 'Categories'])</h4>
     </div>
     <div class="pb-20">
         <table class="table">
@@ -55,11 +54,11 @@
                         <table class="table mb-0 table-bordered table-dark">
                             <thead>
                                 <tr>
-                                    <td class="w-25 p-3">@lang('lable.category.sub')</td>
+                                    <td class="w-25 p-3">@lang('lable.sub')</td>
                                     <td class="w-50 p-3">{{ $subCategories->name }}</td>
                                     <td class="w-25 p-3">
                                         <a class="btn btn-outline-info" href="{{ route('categories.show', $subCategories->id) }}">
-                                        @lang('lable.category.detail')
+                                        @lang('lable.detail', ['name' => 'Category'])
                                         </a>
                                     </td>
                                 </tr>

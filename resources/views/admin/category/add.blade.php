@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('title')
-<title>@lang('lable.title.category.add')</title>
+<title>@lang('lable.title.add', ['name' => 'Category'])</title>
 @endsection
 
 @section('css')
@@ -27,8 +27,8 @@
 @endsection
 
 @section('breadcrumb')
-<li class="breadcrumb-item"><a href="{{ route('categories.index')}}">@lang('lable.title.category.index')</a></li>
-<li class="breadcrumb-item active" aria-current="page">@lang('lable.title.category.add')</li>
+<li class="breadcrumb-item"><a href="{{ route('categories.index')}}">@lang('lable.title.manage', ['name' => 'Categories'])</a></li>
+<li class="breadcrumb-item active" aria-current="page">@lang('lable.title.add', ['name' => 'Category'])</li>
 @endsection
 
 @section('content')
@@ -36,26 +36,26 @@
 <div class="pd-20 card-box mb-30">
     <div class="clearfix">
         <div class="pull-left">
-            <h4 class="text-blue h4">@lang('lable.title.category.add')</h4>
+            <h4 class="text-blue h4">@lang('lable.title.add', ['name' => 'Category'])</h4>
         </div>
     </div>
     <form action="{{ route('categories.store') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
-            <label>@lang('lable.category.name')</label>
+            <label>@lang('lable.name')</label>
             <input class="form-control" type="text" name="name">
         </div>
         <div class="form-group">
-            <label for="">@lang('lable.category.thumbnail')</label>
+            <label for="">@lang('lable.thumbnail')</label>
             <input type="file" class="form-control-file" name="thumbnail" aria-describedby="fileHelpId">
             <img src="#" alt="" id="blah" class="image-custom-setwh">
         </div>
         <div class="form-group">
-            <label>@lang('lable.category.description')</label>
+            <label>@lang('lable.description')</label>
             <textarea class="form-control" name="description"></textarea>
         </div>
         <div class="form-group">
-            <label>@lang('lable.category.parent_id')</label>
+            <label>@lang('lable.parent_id')</label>
             <select class="custom-select2 form-control w-100" multiple="multiple" name="parent_id">
                 @foreach ($categories as $subCategory)
                 @if ($subCategory->parent_id === null)

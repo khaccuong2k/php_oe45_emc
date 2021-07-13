@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('title')
-<title>@lang('lable.title.detail')</title>
+<title>@lang('lable.title.detail', ['name' => 'Order'])</title>
 @endsection
 
 @section('css')
@@ -29,15 +29,15 @@
 @endsection
 
 @section('breadcrumb')
-<li class="breadcrumb-item"><a href="{{ route('orders.index') }}">@lang('lable.title.index')</a></li>
-<li class="breadcrumb-item active">@lang('lable.title.detail')</li>
+<li class="breadcrumb-item"><a href="{{ route('orders.index') }}">@lang('lable.title.manage', ['name' => 'Orders'])</a></li>
+<li class="breadcrumb-item active">@lang('lable.title.detail', ['name' => 'Order'])</li>
 @endsection
 
 @section('content')
 <!-- multiple select row Datatable start -->
 <div class="card-box mb-30">
     <div class="pd-20">
-        <h4 class="text-blue h4">@lang('lable.order.detail')</h4>
+        <h4 class="text-blue h4">@lang('lable.detail', ['name' => 'Order'])</h4>
         @if ($detailOrder->status === config('app.status_confirm'))
         <a href="{{ route('orders.change-status', $detailOrder->id)}}" data-id="{{ $detailOrder->id }}" class="btn btn-outline-primary change-status">
             @lang('lable.go_to_order')

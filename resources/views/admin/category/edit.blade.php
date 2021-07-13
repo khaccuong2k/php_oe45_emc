@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('title')
-<title>@lang('lable.title.category.add')</title>
+<title>@lang('lable.title.edit', ['name' => 'Category'])</title>
 @endsection
 
 @section('css')
@@ -28,8 +28,8 @@
 @endsection
 
 @section('breadcrumb')
-<li class="breadcrumb-item"><a href="{{ route('categories.index')}}">@lang('lable.title.category.index')</a></li>
-<li class="breadcrumb-item active" aria-current="page">@lang('lable.title.category.edit')</li>
+<li class="breadcrumb-item"><a href="{{ route('categories.index')}}">@lang('lable.title.manage', ['name' => 'Categories'])</a></li>
+<li class="breadcrumb-item active" aria-current="page">@lang('lable.title.edit', ['name' => 'Category'])</li>
 @endsection
 
 @section('content')
@@ -37,7 +37,7 @@
 <div class="pd-20 card-box mb-30">
     <div class="clearfix">
         <div class="pull-left">
-            <h4 class="text-blue h4">@lang('lable.title.category.edit')</h4>
+            <h4 class="text-blue h4">@lang('lable.title.edit', ['name' => 'Category'])</h4>
         </div>
     </div>
     @include('admin.common.message')
@@ -45,20 +45,20 @@
         @csrf
         @method('PUT')
         <div class="form-group">
-            <label>@lang('lable.category.name')</label>
+            <label>@lang('lable.name')</label>
             <input class="form-control" type="text" name="name" value="{{ $category->name }}">
         </div>
         <div class="form-group">
-            <label for="">@lang('lable.category.thumbnail')</label>
+            <label for="">@lang('lable.thumbnail')</label>
             <input type="file" class="form-control-file" name="thumbnail" aria-describedby="fileHelpId">
             <img src="{{ $category->thumbnail }}" alt="" id="blah" class="image-custom-setwh">
         </div>
         <div class="form-group">
-            <label>@lang('lable.category.description')</label>
+            <label>@lang('lable.description')</label>
             <textarea class="form-control" name="description">{{ $category->description }}</textarea>
         </div>
         <div class="form-group">
-            <label>@lang('lable.category.parent_id')</label>
+            <label>@lang('lable.parent_id')</label>
             <select class="custom-select2 form-control w-100" multiple="multiple" name="parent_id">
                 <option value="">This Is Parent Category</option>
                 @foreach ($categories as $subCategory)
@@ -71,7 +71,7 @@
                 @endforeach
             </select>
         </div>
-        <input type="submit" class="btn btn-primary mt-5" value="@lang('lable.action_edit')">
+        <input type="submit" class="btn btn-primary mt-5" value="@lang('lable.action_edit', ['name' => 'Category'])">
     </form>
 </div>
 <!-- horizontal Basic Forms End -->

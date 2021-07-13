@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('title')
-<title>@lang('lable.title.product.add')</title>
+<title>@lang('lable.title.add', ['name' => 'Product'])</title>
 @endsection
 
 @section('css')
@@ -27,8 +27,8 @@
 @endsection
 
 @section('breadcrumb')
-<li class="breadcrumb-item"><a href="{{ route('products.index') }}">@lang('lable.title.product.index')</a></li>
-<li class="breadcrumb-item active" aria-current="page">@lang('lable.title.product.add')</li>
+<li class="breadcrumb-item"><a href="{{ route('products.index') }}">@lang('lable.title.manage', ['name' => 'Products'])</a></li>
+<li class="breadcrumb-item active" aria-current="page">@lang('lable.title.add', ['name' => 'Product'])</li>
 @endsection
 
 @section('content')
@@ -36,7 +36,7 @@
 <div class="pd-20 card-box mb-30">
     <div class="clearfix">
         <div class="pull-left">
-            <h4 class="text-blue h4">@lang('lable.title.product.add')</h4>
+            <h4 class="text-blue h4">@lang('lable.title.add', ['name' => 'Product'])</h4>
                 <br><br>
                 @include('admin.common.message')
                 <!-- Button trigger modal -->
