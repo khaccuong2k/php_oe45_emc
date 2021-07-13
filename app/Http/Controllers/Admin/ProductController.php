@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ImportProductRequest;
-use App\Repositories\Category\CategoryRepository;
-use App\Repositories\Product\ProductRepository;
+use App\Repositories\Category\CategoryRepositoryInterface;
+use App\Repositories\Product\ProductRepositoryInterface;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
@@ -29,8 +29,8 @@ class ProductController extends Controller
      * @var CategoryRepository $categoryRepository
      */
     public function __construct(
-        ProductRepository $productRepository,
-        CategoryRepository $categoryRepository
+        ProductRepositoryInterface $productRepository,
+        CategoryRepositoryInterface $categoryRepository
     ) {
         $this->productRepository = $productRepository;
 
@@ -45,11 +45,7 @@ class ProductController extends Controller
     public function index()
     {
         try {
-            $products = $this->productRepository->paginate(
-                'id',
-                'desc',
-                (config('app.paginate_number'))
-            );
+            $products = $this->productRepository->paginate('id', 'desc', (config('app.paginate_number')));
         } catch (QueryException $exception) {
             return back()->withError('message.select_data.fail');
         }
@@ -82,7 +78,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $store = $this->productRepository->transaction($request, 'create', $id = null);
+        $store = $this->productRepository->transaction($id = null, $request->all(), 'create');
         if ($store) {
             return redirect()->route('products.index');
         }
@@ -99,6 +95,7 @@ class ProductController extends Controller
     public function show($id)
     {
         $detailProduct = $this->productRepository->getAllCategoryByProductId($id);
+
         if ($detailProduct) {
             return view('admin.product.detail', compact('detailProduct'));
         }
@@ -134,7 +131,7 @@ class ProductController extends Controller
             return view('admin.product.edit', compact(
                 'categories',
                 'detailProduct',
-                'listIdCategoryOfThisProduct',
+                'listIdCategoryOfThisProduct'
             ));
         }
         
@@ -150,7 +147,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $update = $this->productRepository->transaction($request, 'update', $id);
+        $update = $this->productRepository->transaction($id, $request->all(), 'update');
         if ($update) {
             return redirect()->route('products.show', $id);
         }
@@ -166,7 +163,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $destroy = $this->productRepository->transaction(null, 'delete', $id);
+        $destroy = $this->productRepository->transaction($id, $request = null, 'delete');
         if ($destroy) {
             return redirect()->route('products.index');
         }
@@ -182,9 +179,9 @@ class ProductController extends Controller
         $import = $this->productRepository->import($request);
 
         if ($import) {
-            return redirect()->route('products.index')->withSuccess('message.product.import.success');
+            return redirect()->route('products.index')->withSuccess('message.import.success');
         }
 
-        return back()->withError('message.product.import.error');
+        return back()->withError('message.import.error');
     }
 }

@@ -17,8 +17,8 @@ class ProductsImport implements ToModel, WithHeadingRow
     }
 
     /**
-     * @param array $row
      *
+     * @param array $row
      * @return \Illuminate\Database\Eloquent\Model|null
      */
     public function model(array $row)

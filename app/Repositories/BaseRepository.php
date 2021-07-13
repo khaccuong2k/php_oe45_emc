@@ -66,26 +66,26 @@ abstract class BaseRepository implements RepositoryInterface
     /**
      * Create
      *
-     * @param  object $attributes
+     * @param  array $attributes
      * @return mixed
      */
-    public function create(object $request)
+    public function create(array $attributes)
     {
-        return $this->model->create($request);
+        return $this->model->create($attributes);
     }
 
     /**
      * Update
      *
      * @param  $id
-     * @param  object $attributes
+     * @param  array $attributes
      * @return bool|mixed
      */
-    public function update(object $request, $id)
+    public function update($id, array $attributes)
     {
         $find = $this->findOrFail($id);
         if ($find) {
-            $find->update($request);
+            $find->update($attributes);
 
             return true;
         }
@@ -136,25 +136,24 @@ abstract class BaseRepository implements RepositoryInterface
     /**
      * Handle update images to public
      *
-     * @var object $request
+     * @var array $request
      */
-    public function handleUploadImage(object $request = null)
+    public function handleUploadImage(array $request = null)
     {
         if ($request !== null) {
-            $image = $request->file('thumbnail');
-            if (is_array($image)) {
-                foreach ($image as $key => $img) {
-                    $image[$key]->move(
+            if (is_array($request)) {
+                foreach ($request as $key => $img) {
+                    $request[$key]->move(
                         public_path('admin-page/files/images'),
-                        $image[$key]->getClientOriginalName()
+                        $request[$key]->getClientOriginalName()
                     );
                 }
 
                 return true;
             }
-            $image->move(
+            $request->move(
                 public_path('admin-page/files/images'),
-                $image->getClientOriginalName()
+                $request->getClientOriginalName()
             );
 
             return true;
