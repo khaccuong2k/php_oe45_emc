@@ -164,7 +164,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         return false;
     }
 
-    public function transaction($request, $typeAction, $id = null)
+    public function transaction($id = null, $request = null, $typeAction = null)
     {
         DB::beginTransaction();
         try {
@@ -178,10 +178,11 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             $action = $this->$typeAction($this->dataRequest($request), $id);
 
             ($id === null)
-                ? $action->categories()->sync($request->parent_id)
-                : $this->findOrFail($id)->categories()->sync($request->parent_id);
+                ? $action->categories()->sync($request['parent_id'])
+                : $this->findOrFail($id)->categories()->sync($request['parent_id']);
+
             DB::commit();
-            $this->handleUploadImage($request);
+            $this->handleUploadImage($request['thumbnail']);
 
             return true;
         } catch (Exception $e) {
@@ -196,19 +197,19 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         if ($request !== null) {
             // Array image request
             $listImageRequest = [];
-            foreach ($request->thumbnail as $thumbnail) {
+            foreach ($request['thumbnail'] as $thumbnail) {
                 // Add name of file to array image request
                 $listImageRequest[] = $thumbnail->getClientOriginalName();
             }
             // Change type array of $listImageRequest to string
             $imageToUpload = implode(',', $listImageRequest);
             return [
-                'name' => $request->name,
+                'name' => $request['name'],
                 'thumbnail' => $imageToUpload,
-                'content' => $request->content,
-                'quantity' => $request->quantity,
-                'price' => $request->price,
-                'short_description' => $request->short_description,
+                'content' => $request['content'],
+                'quantity' => $request['quantity'],
+                'price' => $request['price'],
+                'short_description' => $request['short_description'],
             ];
         }
 

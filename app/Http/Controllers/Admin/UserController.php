@@ -3,22 +3,24 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\User\UserRepository;
+use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     /**
+     *
      * @var $userRepository
      */
     protected $userRepository;
 
     /**
      * Construct Inject UserRepository
+     *
      * @var UserRepository $userRepository
      */
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepositoryInterface $userRepository)
     {
         $this->userRepository = $userRepository;
     }
@@ -31,11 +33,7 @@ class UserController extends Controller
     public function index()
     {
         try {
-            $users = $this->userRepository->paginate(
-                'id',
-                'desc',
-                config('app.paginate_number')
-            );
+            $users = $this->userRepository->paginate('id', 'desc', config('app.paginate_number'));
         } catch (QueryException $exception) {
             return back()->withError('message.select_data.fail');
         }
@@ -112,7 +110,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         try {
-            $destroyUser = $this->userRepository->delete($id);
+            $this->userRepository->delete($id);
         } catch (QueryException $exception) {
             return back()->withError('message.delete.fail');
         }

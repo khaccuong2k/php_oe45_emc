@@ -18,7 +18,7 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
 
     /**
      *
-     * @var const CHANGE_STATUS_ORDER_TO_NEST_STEP
+     * @var const CHANGE_STATUS_ORDER_TO_DELIVERY
      */
     private const STATUS_OF_ORDER_ON_DELIVERY = 2;
 
