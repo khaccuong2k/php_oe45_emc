@@ -1,8 +1,5 @@
 @extends('client.layouts.master') 
-<<<<<<< HEAD
-=======
 
->>>>>>> complete order and not view history order
 @section('meta-data')
 <meta property="og:url" content="{{ URL::current() }}" />
 <meta property="og:type" content="{{ "website" }}" />
@@ -10,6 +7,7 @@
 <meta property="og:description" content="{{$productData->short_description}}" />
 <meta property="og:image" content="{{ asset($productData->thumbnail) }}" />
 @endsection
+
 @section('content')
 <!-- ========== MAIN CONTENT ========== -->
 <main id="content" role="main">
@@ -205,9 +203,8 @@
                         data-layout="button_count"
                         data-size="small"
                         data-mobile-iframe="true">
-                        <a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ URL::current() }}">Share</a>
-                    </div>
-                    </p>
+                     <a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ URL::current() }}">Share</a>
+                   </div></p>
                 </div>
                 <div class="pr-lg-4">
                     <h4>Product Description</h4>
@@ -216,13 +213,19 @@
                 <div class="pr-lg-4">
                     <h4>Rating Product</h4>
                     <div id="your-rate">
-                        @if(Session::get('product.rating'))
+                        @if (Session::get('product.rating'))
                         <div class="text-warning mr-2" id="product-rating">
-                            @foreach(Session::get('product.rating') as $ratingProduct)
-                            @if($ratingProduct == $productData->id)
-                            {!! resolveStarsVote($productData->number_of_vote_submissions, $productData->total_vote) !!} 
-                            ({{ $productData->total_vote }} {{ trans('message.rating') }})
-                            @endif
+                            @foreach (Session::get('product.rating') as $ratingProduct)
+                                @if ($ratingProduct == $productData->id)
+                                    {!! resolveStarsVote($productData->number_of_vote_submissions, $productData->total_vote) !!} 
+                                    ({{ $productData->total_vote }} {{ trans('message.rating') }})
+                                @else
+                                    <i class="far fa-star text-muted" id="one-star" data-star="1"></i>
+                                    <i class="far fa-star text-muted" id="two-star" data-star="2"></i>
+                                    <i class="far fa-star text-muted" id="three-star" data-star="3"></i>
+                                    <i class="far fa-star text-muted" id="four-star" data-star="4"></i>
+                                    <i class="far fa-star text-muted" id="five-star" data-star="5"></i>
+                                @endif
                             @endforeach
                         </div>
                         @else
@@ -274,16 +277,13 @@
             "slidesToShow": 1
             }
             }]
-            }'
-            >
+            }'>
+        @foreach ($relatedProducts as $relatedProduct)
             <div class="js-slide">
                 <!-- Product -->
                 <div class="card border shadow-none text-center w-100">
                     <div class="position-relative">
-                        <img class="card-img-top" src="{{ asset('customers/assets/img/300x180/img3.jpg') }}" alt="Image Description" />
-                        <div class="position-absolute top-0 left-0 pt-3 pl-3">
-                            <span class="badge badge-success badge-pill">New arrival</span>
-                        </div>
+                        <img class="card-img-top" src="{{ asset($relatedProduct->thumbnail) }}" alt="{{ $relatedProduct->name }}" />
                         <div class="position-absolute top-0 right-0 pt-3 pr-3">
                             <button type="button" class="btn btn-xs btn-icon btn-outline-secondary rounded-circle" data-toggle="tooltip" data-placement="top" title="Save for later">
                             <i class="fas fa-heart"></i>
@@ -292,12 +292,14 @@
                     </div>
                     <div class="card-body pt-4 px-4 pb-0">
                         <div class="mb-2">
-                            <a class="d-inline-block text-body small font-weight-bold mb-1" href="#">Accessories</a>
+                            @foreach ($relatedProduct->categories as $category)
+                                <a class="d-inline-block text-body small font-weight-bold mb-1" href="{{ route('client.category.show', $category->id) }}">{{ $category->name }}</a>
+                            @endforeach
                             <span class="d-block font-size-1">
-                            <a class="text-body" href="single-product.html">Herschel backpack in dark blue</a>
+                                <a class="text-body" href="{{ route('client.product.show', $relatedProduct->id) }}">{{ $relatedProduct->name }}</a>
                             </span>
                             <div class="d-block font-size-1">
-                                <span class="text-dark font-weight-bold">$56.99</span>
+                                <span class="text-dark font-weight-bold">{{ $relatedProduct->price }}</span>
                             </div>
                         </div>
                     </div>
@@ -305,144 +307,17 @@
                         <div class="mb-3">
                             <a class="d-inline-flex align-items-center small" href="#">
                                 <div class="text-warning mr-2">
-                                    <i class="far fa-star text-muted"></i>
-                                    <i class="far fa-star text-muted"></i>
-                                    <i class="far fa-star text-muted"></i>
-                                    <i class="far fa-star text-muted"></i>
-                                    <i class="far fa-star text-muted"></i>
+                                    {!! resolveStarsVote($relatedProduct->number_of_vote_submissions, $relatedProduct->total_vote) !!}
                                 </div>
-                                <span>0</span>
+                                <span> {!! roundStar($relatedProduct->number_of_vote_submissions, $relatedProduct->total_vote) !!}</span>
                             </a>
                         </div>
-                        <button type="button" class="btn btn-sm btn-outline-primary btn-pill transition-3d-hover">Add to Cart</button>
+                        <button type="button" data-id="{{ $relatedProduct->id }}" class="btn btn-sm btn-outline-primary btn-pill transition-3d-hover btn-add-to-cart">{{ trans('message.add_to_cart') }}</button>
                     </div>
                 </div>
                 <!-- End Product -->
             </div>
-            <div class="js-slide">
-                <!-- Product -->
-                <div class="card border shadow-none text-center w-100">
-                    <div class="position-relative">
-                        <img class="card-img-top" src="{{ asset('customers/assets/img/300x180/img1.jpg') }}" alt="Image Description" />
-                        <div class="position-absolute top-0 right-0 pt-3 pr-3">
-                            <button type="button" class="btn btn-xs btn-icon btn-outline-secondary rounded-circle" data-toggle="tooltip" data-placement="top" title="Save for later">
-                            <i class="fas fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body pt-4 px-4 pb-0">
-                        <div class="mb-2">
-                            <a class="d-inline-block text-body small font-weight-bold mb-1" href="#">Clothing</a>
-                            <span class="d-block font-size-1">
-                            <a class="text-body" href="single-product.html">Front hoodie</a>
-                            </span>
-                            <div class="d-block">
-                                <span class="text-dark font-weight-bold">$91.88</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer border-0 pt-0 pb-4 px-4">
-                        <div class="mb-3">
-                            <a class="d-inline-flex align-items-center small" href="#">
-                                <div class="text-warning mr-2">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="far fa-star text-muted"></i>
-                                </div>
-                                <span>40</span>
-                            </a>
-                        </div>
-                        <button type="button" class="btn btn-sm btn-outline-primary btn-pill transition-3d-hover">Add to Cart</button>
-                    </div>
-                </div>
-                <!-- End Product -->
-            </div>
-            <div class="js-slide">
-                <!-- Product -->
-                <div class="card border shadow-none text-center w-100">
-                    <div class="position-relative">
-                        <img class="card-img-top" src="{{ asset('customers/assets/img/300x180/img4.jpg') }}" alt="Image Description" />
-                        <div class="position-absolute top-0 left-0 pt-3 pl-3">
-                            <span class="badge badge-danger badge-pill">Sold out</span>
-                        </div>
-                        <div class="position-absolute top-0 right-0 pt-3 pr-3">
-                            <button type="button" class="btn btn-xs btn-icon btn-outline-secondary rounded-circle" data-toggle="tooltip" data-placement="top" title="Save for later">
-                            <i class="fas fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body pt-4 px-4 pb-0">
-                        <div class="mb-2">
-                            <a class="d-inline-block text-body small font-weight-bold mb-1" href="#">Accessories</a>
-                            <span class="d-block font-size-1">
-                            <a class="text-body" href="single-product.html">Herschel backpack in gray</a>
-                            </span>
-                            <div class="d-block font-size-1">
-                                <span class="text-dark font-weight-bold">$29.99</span>
-                                <span class="text-body ml-1"><del>$33.99</del></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer border-0 pt-0 pb-4 px-4">
-                        <div class="mb-3">
-                            <a class="d-inline-flex align-items-center small" href="#">
-                                <div class="text-warning mr-2">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="far fa-star text-muted"></i>
-                                    <i class="far fa-star text-muted"></i>
-                                </div>
-                                <span>125</span>
-                            </a>
-                        </div>
-                        <button type="button" class="btn btn-sm btn-outline-primary btn-pill transition-3d-hover">Add to Cart</button>
-                    </div>
-                </div>
-                <!-- End Product -->
-            </div>
-            <div class="js-slide">
-                <!-- Product -->
-                <div class="card border shadow-none text-center w-100">
-                    <div class="position-relative">
-                        <img class="card-img-top" src="{{ asset('customers/assets/img/300x180/img6.jpg') }}" alt="Image Description" />
-                        <div class="position-absolute top-0 right-0 pt-3 pr-3">
-                            <button type="button" class="btn btn-xs btn-icon btn-outline-secondary rounded-circle" data-toggle="tooltip" data-placement="top" title="Save for later">
-                            <i class="fas fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body pt-4 px-4 pb-0">
-                        <div class="mb-2">
-                            <a class="d-inline-block text-body small font-weight-bold mb-1" href="#">Clothing</a>
-                            <span class="d-block font-size-1">
-                            <a class="text-body" href="single-product.html">Front Originals adicolor t-shirt with trefoil logo</a>
-                            </span>
-                            <div class="d-block">
-                                <span class="text-dark font-weight-bold">$38.00</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer border-0 pt-0 pb-4 px-4">
-                        <div class="mb-3">
-                            <a class="d-inline-flex align-items-center small" href="#">
-                                <div class="text-warning mr-2">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <span>9</span>
-                            </a>
-                        </div>
-                        <button type="button" class="btn btn-sm btn-outline-primary btn-pill transition-3d-hover">Add to Cart</button>
-                    </div>
-                </div>
-                <!-- End Product -->
-            </div>
+            @endforeach
         </div>
     </div>
     <!-- End Related Products Section -->

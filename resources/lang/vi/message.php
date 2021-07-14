@@ -182,4 +182,11 @@ return [
     'place_order' => 'Đến đơn hàng',
     'all_category' => 'Tất Cả Danh Mục',
     'suggest' => 'Đề xuất',
+    'get_in_touch' => 'Liên lạc',
+    'get_in_touch_desc' => "Chúng tôi muốn nói về cách chúng tôi có thể giúp bạn.",
+    'email_us' => 'Email',
+    'call_us' => 'Điện thoại',
+    'message' => 'Nội dung',
+    'submit' => 'Gửi',
+    'general_enquiries' => 'Thắc mắc chung',
 ];
