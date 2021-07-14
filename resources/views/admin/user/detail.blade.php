@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('title')
-<title>@lang('lable.title.user.detail')</title>
+<title>@lang('lable.title.detail', ['name' => 'User'])</title>
 @endsection
 
 @section('css')
@@ -28,26 +28,25 @@
 @endsection
 
 @section('breadcrumb')
-<li class="breadcrumb-item"><a href="{{ route('users.index') }}">@lang('lable.title.user.index')</a></li>
-<li class="breadcrumb-item active">@lang('lable.title.user.detail')</li>
+<li class="breadcrumb-item"><a href="{{ route('users.index') }}">@lang('lable.title.manage', ['name' => 'Users'])</a></li>
+<li class="breadcrumb-item active">@lang('lable.title.detail', ['name' => 'User'])</li>
 @endsection
 
 @section('content')
 <!-- multiple select row Datatable start -->
 <div class="card-box mb-30">
     <div class="pd-20">
-        <h4 class="text-blue h4">@lang('lable.user.detail')</h4>
-        @lang('message.user.delete.success')
+        <h4 class="text-blue h4">@lang('lable.detail', ['name' => 'User'])</h4>
     </div>
     <div class="pb-20">
         <table class="table hover nowrap">
             <thead>
                 <tr>
-                    <th>@lang('lable.user.name')</th>
-                    <th>@lang('lable.user.email')</th>
-                    <th>@lang('lable.user.phone')</th>
-                    <th>@lang('lable.user.address')</th>
-                    <th>@lang('lable.user.birthday')</th>
+                    <th>@lang('lable.name')</th>
+                    <th>@lang('lable.email')</th>
+                    <th>@lang('lable.phone')</th>
+                    <th>@lang('lable.address')</th>
+                    <th>@lang('lable.birthday')</th>
                 </tr>
             </thead>
             <tbody>
@@ -77,22 +76,6 @@
 <script src="{{ asset('admin-page/vendors/scripts/script.min.js') }}"></script>
 <script src="{{ asset('admin-page/vendors/scripts/process.js') }}"></script>
 <script src="{{ asset('admin-page/vendors/scripts/layout-settings.js') }}"></script>
-<script src="{{ asset('admin-page/src/plugins/datatables/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('admin-page/src/plugins/datatables/js/dataTables.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('admin-page/src/plugins/datatables/js/dataTables.responsive.min.js') }}"></script>
-<script src="{{ asset('admin-page/src/plugins/datatables/js/responsive.bootstrap4.min.js') }}"></script>
-<!-- buttons for Export datatable -->
-<script src="{{ asset('admin-page/src/plugins/datatables/js/dataTables.buttons.min.js') }}"></script>
-<script src="{{ asset('admin-page/src/plugins/datatables/js/buttons.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('admin-page/src/plugins/datatables/js/buttons.print.min.js') }}"></script>
-<script src="{{ asset('admin-page/src/plugins/datatables/js/buttons.html5.min.js') }}"></script>
-<script src="{{ asset('admin-page/src/plugins/datatables/js/buttons.flash.min.js') }}"></script>
-<script src="{{ asset('admin-page/src/plugins/datatables/js/pdfmake.min.js') }}"></script>
-<script src="{{ asset('admin-page/src/plugins/datatables/js/vfs_fonts.js') }}"></script>
-<!-- Datatable Setting js -->
-<script src="{{ asset('admin-page/vendors/scripts/datatable-setting.js') }}"></script></body>
-<!-- switchery js -->
-<script src="{{ asset('admin-page/src/plugins/switchery/switchery.min.js') }}"></script>
 <!-- bootstrap-tagsinput js -->
 <script src="{{ asset('admin-page/src/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js') }}"></script>
 <!-- bootstrap-touchspin js -->
