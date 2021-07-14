@@ -9,6 +9,8 @@ return [
     'one_recently_viewed' => 1,
     'cart_item' => 10,
     'minus_one' => 1,
+    'order' => 2,
+    'related' => 4,
     'filter_by' => [
         'price_asc' => 'price_asc',
         'price_desc' => 'price_desc',
@@ -45,4 +47,11 @@ return [
     'type_payment' => [
         'on_delivery' => 1,
     ],
+    'suggest_status' => [
+        'zero' => 0,
+    ],
+    'order_status' => [
+        'received' => 5,
+    ],
+    'menu_item' => 7,
 ];

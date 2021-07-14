@@ -34,7 +34,7 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
 
     public function with($relationship)
     {
-        return Order::with($relationship)->where('user_id', Auth::id())->get();
+        return Order::with($relationship)->where('user_id', Auth::id())->paginate(config('showitem.order'));
     }
 
     public function all()

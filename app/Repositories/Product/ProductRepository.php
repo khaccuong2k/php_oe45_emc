@@ -215,4 +215,11 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
 
         return null;
     }
+    
+    public function relatedProducts($categoriesId)
+    {
+        $categoriesId = implode(',', $categoriesId);
+
+        return Product::with('categories')->whereIn('id', [$categoriesId])->take(config('showitem.related'))->get();
+    }
 }
