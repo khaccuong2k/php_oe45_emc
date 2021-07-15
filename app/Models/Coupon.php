@@ -11,22 +11,19 @@ class Coupon extends Model
 
     protected $fillable = [
         'name',
-        'start_day',
-        'end_day',
+        'start_date',
+        'end_date',
         'percent_discount',
         'quantity',
     ];
 
-    public function couponDetail()
-    {
-        return $this->hasMany(CouponDetail::class);
-    }
-
     public function users()
     {
-        return $this->hasManyThrough(
-            CouponDetail::class,
-            User::class
+        return $this->belongsToMany(
+            User::class,
+            'coupon_detail',
+            'coupon_id',
+            'user_id'
         );
     }
 }
