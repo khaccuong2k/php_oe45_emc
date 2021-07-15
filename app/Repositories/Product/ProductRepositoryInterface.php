@@ -85,4 +85,6 @@ interface ProductRepositoryInterface
      * @return array
      */
     public function dataRequest(array $request);
+
+    public function relatedProducts($categoriesId);
 }

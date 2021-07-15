@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -55,5 +57,12 @@ class AppServiceProvider extends ServiceProvider
     {
         Blade::withoutDoubleEncoding();
         Paginator::useBootstrap();
+        view()->composer(
+            '*',
+            function ($view) {
+                $categoriesMenu = Category::whereNull('parent_id')->take(config('showitem.menu_item'))->get();
+                $view->with(['categoriesMenu' => $categoriesMenu]);
+            }
+        );
     }
 }

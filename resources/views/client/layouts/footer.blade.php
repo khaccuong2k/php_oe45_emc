@@ -63,11 +63,11 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <!-- Nav Link -->
-                                                <a class="nav-link" href="#">
-                                                <img class="max-w-3rem mr-1" src="{{ asset('customers/assets/vendor/flag-icon-css/flags/4x3/gb.svg') }}" alt="United Kingdom Flag">
-                                                UK
+                                                <a class="nav-link" href="{{ route('locale.change', ['vi']) }}">
+                                                <img class="max-w-3rem mr-1" src="{{ asset('customers/assets/vendor/flag-icon-css/flags/4x3/vn.svg') }}" alt="United Kingdom Flag">
+                                                VI
                                                 </a>
-                                                <a class="nav-link active " href="#">
+                                                <a class="nav-link active " href="{{ route('locale.change', ['en']) }}">
                                                 <img class="max-w-3rem mr-1" src="{{ asset('customers/assets/vendor/flag-icon-css/flags/4x3/us.svg') }}" alt="United States Flag">
                                                 US
                                                 </a>

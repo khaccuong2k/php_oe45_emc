@@ -20,6 +20,7 @@ class UserController extends Controller
     {
         if (Auth::check() && Auth::id() == $id) {
             $currentUser = $this->userRepo->findOrFail($id);
+
             return view('client.users.profile', compact('currentUser'));
         }
         return back()->with('error', 'message.not_authorize');
@@ -38,6 +39,7 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $foundUser = $this->userRepo->findOrFail($id);
+
         if ($foundUser && Auth::id() == $id) {
             $userUpdated = $this->userRepo->updateProfile($id, $request);
             if ($userUpdated) {

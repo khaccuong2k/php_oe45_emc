@@ -94,4 +94,23 @@ class OrderController extends Controller
     {
         return view('client.orders.success');
     }
+
+    public function confirmOrder($id)
+    {
+        if (Auth::check()) {
+            $foundOrder = $this->orderRepo->findOrFail($id);
+            if (Auth::id() == $foundOrder->user_id) {
+                $confirmOrder = $this->orderRepo->update(
+                    $id,
+                    ['status' => config('showitem.order_status.received')]
+                );
+                if ($confirmOrder) {
+                    return back()->with('success', 'message.received');
+                }
+                return back()->with('error', 'message.update_fail');
+            }
+            return back()->with('error', 'message.not_authorize');
+        }
+        return redirect()->route('login')->with('error', 'message.must_login');
+    }
 }

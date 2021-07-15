@@ -32,10 +32,9 @@ class HomeController extends Controller
         $recentlyViewedProductsId = [];
         array_push($recentlyViewedProductsId, Session::get('products.recently_viewed'));
         $recentlyViewedProducts = $this->productRepo->getRecentlyViewedProducts(
-            $recentlyViewedProductsId,
+            $recentlyViewedProductsId[0],
             config('showitem.recently_viewed')
         );
-        
         return view(
             'client.home.index',
             compact(
@@ -44,5 +43,12 @@ class HomeController extends Controller
                 'recentlyViewedProducts'
             )
         );
+        $firstListItem = config('showitem.array.first_list_item');
+        $recentlyViewedProducts = $this->productRepo->getRecentlyViewedProducts(
+            $recentlyViewedProductsId[$firstListItem],
+            config('showitem.recently_viewed')
+        );
+       
+        return view('client.home.index', compact('hotTrendProducts', 'bestSellerProducts', 'recentlyViewedProducts'));
     }
 }

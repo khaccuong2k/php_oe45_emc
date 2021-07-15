@@ -119,36 +119,6 @@
                 <form>
                     <input type="hidden" name="ajaxFilterUrl" value="{{ route('client.ajax.filter_product') }}" />
                     <div class="border-bottom pb-4 mb-4">
-                        <h4>{{ trans('message.cateogory') }}</h4>
-                        <!-- Checkboxes -->
-                        <div class="form-group d-flex align-items-center justify-content-between font-size-1 text-lh-lg text-body mb-1">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="categoryTshirt" checked>
-                                <label class="custom-control-label text-lh-lg" for="categoryTshirt">T-shirt</label>
-                            </div>
-                            <small>73</small>
-                        </div>
-                        <!-- End Checkboxes -->
-                        <!-- View More - Collapse -->
-                        <div class="collapse" id="collapseCategory">
-                            <div class="form-group d-flex align-items-center justify-content-between font-size-1 text-lh-lg text-body mb-1">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="categoryShorts">
-                                    <label class="custom-control-label" for="categoryShorts">Shorts</label>
-                                </div>
-                                <small>5</small>
-                            </div>
-                        </div>
-                        <!-- End View More - Collapse -->
-                        <!-- Link -->
-                        <a class="link link-collapse small font-size-1" data-toggle="collapse" href="#collapseCategory" role="button" aria-expanded="false" aria-controls="collapseCategory">
-                        <span class="link-collapse-default">{{ trans('message.view_more') }}</span>
-                        <span class="link-collapse-active">{{ trans('message.view_less') }}</span>
-                        <span class="link-icon ml-1">+</span>
-                        </a>
-                        <!-- End Link -->
-                    </div>
-                    <div class="border-bottom pb-4 mb-4">
                         <h4>{{ trans('message.rating') }}</h4>
                         <!-- Checkboxes -->
                         <div class="form-group d-flex align-items-center justify-content-between font-size-1 text-lh-lg text-body mb-0">
