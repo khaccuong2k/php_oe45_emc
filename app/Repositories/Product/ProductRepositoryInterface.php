@@ -69,16 +69,6 @@ interface ProductRepositoryInterface
     public function getAllCategoryByProductId(int $id);
 
     /**
-     * Transaction implement change data product table
-     *
-     * @var int    $id
-     * @var array $request
-     * @var string $typeAction
-     * @return boolean
-     */
-    public function transaction(int $id = null, array $request = null, string $typeAction = null);
-
-    /**
      * Return array request for change data product table
      *
      * @var array $request

@@ -48,6 +48,7 @@ interface RepositoryInterface
      * Handle update images to public
      *
      * @var array $request
+     * @var string $nameUpload
      */
-    public function handleUploadImage(array $request);
+    public function handleUploadImage(array $request, $nameUpload);
 }

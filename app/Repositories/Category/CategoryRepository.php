@@ -46,11 +46,14 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
     {
         $data = $this->dataRequest($request);
         if ($data !== null) {
-            $this->model->create($data);
-
-            $this->handleUploadImage($request);
+            $create = $this->model->create($data);
+            $uploadImage = $this->handleUploadImage($request, 'thumbnail') ? true : false;
     
-            return true;
+            if ($create && $uploadImage) {
+                return true;
+            }
+            
+            return false;
         }
         
         return false;
@@ -62,11 +65,14 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
         if ($find) {
             $data = $this->dataRequest($request);
             if ($data !== null) {
-                $find->update($data);
-    
-                $this->handleUploadImage($request);
+                $update = $find->update($data) ? true : false;
+                $uploadImage = $this->handleUploadImage($request, 'thumbnail') ? true : false;
         
-                return true;
+                if ($update && $uploadImage) {
+                    return true;
+                }
+                
+                return false;
             }
             
             return false;
@@ -95,10 +101,10 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
     {
         if ($request !== null) {
             return [
-                'name' => $request->name,
-                'thumbnail' => 'admin-page/files/images/'.$request->thumbnail->getClientOriginalName(),
-                'description' => $request->description,
-                'parent_id' => $request->parent_id,
+                'name' => $request['name'],
+                'thumbnail' => 'admin-page/files/images/'.$request['thumbnail']->getClientOriginalName(),
+                'description' => $request['description'],
+                'parent_id' => $request['parent_id'],
             ];
         }
 

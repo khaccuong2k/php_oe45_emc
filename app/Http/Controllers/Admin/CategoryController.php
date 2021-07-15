@@ -65,7 +65,7 @@ class CategoryController extends Controller
     public function store(CategoryRequest $request)
     {
         try {
-            $category = $this->categoryRepository->create($request);
+            $category = $this->categoryRepository->create($request->all());
         } catch (QueryException $exception) {
             return back()->withError('message.store.fail');
         }
@@ -122,7 +122,7 @@ class CategoryController extends Controller
     public function update(CategoryRequest $request, $id)
     {
         try {
-            $update = $this->categoryRepository->update($request, $id);
+            $update = $this->categoryRepository->update($id, $request->all());
         } catch (QueryException $exception) {
             return back()->withError('message.update.fail');
         }

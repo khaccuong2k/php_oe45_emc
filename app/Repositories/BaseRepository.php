@@ -138,27 +138,28 @@ abstract class BaseRepository implements RepositoryInterface
      *
      * @var array $request
      */
-    public function handleUploadImage(array $request = null)
+    public function handleUploadImage(array $request = null, $nameUpload)
     {
         if ($request !== null) {
-            if (is_array($request)) {
-                foreach ($request as $key => $img) {
-                    $request[$key]->move(
+            if (is_array($request[$nameUpload])) {
+                foreach ($request[$nameUpload] as $key => $img) {
+                    $img->move(
                         public_path('admin-page/files/images'),
-                        $request[$key]->getClientOriginalName()
+                        $img->getClientOriginalName()
                     );
                 }
 
                 return true;
             }
-            $request->move(
+
+            $request[$nameUpload]->move(
                 public_path('admin-page/files/images'),
-                $request->getClientOriginalName()
+                $request[$nameUpload]->getClientOriginalName()
             );
 
             return true;
         }
 
-        return true;
+        return false;
     }
 }

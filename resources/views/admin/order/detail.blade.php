@@ -60,7 +60,7 @@
             <tbody>
                 @forelse ($detailOrder->orderDetail as $orderDetail)
                 <tr>
-                    <th scope="row">{{ $orderDetail->product->name }}</th>
+                    <th scope="row">{{ $orderDetail->product->first()->name }}</th>
                     <th scope="row">{{ $orderDetail->quantity }}</th>
                 </tr>
                 @empty

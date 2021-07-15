@@ -57,11 +57,10 @@
         <div class="form-group">
             <label>@lang('lable.parent_id')</label>
             <select class="custom-select2 form-control w-100" multiple="multiple" name="parent_id">
+                <option value="" selected>@lang('lable.is_parent')</option>
                 @foreach ($categories as $subCategory)
                 @if ($subCategory->parent_id === null)
                 <option value="{{ $subCategory->id }}">{{ $subCategory->name }}</option>
-                @else
-                <option value="0" readonly>@lang('lable.is_parent')</option>
                 @endif
                 @endforeach
             </select>
