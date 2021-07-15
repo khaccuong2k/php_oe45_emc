@@ -189,4 +189,11 @@ return [
     'place_order' => 'Place order',
     'all_category' => 'All Category',
     'suggest' => 'Suggest',
+    'get_in_touch' => 'Get in touch',
+    'get_in_touch_desc' => "We'd love to talk about how we can help you.",
+    'email_us' => 'Email us',
+    'call_us' => 'Call us',
+    'message' => 'Message',
+    'submit' => 'Submit',
+    'general_enquiries' => 'General Enquiries',
 ];

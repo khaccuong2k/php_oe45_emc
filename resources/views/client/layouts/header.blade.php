@@ -20,29 +20,12 @@
         <!-- CSS Front Template -->
         <link rel="stylesheet" href="{{ asset('customers/assets/css/theme.css') }}">
         <link rel="stylesheet" href="{{ asset('customers/assets/vendor/select2/dist/css/select2.min.css') }}">
+        <!-- CSS Implementing Plugins -->
+        <link rel="stylesheet" href="{{ asset('customers/assets/vendor/slick-carousel/slick/slick.css') }}">
         <div id="fb-root"></div>
-        <body>
-            <script>
-              window.fbAsyncInit = function () {
-                FB.init({
-                  appId: '416800552839762',
-                  xfbml: true,
-                  version: 'v2.8'
-                });
-              };
-          
-              (function (d, s, id) {
-                var js, fjs = d.getElementsByTagName(s)[0];
-                if (d.getElementById(id)) {
-                  return;
-                }
-                js = d.createElement(s);
-                js.id = id;
-                js.src = "//connect.facebook.net/en_US/sdk.js";
-                fjs.parentNode.insertBefore(js, fjs);
-              }(document, 'script', 'facebook-jssdk'));
-            </script>
-        </body>
+        <script src="{{ asset('customers/assets/js/hs.facebook-share.js') }}"></script>
+    <body>
+    </body>
     </head>
     <body>
         <!-- ========== HEADER ========== -->
@@ -152,7 +135,7 @@
                                                 {{ trans('message.help') }}
                                                 </a>
                                                 <a class="dropdown-item px-0" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                document.getElementById('logout-form').submit();">
+                                                    document.getElementById('logout-form').submit();">
                                                 <span class="dropdown-item-icon">
                                                 <i class="fas fa-power-off"></i>
                                                 </span>
@@ -199,38 +182,30 @@
                                         {{ trans('message.categories') }}
                                         </a>
                                         <!-- Courses - Submenu -->
-                                        <div id="coursesSubMenu" class="hs-sub-menu dropdown-menu" aria-labelledby="coursesMegaMenu" style="min-width: 270px;">
+                                        <div id="coursesSubMenu" class="hs-sub-menu dropdown-menu min-w-270" aria-labelledby="coursesMegaMenu">
                                             <!-- Development -->
+                                            @foreach ($categoriesMenu as $categoryParent)
                                             <div class="hs-has-sub-menu">
-                                                <a id="navLinkCoursesDevelopment" class="hs-mega-menu-invoker dropdown-item dropdown-item-toggle" href="javascript:;" aria-haspopup="true" aria-expanded="false" aria-controls="navSubmenuCoursesDevelopment">
+                                                <a id="navLink-{{$categoryParent->id}}" class="hs-mega-menu-invoker dropdown-item dropdown-item-toggle" href="{{ route('client.category.show',$categoryParent->id) }}" aria-haspopup="true" aria-expanded="false" aria-controls="navSubmenu-{{$categoryParent->id}}">
                                                 <span class="min-w-4rem text-center opacity-lg mr-1">
-                                                <i class="fa fa-laptop-code font-size-1 mr-1"></i>
                                                 </span>
-                                                {{ trans('message.category') }}
+                                                {{$categoryParent->name}}
                                                 </a>
-                                                <div id="navSubmenuCoursesDevelopment" class="hs-sub-menu dropdown-menu" aria-labelledby="navLinkCoursesDevelopment" style="min-width: 270px;">
-                                                    <a class="dropdown-item" href="#">{{ trans('message.sub_category') }}</a>
-                                                    <a class="dropdown-item" href="#">{{ trans('message.sub_category') }}</a>
+                                                @if (count($categoryParent->subCategories))
+                                                <div id="navSubmenu-{{$categoryParent->id}}" class="hs-sub-menu dropdown-menu" aria-labelledby="navLink-{{$categoryParent->id}}" style="min-width: 270px;">
+                                                    @foreach ($categoryParent->subCategories as $subcategory)
+                                                        <a class="dropdown-item" href="{{ route('client.category.show', $subcategory->id) }}">{{$subcategory->name}}</a>
+                                                    @endforeach
                                                 </div>
+                                                @else
+                                                <div class="hs-sub-menu min-w-270"></div>
+                                                @endif
                                             </div>
+                                            @endforeach
                                             <!-- End Development -->
-                                            <!-- Business -->
-                                            <div class="hs-has-sub-menu">
-                                                <a id="navLinkCoursesBusiness" class="hs-mega-menu-invoker dropdown-item dropdown-item-toggle" href="javascript:;" aria-haspopup="true" aria-expanded="false" aria-controls="navSubmenuCoursesBusiness">
-                                                <span class="min-w-4rem text-center opacity-lg mr-1">
-                                                <i class="fa fa-chart-bar font-size-1 mr-1"></i>
-                                                </span>
-                                                {{ trans('message.category') }}
-                                                </a>
-                                                <div id="navSubmenuCoursesBusiness" class="hs-sub-menu dropdown-menu" aria-labelledby="navLinkCoursesBusiness" style="min-width: 270px;">
-                                                    <a class="dropdown-item" href="#">{{ trans('message.sub_category') }}</a>
-                                                    <a class="dropdown-item" href="#">{{ trans('message.sub_category') }}</a>
-                                                </div>
-                                            </div>
-                                            <!-- Business -->
                                             <div class="dropdown-divider my-3"></div>
                                             <div class="px-4">
-                                                <a class="btn btn-block btn-sm btn-primary transition-3d-hover" href="courses-listing.html">{{ trans('message.all_category') }}</a>
+                                                <a class="btn btn-block btn-sm btn-primary transition-3d-hover" href="javascript:;">{{ trans('message.all_category') }}</a>
                                             </div>
                                         </div>
                                         <!-- End Courses - Submenu -->
@@ -255,6 +230,9 @@
                                         <div id="pagesSubMenu" class="hs-sub-menu dropdown-menu" aria-labelledby="pagesMegaMenu" style="min-width: 230px;">
                                             <a class="dropdown-item" href="courses-listing.html">{{ trans('message.term') }}</a>
                                             <a class="dropdown-item" href="course-description.html">{{ trans('message.privacy') }}</a>
+                                                @if (Auth::check())
+                                                    <a class="dropdown-item" href="{{ route('client.suggest.index') }}">{{ trans('message.suggest') }}</a>
+                                                @endif
                                         </div>
                                         <!-- End Pages - Submenu -->
                                     </li>
@@ -268,14 +246,14 @@
                                         }
                                         }'>
                                         <a id="myCoursesMegaMenu" class="hs-mega-menu-invoker nav-link nav-link-toggle" href="{{ url('carts') }}" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-shopping-cart"></i>
-                                            <span id="cart-number-item">
-                                                @if (Session::has('cart-item-number'))
-                                                    {{ Session::get('cart-item-number') }}
-                                                @else
-                                                    {{ config('showitem.cart.zero') }}                                                
-                                                @endif
-                                            </span>
+                                        <i class="fas fa-shopping-cart"></i>
+                                        <span id="cart-number-item">
+                                        @if (Session::has('cart-item-number'))
+                                            {{ Session::get('cart-item-number') }}
+                                        @else
+                                            {{ config('showitem.cart.zero') }}                                                
+                                        @endif
+                                        </span>
                                         </a> 
                                         <!-- My Courses - Submenu -->
                                         <div class="hs-mega-menu dropdown-menu" aria-labelledby="myCoursesMegaMenu">
