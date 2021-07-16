@@ -60,20 +60,12 @@
                 </div>
                 <div class="user-notification">
                     <div class="dropdown">
-                        <a class="dropdown-toggle no-arrow" href="#" role="button" data-toggle="dropdown">
+                        <a class="dropdown-toggle no-arrow notification-realtime" href="#" role="button" data-toggle="dropdown">
                         <i class="icon-copy dw dw-notification"></i>
-                        <span class="badge notification-active"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <div class="notification-list mx-h-350 customscroll">
-                                <ul>
-                                    <li>
-                                        <a href="#">
-                                            <img src="{{ asset('admin-page/vendors/images/img.jpg') }}" alt="">
-                                            <h3>John Doe</h3>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-                                        </a>
-                                    </li>
+                                <ul class="message-system">
                                 </ul>
                             </div>
                         </div>
@@ -278,6 +270,7 @@
         </div>
         <!-- Section js -->
         @yield('script')
+        <script src="{{ asset('bower_components/pusher-js/dist/web/pusher.min.js') }}"></script>
+        <script src="{{ asset('admin-page/src/scripts/pusher-admin.js') }}"></script>
     </body>
 </html>
-    

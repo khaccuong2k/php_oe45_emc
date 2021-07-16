@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Events\NotificationWhenUserOrderEvent;
 use App\Http\Controllers\Controller;
+use App\Jobs\ProcessSendMailOrderToAdmin;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use Illuminate\Http\Request;
@@ -12,7 +14,6 @@ use App\Models\Product;
 use App\Repositories\Order\OrderRepositoryInterface;
 use App\Repositories\User\UserRepositoryInterface;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -68,13 +69,31 @@ class OrderController extends Controller
             $orderProducts[] = [
                 'order_id' => $order->id,
                 'product_id' => $productId,
+                'quantity' => 3,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ];
         }
         OrderDetail::insert($orderProducts);
+        $dataMessage = [
+            'order_id' => $order->id,
+            'email' => Auth::user()->email,
+            'avatar' => Auth::user()->avatar,
+            'user' => Auth::user()->fullname,
+            'quantity' => Session::get('cart-item-number')
+        ];
+
+        // send mail with queue
+        $job = (new ProcessSendMailOrderToAdmin($dataMessage))
+        ->delay(Carbon::now()
+        ->addMinutes(config('showitem.minute_delay_send_mail')));
+        dispatch($job);
+
+        event(new NotificationWhenUserOrderEvent($dataMessage));
+
         Session::put('cart', null);
         Session::put('cart-item-number', config('showitem.cart.zero'));
+
         return redirect()->route('client.order.success');
     }
 

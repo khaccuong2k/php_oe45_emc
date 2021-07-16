@@ -2,11 +2,13 @@
 
 namespace App\Repositories\Order;
 
+use App\Events\NotificationWhenAdminConfirmOrderEvent;
 use App\Jobs\ProcessSendMailOrder;
 use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\BaseRepository;
 use App\Repositories\Order\OrderRepositoryInterface;
+use Carbon\Carbon;
 
 class OrderRepository extends BaseRepository implements OrderRepositoryInterface
 {
@@ -71,11 +73,19 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
             $inforOrder = $find->user()->first();
 
             $messageForSendMail = [
+                'email' => $inforOrder->email,
                 'user' => $inforOrder->fullname,
                 'statusOfOrder' => $statusOfOrder,
             ];
 
-            ProcessSendMailOrder::dispatch($messageForSendMail, $inforOrder);
+            // send mail with queue
+            $job = (new ProcessSendMailOrder($messageForSendMail))
+            ->delay(Carbon::now()
+            ->addMinutes(config('showitem.minute_delay_send_mail')));
+            dispatch($job);
+
+            // event realtime send message for user
+            event(new NotificationWhenAdminConfirmOrderEvent($messageForSendMail));
 
             return true;
         }

@@ -2,16 +2,17 @@
 
 namespace App\Jobs;
 
+use App\Mail\SendInforOrderToUser;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Mail\ChangeStatusOrder;
 use Illuminate\Support\Facades\Mail;
 
-class ProcessSendMailOrder implements ShouldQueue
+class ProcessSendMailOrderToAdmin implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -24,7 +25,7 @@ class ProcessSendMailOrder implements ShouldQueue
      * Email user order
      */
     public $email;
-    
+
     /**
      * Create a new job instance.
      *
@@ -43,6 +44,6 @@ class ProcessSendMailOrder implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to("$this->email")->send(new ChangeStatusOrder($this->data));
+        Mail::to(getenv('MAIL_FROM_ADDRESS'))->send(new SendInforOrderToUser($this->data, $this->email));
     }
 }

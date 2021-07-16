@@ -54,4 +54,5 @@ return [
         'received' => 5,
     ],
     'menu_item' => 7,
+    'minute_delay_send_mail' => 2,
 ];

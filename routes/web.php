@@ -17,6 +17,7 @@ use App\Http\Controllers\Client\UserController as ClientUserController;
 use App\Http\Controllers\Client\OrderController as ClientOrderController;
 use App\Http\Controllers\Client\SuggestController as ClientSuggestController;
 use App\Http\Controllers\LocaleController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
