@@ -36,41 +36,8 @@
 <div class="pd-20 card-box mb-30">
     <div class="clearfix">
         <div class="pull-left">
-            <h4 class="text-blue h4">@lang('lable.title.add', ['name' => 'Product'])</h4>
-                <br><br>
+            <h4 class="text-blue h4">@lang('lable.title.edit', ['name' => 'Product'])</h4>
                 @include('admin.common.message')
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                    @lang('lable.addExcel')
-                </button>
-                <br><br>
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">@lang('lable.addExcel')</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="{{ route('products.import') }}" method="post" enctype="multipart/form-data">
-                                @csrf
-                                <div class="form-group">
-                                  <input type="file"
-                                    class="form-control" name="file" id="" aria-describedby="helpId" placeholder="">
-                                </div>
-                        </div>
-                        <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('lable.close')</button>
-                        <button type="submit" class="btn btn-primary">@lang('lable.action_add')</button>
-                        </form>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
     <form action="{{ route('products.update', $detailProduct->id) }}" method="post" enctype="multipart/form-data">

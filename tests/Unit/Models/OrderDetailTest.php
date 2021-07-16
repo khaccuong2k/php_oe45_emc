@@ -4,6 +4,7 @@ namespace Tests\Unit\Models;
 
 use App\Models\OrderDetail;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Tests\TestCase;
 
 class OrderDetailTest extends TestCase
@@ -33,11 +34,11 @@ class OrderDetailTest extends TestCase
 
         $relation = $model->product();
 
-        $this->assertInstanceOf(BelongsTo::class, $relation);
+        $this->assertInstanceOf(HasMany::class, $relation);
 
-        $this->assertEquals('id', $relation->getOwnerKeyName());
+        $this->assertEquals('order_detail.product_id', $relation->getQualifiedParentKeyName());
 
-        $this->assertEquals('product_id', $relation->getForeignKeyName());
+        $this->assertEquals('id', $relation->getForeignKeyName());
     }
 
     /**

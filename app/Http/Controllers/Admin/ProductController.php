@@ -78,7 +78,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $store = $this->productRepository->transaction($id = null, $request->all(), 'create');
+        $store = $this->productRepository->create($request->all());
         if ($store) {
             return redirect()->route('products.index');
         }
@@ -147,7 +147,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $update = $this->productRepository->transaction($id, $request->all(), 'update');
+        $update = $this->productRepository->update($id, $request->all());
         if ($update) {
             return redirect()->route('products.show', $id);
         }
@@ -163,7 +163,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $destroy = $this->productRepository->transaction($id, $request = null, 'delete');
+        $destroy = $this->productRepository->delete($id);
         if ($destroy) {
             return redirect()->route('products.index');
         }

@@ -164,27 +164,76 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         return false;
     }
 
-    public function transaction($id = null, $request = null, $typeAction = null)
+    public function delete($id)
     {
         DB::beginTransaction();
         try {
-            if ($typeAction === 'delete') {
-                $this->findOrFail($id)->categories()->detach();
-                $action = $this->$typeAction($id);
+            $find = $this->findOrFail($id);
+            if ($find) {
+                $find->categories()->detach();
+                $find->delete();
+
                 DB::commit();
 
                 return true;
             }
-            $action = $this->$typeAction($this->dataRequest($request), $id);
 
-            ($id === null)
-                ? $action->categories()->sync($request['parent_id'])
-                : $this->findOrFail($id)->categories()->sync($request['parent_id']);
+            return false;
+        } catch (Exception $e) {
+            DB::rollBack();
+            
+            return false;
+        }
+    }
 
-            DB::commit();
-            $this->handleUploadImage($request['thumbnail']);
+    public function create(array $attributes)
+    {
+        DB::beginTransaction();
+        try {
+            $data = $this->dataRequest($attributes);
+            if ($data !== null) {
+                $create = $this->model->create($data);
 
-            return true;
+                $create->categories()->sync($attributes['parent_id']);
+
+                DB::commit();
+
+                $this->handleUploadImage($attributes, 'thumbnail');
+
+                return true;
+            }
+
+            return false;
+        } catch (Exception $e) {
+            DB::rollBack();
+            
+            return false;
+        }
+    }
+
+    public function update($id, array $attributes)
+    {
+        DB::beginTransaction();
+        try {
+            $find = $this->findOrFail($id);
+            if ($find) {
+                $data = $this->dataRequest($attributes);
+                if ($data !== null) {
+                    $find->update($data);
+
+                    $find->categories()->sync($attributes['parent_id']);
+
+                    DB::commit();
+
+                    $this->handleUploadImage($attributes, 'thumbnail');
+
+                    return true;
+                }
+
+                return false;
+            }
+            
+            return false;
         } catch (Exception $e) {
             DB::rollBack();
             
@@ -199,7 +248,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             $listImageRequest = [];
             foreach ($request['thumbnail'] as $thumbnail) {
                 // Add name of file to array image request
-                $listImageRequest[] = $thumbnail->getClientOriginalName();
+                $listImageRequest[] = 'admin-page/files/images/'.$thumbnail->getClientOriginalName();
             }
             // Change type array of $listImageRequest to string
             $imageToUpload = implode(',', $listImageRequest);
