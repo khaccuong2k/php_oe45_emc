@@ -16,7 +16,7 @@ if (!function_exists('roundStar')) {
 }
 
 if (!function_exists('resolveStarsVote')) {
-    function resolveStarsVote(int $sumStar, int $sumVote): string
+    function resolveStarsVote($sumStar, $sumVote): string
     {
         if ($sumStar == 0 ||
             $sumVote == 0 ||
@@ -36,7 +36,7 @@ if (!function_exists('resolveStarsVote')) {
                 <i class="far fa-star text-muted"></i>
                 <i class="far fa-star text-muted"></i>';
             } elseif ($stars == 2) {
-                echo '<i class="fas fa-star"></i>
+                return '<i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
                 <i class="far fa-star text-muted"></i>
                 <i class="far fa-star text-muted"></i>

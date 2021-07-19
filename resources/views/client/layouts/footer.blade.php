@@ -153,6 +153,8 @@
     }'>
 <i class="fas fa-angle-up"></i>
 </a>
+</div>
+<div class="message-system"></div>
 <!-- End Go to Top -->
 <input type="hidden" name="AjaxAddToCart" value="{{ route('client.ajax.addToCart') }}" />
 <!-- JS Global Compulsory -->
@@ -187,5 +189,7 @@
 <script src="{{ asset('customers/assets/js/init-plugin-home.js') }}"></script>
 <!-- JS Chat -->
 <script src="{{ asset('customers/assets/js/hs.chat.js') }}"></script>
+<script src="{{ asset('bower_components/pusher-js/dist/web/pusher.min.js') }}"></script>
+<script src="{{ asset('admin-page/src/scripts/pusher-user.js') }}"></script>
 </body>
 </html>

@@ -124,6 +124,10 @@ class OrderController extends Controller
     {
         try {
             $changeStatus = $this->orderRepository->changeStatus($id);
+
+            $orders = $this->orderRepository->all();
+
+            $html = view('admin.order.ajax-index')->with(compact('orders'))->render();
         } catch (QueryException $exception) {
             return response()->json(
                 [
@@ -138,6 +142,7 @@ class OrderController extends Controller
                 [
                 'success' => true,
                 'message' => trans('lable.order_confirmation'),
+                'html'    => $html
                 ]
             );
         }
